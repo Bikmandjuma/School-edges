@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
@@ -22,16 +24,20 @@ class AuthController extends Controller
         ]);
 
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
-            // return redirect()->route('dashboard');
-            return redirect()->with('success_login','Admin login well');
+            return redirect()->route('dashboard');
         }elseif (Auth::guard('user')->attempt(['username' => $request->username, 'password' => $request->password])) {
             // return redirect()->route('user_dashboard');
-            return redirect()->with('success_login','User login well');
+            return redirect()->back()->with('success_login','User login well');
         }else{
             Session::flash('error-message','Invalid Email or Password');
             return back();
         }
 
+    }
+
+    function logout(){
+        Auth::guard('admin')->logout();
+        return redirect()->route('login.form');
     }
 
     

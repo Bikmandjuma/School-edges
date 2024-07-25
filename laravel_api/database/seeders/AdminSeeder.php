@@ -19,6 +19,7 @@ class AdminSeeder extends Seeder
             'gender' => 'male',
             'phone' => '07800000000',
             'email' => 'admin@gmail.com',
+            'dob' => '20/12/2000',
             'username' => 'admin123',
             'password' => bcrypt('password123@'),
             'image' => 'user.png',
