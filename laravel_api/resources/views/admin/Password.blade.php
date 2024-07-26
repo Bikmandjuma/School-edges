@@ -62,50 +62,68 @@
               <ul class="nav nav-tabs nav-tabs-bordered">
 
                   <li class="nav-item">
-                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                    <button class="nav-link" onclick="window.location.href='{{ route('profile.page') }}'">Overview</button>
                   </li>
                   <li class="nav-item">
                     <button class="nav-link" onclick="window.location.href='{{ route('myInformation') }}'">Edit Profile & Info</button>
                   </li>
                   <li class="nav-item">
-                    <button class="nav-link" onclick="window.location.href='{{ route('show.password') }}'">Change Password</button>
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
                   </li>
 
               </ul>
               <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                  <h5 class="card-title">Profile Details</h5>
+                <div class="tab-pane fade show active pt-3" id="profile-change-password">
+                  @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert align-items-center justify-content-center">
+                      @foreach($errors->all() as $error)
+                        {{ $error }}<br>
+                      @endforeach
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  @endif
+                  @if(session('current_password'))
+                    <div class="alert alert-info alert-dismissible fade show" role="alert align-items-center justify-content-center">
+                      {{ session('current_password') }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  @endif
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
-                    <div class="col-lg-9 col-md-8">{{ auth()->guard('admin')->user()->firstname }}&nbsp;{{ auth()->guard('admin')->user()->lastname }}</div>
-                  </div>
+                  @if(session('status'))
+                    <div class="alert alert-primary alert-dismissible fade show" role="alert align-items-center justify-content-center">
+                      {{ session('status') }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                  @endif
+                  <!-- Change Password Form -->
+                  <form action="{{ route('password') }}" method="POST">
+                    @csrf
+                    <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="current_password" type="password" class="form-control" id="currentPassword">
+                      </div>
+                    </div>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Gender</div>
-                    <div class="col-lg-9 col-md-8">{{ auth()->guard('admin')->user()->gender }}</div>
-                  </div>
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="new_password" type="password" class="form-control" id="newPassword">
+                      </div>
+                    </div>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Phone</div>
-                    <div class="col-lg-9 col-md-8">{{ auth()->guard('admin')->user()->phone }}</div>
-                  </div>
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        <input name="new_password_confirmation" type="password" class="form-control" id="renewPassword">
+                      </div>
+                    </div>
 
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Email</div>
-                    <div class="col-lg-9 col-md-8">{{ auth()->guard('admin')->user()->email }}</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Date of birth</div>
-                    <div class="col-lg-9 col-md-8">{{ auth()->guard('admin')->user()->dob }}</div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-lg-3 col-md-4 label">Username</div>
-                    <div class="col-lg-9 col-md-8">{{ auth()->guard('admin')->user()->username }}</div>
-                  </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                  </form><!-- End Change Password Form -->
 
                 </div>
 

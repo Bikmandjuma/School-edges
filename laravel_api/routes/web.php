@@ -26,4 +26,7 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('profile',[AdminController::class,'profile'])->name('profile.page');
     Route::get('delete-profile/{id}',[AdminController::class,'deleteProfile'])->name('AdminDeleteProfile');
     Route::post('edit-info/{id}',[AdminController::class,'editInfo'])->name('editInfo');
+    Route::post('post_password',[AdminController::class,'password'])->name('password');
+    Route::get('password',[AdminController::class,'show_password'])->name('show.password');
+    Route::get('information',[AdminController::class,'myInformation'])->name('myInformation');
 });
