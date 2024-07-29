@@ -28,6 +28,7 @@
   <link href="{{ URL::to('/') }}/adminPanel/assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="{{ URL::to('/') }}/adminPanel/assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <style>
     #preview {
         max-width: 100%;
@@ -184,9 +185,13 @@
                 </div>
               </div><!-- End Vertically centered Modal-->
 
-  <!-- Vendor JS Files -->
+  <!-- Vendor JS Files -->       
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script><script type="text/javascript" src="http://www.freetimelearning.com/js/jquery-1.11.3.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="http://www.freetimelearning.com/js/jquery-1.11.3.min.js"></script>
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/chart.js/chart.umd.js"></script>
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/echarts/echarts.min.js"></script>
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/quill/quill.js"></script>

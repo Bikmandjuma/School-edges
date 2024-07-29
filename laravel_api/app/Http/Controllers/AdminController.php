@@ -7,6 +7,7 @@ use App\Models\Admin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -37,7 +38,9 @@ class AdminController extends Controller
 
         Auth::guard('admin')->user()->update(['password' => Hash::make($request->new_password)]);
 
-        return redirect()->back()->with('status', 'Password changed successfully');
+        toastr()->info('Password changed successfully',['timeOut' => 5000]);
+        
+        return redirect()->back();
     }
 
     public function editInfo(Request $request,$id){
@@ -71,7 +74,9 @@ class AdminController extends Controller
         $user->username=$uname;
         $user->save();
 
-        return redirect()->back()->with('data-udated','Info updated successfully !')->with('activeTab', 'profile-edit');
+        toastr()->info("Data updated successfully !", ['timeOut' =>5000]);
+
+        return redirect()->back();
 
     }
 

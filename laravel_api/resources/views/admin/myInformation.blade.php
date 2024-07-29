@@ -1,5 +1,9 @@
 @extends('admin.cover')
 @section('content')
+@php
+use Illuminate\Support\Facades\Session;
+@endphp
+
     <div class="pagetitle">
       <h1>Profile</h1>
       <nav>
@@ -8,27 +12,6 @@
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
         </ol>
-
-        <div class="row">
-          <div class="col-xl-4"></div>
-            <div class="col-xl-4">
-
-              @if(session('profile_deleted'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert align-items-center justify-content-center">
-                    {{ session('profile_deleted') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              @endif
-
-              @if(session('data-udated'))
-                <div class="alert alert-primary alert-dismissible fade show" role="alert align-items-center justify-content-center">
-                    {{ session('data-udated') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              @endif
-            </div>
-          <div class="col-xl-4"></div>
-        </div>  
 
       </nav>
     </div><!-- End Page Title -->

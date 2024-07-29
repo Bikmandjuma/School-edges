@@ -7,28 +7,7 @@
           <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item">Users</li>
           <li class="breadcrumb-item active">Profile</li>
-        </ol>
-
-        <div class="row">
-          <div class="col-xl-4"></div>
-            <div class="col-xl-4">
-
-              @if(session('profile_deleted'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert align-items-center justify-content-center">
-                    {{ session('profile_deleted') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              @endif
-
-              @if(session('data-udated'))
-                <div class="alert alert-primary alert-dismissible fade show" role="alert align-items-center justify-content-center">
-                    {{ session('data-udated') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              @endif
-            </div>
-          <div class="col-xl-4"></div>
-        </div>  
+        </ol> 
 
       </nav>
     </div><!-- End Page Title -->
@@ -76,26 +55,27 @@
 
                 <div class="tab-pane fade show active pt-3" id="profile-change-password">
                   @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert align-items-center justify-content-center">
-                      @foreach($errors->all() as $error)
-                        {{ $error }}<br>
-                      @endforeach
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                  @endif
-                  @if(session('current_password'))
-                    <div class="alert alert-info alert-dismissible fade show" role="alert align-items-center justify-content-center">
-                      {{ session('current_password') }}
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                      <div class="d-flex align-items-center justify-content-center" id="error_msg">
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                              @foreach($errors->all() as $error)
+                                  {{ $error }}<br>
+                              @endforeach
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                      </div>
                   @endif
 
-                  @if(session('status'))
-                    <div class="alert alert-primary alert-dismissible fade show" role="alert align-items-center justify-content-center">
-                      {{ session('status') }}
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                  @if(session('current_password'))
+                      <div class="d-flex align-items-center justify-content-center" id="session_msg_container" id="error_msg">
+                          <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+                              {{ session('current_password') }}
+                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                      </div>
                   @endif
+
+
+      
                   <!-- Change Password Form -->
                   <form action="{{ route('password') }}" method="POST">
                     @csrf
@@ -153,5 +133,11 @@
                   </div>
                 </div>
               </div><!-- End Vertically centered Modal-->
+
+      <script>
+        setTimeout(function(){
+          document.getElementById('error_msg').style.display="none";
+        },5000);
+      </script>
 
 @endsection
