@@ -27,6 +27,15 @@
   <link href="{{ URL::to('/') }}/adminPanel/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="{{ URL::to('/') }}/adminPanel/assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="{{ URL::to('/') }}/adminPanel/assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.css">
+  <style>
+    #preview {
+        max-width: 100%;
+    }
+    .img-container {
+        max-height: 500px;
+    }
+  </style>
 </head>
 
 <body>
