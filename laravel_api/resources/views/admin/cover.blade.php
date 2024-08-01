@@ -29,6 +29,8 @@
   <link href="{{ URL::to('/') }}/adminPanel/assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <style>
     #preview {
         max-width: 100%;
@@ -36,6 +38,75 @@
     .img-container {
         max-height: 500px;
     }
+
+    #edit_admin_username:hover{
+      cursor: pointer;
+    }
+
+    div.online_indicator {
+        z-index: 1;
+        width: 20px;
+        height: 20px;
+        margin-right:-80px;
+        background-color:lightskyblue;
+        border-radius: 50%;
+        position: absolute;
+        margin-top: 95px;
+    }
+
+    div.online_indicator:hover{
+      cursor: alias;
+    }
+      
+    span.blink_online_icon {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-color:blue;
+        opacity: 0.6;
+        border-radius: 50%;
+        animation: blink 1s linear infinite;
+    }
+
+    /*Animations*/
+    @keyframes blink {
+        100% { transform: scale(2, 2); 
+                opacity: 0;
+          }
+    }
+
+    div.online_indicator_main_bar {
+        z-index: 1;
+        width: 10px;
+        height: 10px;
+        background-color:skyblue;
+        border-radius: 50%;
+        position: absolute;
+        margin-top: 27px;
+        margin-left: 25px;
+    }
+
+    div.online_indicator_main_bar:hover{
+      cursor: alias;
+    }
+      
+    span.blink_online_icon_main_bar {
+        display: block;
+        width: 10px;
+        height: 10px;
+        background-color:blue;
+        opacity: 0.6;
+        border-radius: 50%;
+        animation: blink 1s linear infinite;
+    }
+
+    /*Animations*/
+    @keyframes blink {
+        100% { transform: scale(2, 2); 
+                opacity: 0;
+             }
+    }
+
   </style>
 </head>
 
@@ -68,6 +139,10 @@
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="{{ URL::to('/') }}/adminPanel/assets/img/{{ auth()->guard('admin')->user()->image }}" alt="Profile" class="rounded-circle" style="border:1px solid #eee;">
             <span class="d-none d-md-block dropdown-toggle ps-2">{{ auth()->guard('admin')->user()->lastname }}</span>
+            <div class='online_indicator_main_bar' title="You are actively online right now !">
+                <span class='blink_online_icon_main_bar'></span>
+            </div>
+
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">

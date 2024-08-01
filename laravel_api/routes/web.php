@@ -14,6 +14,7 @@ Route::get('service',[homeController::class,'service'])->name('service');
 Route::get('course',[homeController::class,'course'])->name('course');
 Route::get('teachers',[homeController::class,'teachers'])->name('teachers');
 Route::get('contact',[homeController::class,'contact'])->name('contact');
+Route::post('submitContact',[homeController::class,'guestSubmitMessageContact'])->name('guestSubmitcontact');
 
 Route::get('login',[AuthController::class,'login_form'])->name('login.form');
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
@@ -29,4 +30,6 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::post('post_password',[AdminController::class,'password'])->name('password');
     Route::get('password',[AdminController::class,'show_password'])->name('show.password');
     Route::get('information',[AdminController::class,'myInformation'])->name('myInformation');
+    Route::get('social-media',[AdminController::class,'social_media'])->name('social_media');
+    Route::post('submit_social_media',[AdminController::class,'submit_social_media'])->name('submit_social_media');
 });

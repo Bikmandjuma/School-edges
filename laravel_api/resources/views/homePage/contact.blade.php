@@ -27,9 +27,35 @@
     <!-- Contact Section -->
     <section id="contact" class="contact section">
 
-      <!-- <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
-        <iframe style="border:0; width: 100%; height: 300px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div> -->
+      <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+        <!-- <iframe style="border:0; width: 100%; height: 300px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-1.9386681!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
+
+        <!-- <iframe style="border:0; width: 100%; height: 300px;" 
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-1.9380443!3d30.0837304!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDE2JzU5LjgiTiAxwrAwMScxNy4zIkU!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" 
+            frameborder="0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+
+        <iframe 
+          width="600" 
+          height="450" 
+          style="border:0" 
+          loading="lazy" 
+          allowfullscreen 
+          referrerpolicy="no-referrer-when-downgrade" 
+          src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=LATITUDE,LONGITUDE">
+        </iframe> -->
+
+<iframe 
+  style="border:0; width: 100%; height: 300px;" 
+  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15955.937848161928!2d30.084165!3d-1.938114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca6b70fb12b83%3A0x80a53a8a0585e0c6!2sKigali!5e0!3m2!1sen!2srw!4v1676961268712!5m2!1sen!2srw" 
+  frameborder="0" 
+  allowfullscreen="" 
+  loading="lazy" 
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+
+
+      </div>
       <!-- End Google Maps -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -68,31 +94,44 @@
           </div>
 
           <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            
+            @if($errors->any())
+              <div class="d-flex align-items-center justify-content-center" id="error_msg">
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      @foreach($errors->all() as $error)
+                          {{ $error }}<br>
+                      @endforeach
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              </div>
+            @endif
+
+            <form action="{{ route('guestSubmitcontact') }}" method="post" data-aos="fade-up" data-aos-delay="200">
+              @csrf
               <div class="row gy-4">
 
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" value="{{ old('name') }}">
                 </div>
 
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" value="{{ old('email') }}">
                 </div>
 
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" value="{{ old('subject') }}">
                 </div>
 
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message">{{ old('message') }}</textarea>
                 </div>
 
                 <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
+                  <!-- <div class="loading">Loading</div>
                   <div class="error-message"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit" class="bg-primary">Send Message</button>
+ -->
+                  <button type="submit" class="btn btn-primary">Send Message</button>
                 </div>
 
               </div>

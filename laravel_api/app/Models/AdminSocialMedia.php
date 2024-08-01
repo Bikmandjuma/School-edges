@@ -5,13 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class guestContact extends Model
+class AdminSocialMedia extends Model
 {
     use HasFactory;
-    protected $fillable=[
-        "name",
-        "email",
-        "subject",
-        "message"
-    ];
 }

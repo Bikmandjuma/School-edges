@@ -16,8 +16,11 @@ class AdminController extends Controller
     }
 
     public function profile(){
-        $activeTab = 'profile-overview';
-        return view('admin.profile',compact('activeTab'));
+        return view('admin.profile');
+    }
+
+    public function social_media(){
+        return view('admin.social_media');
     }
 
     public function deleteProfile($id){
@@ -86,6 +89,18 @@ class AdminController extends Controller
 
     public function show_password(){
         return view('admin.Password');
+    }
+
+    public function submit_social_media(Request $request){
+        $request->validate([
+            'phone' => 'required|string',
+            'email' => 'required|email|exists:admins,email',
+            'twitter' => 'required|string|url',
+            'facebook' => 'required|string|url',
+            'linkedin' => 'required|string|url',
+            'whatsapp' => 'required|string|unique:users,phone',
+            'instagram' => 'required|string|url',
+        ]);
     }
 
     

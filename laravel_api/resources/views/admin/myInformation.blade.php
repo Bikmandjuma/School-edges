@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Session;
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#">Home</a></li>
-          <li class="breadcrumb-item">Users</li>
-          <li class="breadcrumb-item active">Profile</li>
+          <li class="breadcrumb-item">Account</li>
+          <li class="breadcrumb-item active">Information</li>
         </ol>
 
       </nav>
@@ -23,15 +23,8 @@ use Illuminate\Support\Facades\Session;
           <div class="card">
             <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-              <img src="{{ URL::to('/') }}/adminPanel/assets/img/{{ auth()->guard('admin')->user()->image }}" alt="Profile" class="rounded-circle">
-              <h2>{{ auth()->guard('admin')->user()->firstname }}&nbsp;{{ auth()->guard('admin')->user()->lastname }}</h2>
-              <h3>Admin</h3>
-              <!--div class="social-links mt-2">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-              </div-->
+              @include('admin.admin_name')
+            
             </div>
           </div>
 
@@ -44,15 +37,7 @@ use Illuminate\Support\Facades\Session;
               <!-- Bordered Tabs -->
               <ul class="nav nav-tabs nav-tabs-bordered">
 
-                  <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-overview" onclick="window.location.href='{{ route('profile.page') }}'">Overview</button>
-                  </li>
-                  <li class="nav-item">
-                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile & Info</button>
-                  </li>
-                  <li class="nav-item">
-                    <button class="nav-link" onclick="window.location.href='{{ route('show.password') }}'">Change Password</button>
-                  </li>
+                @include('admin.info_main_link')
 
               </ul>
               <div class="tab-content pt-2">

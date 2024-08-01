@@ -138,9 +138,6 @@
           <p>Subscribe to our newsletter and receive the latest news about our school !</p>
           <form action="#" method="post" class="php-email-form">
             <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe" class="bg-info"></div>
-            <!-- <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your subscription request has been sent. Thank you!</div> -->
           </form>
         </div>
 

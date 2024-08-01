@@ -26,4 +26,13 @@ class HomeController extends Controller
     public function contact(){
         return view('homePage.contact');
     }
+
+    public function guestSubmitMessageContact(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'subject' => 'required|string',
+            'massage' => 'required|string',
+        ]);
+    }
 }
