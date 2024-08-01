@@ -197,7 +197,7 @@
         </a>
         <ul id="system-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="#">
+            <a href="{{ route('view_users') }}" >
               <i class="bi bi-circle"></i><span>view users</span>
             </a>
           </li>
@@ -275,7 +275,7 @@
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script src="{{ URL::to('/') }}/adminPanel/assets/js/main.js"></script>
 
 </body>
 

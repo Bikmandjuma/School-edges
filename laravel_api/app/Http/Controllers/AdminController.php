@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -103,6 +104,10 @@ class AdminController extends Controller
         ]);
     }
 
-    
+    public function view_users(){
+        $count_no=1;
+        $users_data=User::all();
+        return view('admin.view_users',compact('users_data','count_no'));
+    }
 
 }

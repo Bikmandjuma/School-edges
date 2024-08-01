@@ -32,4 +32,5 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('information',[AdminController::class,'myInformation'])->name('myInformation');
     Route::get('social-media',[AdminController::class,'social_media'])->name('social_media');
     Route::post('submit_social_media',[AdminController::class,'submit_social_media'])->name('submit_social_media');
+    Route::get('system-users',[AdminController::class,'view_users'])->name('view_users');
 });
