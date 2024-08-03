@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\SendEmailToUserToRegister;
 
 class AdminController extends Controller
 {
@@ -109,5 +110,42 @@ class AdminController extends Controller
         $users_data=User::all();
         return view('admin.view_users',compact('users_data','count_no'));
     }
+
+    public function registerUserByInformation(){
+        return view('admin.registerUserByInfo');
+    }
+
+    public function registerUserByEmail(){
+        $count=1;
+        $email_user=SendEmailToUserToRegister::all();
+        $count_email_user=collect($email_user)->count();
+        $data_email=SendEmailToUserToRegister::all()->where('registered','==','not yet');
+        $data_count_email=collect($data_email)->count();
+
+        
+
+        return view('admin.registerUserByEmail',compact('count_email_user','data_email','data_count_email','count'));
+    }
+
+    public function submitUserEmailToRegister(Request $request){
+        $request->validate([
+            'email' => 'required|email|unique:users,email|unique:admins,email|unique:send_email_to_user_to_registers,email'
+        ]);
+
+        SendEmailToUserToRegister::create([
+            'email' => $request->email,
+            'registered' => 'not yet'
+        ]);
+
+        toastr()->info('Email sent successfully !',['timeOut' => 5000]);
+
+        return redirect()->back();
+
+    }
+
+    public function viewUserData(){
+        return view('admin.ViewSingleUserInfo');
+    }
+
 
 }

@@ -33,4 +33,9 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('social-media',[AdminController::class,'social_media'])->name('social_media');
     Route::post('submit_social_media',[AdminController::class,'submit_social_media'])->name('submit_social_media');
     Route::get('system-users',[AdminController::class,'view_users'])->name('view_users');
+    Route::get('registerUserByInformation',[AdminController::class,'registerUserByInformation'])->name('registerUserByInformation');
+    Route::get('registerUserByEmail',[AdminController::class,'registerUserByEmail'])->name('registerUserByEmail');
+    Route::post('submitUserEmailToRegister',[AdminController::class,'submitUserEmailToRegister'])->name('submitUserEmailToRegister');
+    Route::get('view-user-data/{id}', [AdminController::class, 'viewUserData'])->name('viewUserData');
+
 });

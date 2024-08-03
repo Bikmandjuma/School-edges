@@ -228,37 +228,26 @@
 
   <main id="main" class="main">
     @yield('content')
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <!--footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>{{ date('Y') }}</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-      Designed by <a href="#">{{ config('app.name','school-name') }}</a>
-    </div>
-  </footer--><!-- End Footer -->
+  </main>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-            <div class="modal fade" id="logoutModal" tabindex="-1">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header align-items-center justify-content-center">
-                      <h5 class="modal-title align-items-center justify-content-center">Logout your Account</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body align-items-center justify-content-center">
+  <div class="modal fade" id="logoutModal" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header"style="display: flex; flex-direction: column; align-items:center;">
+                <h5 class="modal-title">Logout your Account&nbsp;&nbsp;<i class="fa fa-lock"></i> </h5>
+              </div>
+              <div class="modal-body align-items-center justify-content-center" style="display: flex; flex-direction: column; align-items:center;">
                       Are you sure , do you want to sign out ?
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.href='{{ route('logout') }}'">Yes</button>
-                      <button class="btn btn-danger" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Not now</button>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- End Vertically centered Modal-->
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.href='{{ route('logout') }}'">Yes&nbsp;<i class="fa fa-check"></i></button>
+                  <button class="btn btn-danger" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Not now&nbsp;<i class="fa fa-times"></i></button>
+              </div>
+          </div>
+      </div>
+  </div>
 
   <!-- Vendor JS Files -->       
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/apexcharts/apexcharts.min.js"></script>

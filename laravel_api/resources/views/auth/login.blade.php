@@ -10,6 +10,8 @@
                         <span class="block sm:inline">{{ session('error-message') }}</span>
                     </div>
                 @endif
+
+                {{ session('success_login')}}
                 
                 @if ($errors->any())
                     <div class="bg-red-100 border mt-2 border-red-400 text-red-700 px-4 py-3 text-center rounded relative" role="alert">

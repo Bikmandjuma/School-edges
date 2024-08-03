@@ -26,7 +26,6 @@ class AuthController extends Controller
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
             return redirect()->route('dashboard');
         }elseif (Auth::guard('user')->attempt(['username' => $request->username, 'password' => $request->password])) {
-            // return redirect()->route('user_dashboard');
             return redirect()->back()->with('success_login','User login well');
         }else{
             Session::flash('error-message','Invalid Email or Password');
