@@ -44,7 +44,7 @@
                 </form>
                 @if($count_email_user != 0)
                   <button class="btn btn-secondary mb-4 float-right" style="display: flex; flex-direction: column; align-items: center;" data-bs-toggle="modal" data-bs-target="#EmailDataModal">
-                    <span>User not registered yet&nbsp;<i class="badge badge-light mt-2">{{$data_count_email}}</i></span>
+                    <span>User not registered yet&nbsp;<i class="mt-2" style="background-color:white;border-radius: 50px;padding:3px;color: black"><b>{{$data_count_email}}</b></i></span>
                     
                   </button>
 
@@ -60,65 +60,73 @@
       </div>
     </section>
 
-  <div class="modal fade" id="EmailDataModal" tabindex="-1">
+    <div class="modal fade" id="EmailDataModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
-              <div class="modal-header"style="display: flex; flex-direction: column; align-items:center;">
-                <h5 class="modal-title">System users' email not registered yet !&nbsp;&nbsp;<i class="fa fa-anvelope"></i> </h5>
+              <div class="modal-header" style="display: flex; flex-direction: column; align-items:center;">
+                  <h5 class="modal-title"><i class="mt-2" style="background-color:black;border-radius: 50px;padding:3px;color: white"><b>{{$data_count_email}}</b></i>&nbsp;System users' email not registered yet !&nbsp;&nbsp;<i class="fa fa-envelope"></i></h5>
               </div>
 
               <div class="modal-body">
-                <table b border="1" class="table table-bordered table-striped">
-                  <thead>
-                    <tr class="text-center">
-                      <th>N<sup>o</sup></th>
-                      <th>Email</th>
-                      <th>Time-ago</th>
-                    </tr>
-                  </thead>
-                  
-                    @foreach($data_email as $data)
-                      
-                        <tr>
-                          <td>{{ $count++ }}</td>
-                          <td>{{ $data->email }}</td>
-                          @php
-                            $dateTime=new DateTime($data->created_at);
-                            $now=new DateTime();
-                            $diff=$now->diff($dateTime);
-                            
-                            if ($diff -> y >0) {
-                                $timeAgo=$diff->y." year".($diff->y >1 ? "s" : ""). " ago";
-                            }elseif($diff -> m >0) {
-                                $timeAgo=$diff->m." month".($diff->m >1 ? "s" : ""). " ago";
-                            }elseif($diff -> d >0) {
-                                $timeAgo=$diff->d." day".($diff->d >1 ? "s" : ""). " ago";
-                            }elseif($diff -> h >0) {
-                                $timeAgo=$diff->h." hour".($diff->h >1 ? "s" : ""). " ago";
-                            }elseif($diff -> i >0) {
-                                $timeAgo=$diff->i." min". " ago";
-                            }else{
-                                $timeAgo="Just now";
-                            }
-                          @endphp
-                          <td><b>{{ $timeAgo }}</b></td>
-                        </tr>
-                      
-                    @endforeach
-                
-                </table>
+                  <div class="table-container">
+                      <table border="1" class="table table-bordered table-striped">
+                          <thead>
+                              <tr class="text-center">
+                                  <th>N<sup>o</sup></th>
+                                  <th>Email</th>
+                                  <th>Time-ago</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              @foreach($data_email as $data)
+                                  <tr>
+                                      <td>{{ $count++ }}</td>
+                                      <td>{{ $data->email }}</td>
+                                      @php
+                                          $dateTime = new DateTime($data->created_at);
+                                          $now = new DateTime();
+                                          $diff = $now->diff($dateTime);
+
+                                          if ($diff->y > 0) {
+                                              $timeAgo = $diff->y . " year" . ($diff->y > 1 ? "s" : "") . " ago";
+                                          } elseif ($diff->m > 0) {
+                                              $timeAgo = $diff->m . " month" . ($diff->m > 1 ? "s" : "") . " ago";
+                                          } elseif ($diff->d > 0) {
+                                              $timeAgo = $diff->d . " day" . ($diff->d > 1 ? "s" : "") . " ago";
+                                          } elseif ($diff->h > 0) {
+                                              $timeAgo = $diff->h . " hour" . ($diff->h > 1 ? "s" : "") . " ago";
+                                          } elseif ($diff->i > 0) {
+                                              $timeAgo = $diff->i . " min" . " ago";
+                                          } else {
+                                              $timeAgo = "Just now";
+                                          }
+                                      @endphp
+                                      <td><b>{{ $timeAgo }}</b></td>
+                                  </tr>
+                              @endforeach
+                          </tbody>
+                      </table>
+                  </div>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-danger" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Close&nbsp;<i class="fa fa-times"></i></button>
+                  <button class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">Close&nbsp;<i class="fa fa-times"></i></button>
               </div>
-              
           </div>
       </div>
   </div>
+
+  <style>
+  .table-container {
+      max-height: 400px; /* Adjust the height as needed */
+      overflow: auto;
+  }
+  </style>
+
 
     <script type="text/javascript">
       setTimeout(function(){
           document.getElementById('error_msg').style.display="none";
         },5000);
     </script>
+    
 @endsection

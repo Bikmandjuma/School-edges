@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use App\Models\SendEmailToUserToRegister;
+use App\Mail\emailToUserToRegister;
 
 class AdminController extends Controller
 {
@@ -132,8 +134,16 @@ class AdminController extends Controller
             'email' => 'required|email|unique:users,email|unique:admins,email|unique:send_email_to_user_to_registers,email'
         ]);
 
+        $email = $request->email;
+
+        $data = [
+            'email' => $email,
+        ];
+
+        Mail::to($email)->send(new emailToUserToRegister($data));
+
         SendEmailToUserToRegister::create([
-            'email' => $request->email,
+            'email' => $email,
             'registered' => 'not yet'
         ]);
 

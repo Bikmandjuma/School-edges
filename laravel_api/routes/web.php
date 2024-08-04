@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('homePage.home');
@@ -39,3 +40,8 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('view-user-data/{id}', [AdminController::class, 'viewUserData'])->name('viewUserData');
 
 });
+
+
+//user self registration
+    Route::get('/system-user/registration/{encryptedEmail}', [UserController::class, 'showRegistrationForm'])->name('UserSelfRegistration.form');
+    // Route::post('/system-user/registration', [UserController::class, 'register'])->name('registration.submit');
