@@ -46,7 +46,7 @@ class emailToUserToRegister extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Email To User To Register',
+            subject: 'Register yourself !',
         );
     }
 
