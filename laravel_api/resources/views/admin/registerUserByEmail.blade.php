@@ -44,7 +44,7 @@
                 </form>
                 @if($count_email_user != 0)
                   <button class="btn btn-secondary mb-4 float-right" style="display: flex; flex-direction: column; align-items: center;" data-bs-toggle="modal" data-bs-target="#EmailDataModal">
-                    <span>User not registered yet&nbsp;<i class="mt-2" style="background-color:white;border-radius: 50px;padding:3px;color: black"><b>{{$data_count_email}}</b></i></span>
+                    <span>User's emails registration list</span>
                     
                   </button>
 
@@ -64,48 +64,105 @@
       <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
               <div class="modal-header" style="display: flex; flex-direction: column; align-items:center;">
-                  <h5 class="modal-title"><i class="mt-2" style="background-color:black;border-radius: 50px;padding:3px;color: white"><b>{{$data_count_email}}</b></i>&nbsp;System users' email not registered yet !&nbsp;&nbsp;<i class="fa fa-envelope"></i></h5>
+                  <h5 class="modal-title">System users' registration !&nbsp;&nbsp;<i class="fa fa-list-alt"></i></h5>
               </div>
 
               <div class="modal-body">
                   <div class="table-container">
-                      <table border="1" class="table table-bordered table-striped">
-                          <thead>
-                              <tr class="text-center">
-                                  <th>N<sup>o</sup></th>
-                                  <th>Email</th>
-                                  <th>Time-ago</th>
-                              </tr>
-                          </thead>
-                          <tbody>
-                              @foreach($data_email as $data)
-                                  <tr>
-                                      <td>{{ $count++ }}</td>
-                                      <td>{{ $data->email }}</td>
-                                      @php
-                                          $dateTime = new DateTime($data->created_at);
-                                          $now = new DateTime();
-                                          $diff = $now->diff($dateTime);
 
-                                          if ($diff->y > 0) {
-                                              $timeAgo = $diff->y . " year" . ($diff->y > 1 ? "s" : "") . " ago";
-                                          } elseif ($diff->m > 0) {
-                                              $timeAgo = $diff->m . " month" . ($diff->m > 1 ? "s" : "") . " ago";
-                                          } elseif ($diff->d > 0) {
-                                              $timeAgo = $diff->d . " day" . ($diff->d > 1 ? "s" : "") . " ago";
-                                          } elseif ($diff->h > 0) {
-                                              $timeAgo = $diff->h . " hour" . ($diff->h > 1 ? "s" : "") . " ago";
-                                          } elseif ($diff->i > 0) {
-                                              $timeAgo = $diff->i . " min" . " ago";
-                                          } else {
-                                              $timeAgo = "Just now";
-                                          }
-                                      @endphp
-                                      <td><b>{{ $timeAgo }}</b></td>
-                                  </tr>
-                              @endforeach
-                          </tbody>
-                      </table>
+                    <!-- Bordered Tabs -->
+                    <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#registered" type="button" role="tab" aria-controls="home" aria-selected="true">Registered&nbsp;<i class="mt-2" style="background-color:blue;border-radius: 50px;padding:3px;color: white"><b>{{$data_email_registered_count}}</b></i></button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#not_registered" type="button" role="tab" aria-controls="profile" aria-selected="false">Not registered yet&nbsp;<i class="mt-2" style="background-color:blue;border-radius: 50px;padding:3px;color: white"><b>{{$data_count_email}}</b></i></button>
+                      </li>
+                      
+                    </ul>
+                    <div class="tab-content pt-2" id="borderedTabContent">
+                      <div class="tab-pane fade show active" id="registered" role="tabpanel" aria-labelledby="home-tab">
+                            <table border="1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>N<sup>o</sup></th>
+                                        <th>Email</th>
+                                        <th>Time-ago</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($data_email_registered as $data)
+                                        <tr>
+                                            <td>{{ $count++ }}</td>
+                                            <td>{{ $data->email }}</td>
+                                            @php
+                                                $dateTime = new DateTime($data->created_at);
+                                                $now = new DateTime();
+                                                $diff = $now->diff($dateTime);
+
+                                                if ($diff->y > 0) {
+                                                    $timeAgo = $diff->y . " year" . ($diff->y > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->m > 0) {
+                                                    $timeAgo = $diff->m . " month" . ($diff->m > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->d > 0) {
+                                                    $timeAgo = $diff->d . " day" . ($diff->d > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->h > 0) {
+                                                    $timeAgo = $diff->h . " hour" . ($diff->h > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->i > 0) {
+                                                    $timeAgo = $diff->i . " min" . " ago";
+                                                } else {
+                                                    $timeAgo = "Just now";
+                                                }
+                                            @endphp
+                                            <td><b>{{ $timeAgo }}</b></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                      </div>
+                      <div class="tab-pane fade" id="not_registered" role="tabpanel" aria-labelledby="profile-tab">
+                            <table border="1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>N<sup>o</sup></th>
+                                        <th>Email</th>
+                                        <th>Time-ago</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($data_email as $data)
+                                        <tr>
+                                            <td>{{ $count++ }}</td>
+                                            <td>{{ $data->email }}</td>
+                                            @php
+                                                $dateTime = new DateTime($data->created_at);
+                                                $now = new DateTime();
+                                                $diff = $now->diff($dateTime);
+
+                                                if ($diff->y > 0) {
+                                                    $timeAgo = $diff->y . " year" . ($diff->y > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->m > 0) {
+                                                    $timeAgo = $diff->m . " month" . ($diff->m > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->d > 0) {
+                                                    $timeAgo = $diff->d . " day" . ($diff->d > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->h > 0) {
+                                                    $timeAgo = $diff->h . " hour" . ($diff->h > 1 ? "s" : "") . " ago";
+                                                } elseif ($diff->i > 0) {
+                                                    $timeAgo = $diff->i . " min" . " ago";
+                                                } else {
+                                                    $timeAgo = "Just now";
+                                                }
+                                            @endphp
+                                            <td><b>{{ $timeAgo }}</b></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                      </div>
+                      
+                    </div><!-- End Bordered Tabs -->
+                          <!--end of Tabs-->
+                      
                   </div>
               </div>
               <div class="modal-footer">

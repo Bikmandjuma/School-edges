@@ -122,9 +122,13 @@ class AdminController extends Controller
         $email_user=SendEmailToUserToRegister::all();
         $count_email_user=collect($email_user)->count();
         $data_email=SendEmailToUserToRegister::all()->where('registered','=','not yet');
+
+        $data_email_registered=SendEmailToUserToRegister::all()->where('registered','=','yes');
+        $data_email_registered_count=collect($data_email_registered)->count();
+
         $data_count_email=collect($data_email)->count();
 
-        return view('admin.registerUserByEmail',compact('count_email_user','data_email','data_count_email','count'));
+        return view('admin.registerUserByEmail',compact('count_email_user','data_email','data_count_email','count','data_email_registered_count','data_email_registered'));
     }
 
     public function submitUserEmailToRegister(Request $request){

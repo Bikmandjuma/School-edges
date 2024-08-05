@@ -12,6 +12,7 @@
     <h2 title="{{ auth()->guard('admin')->user()->firstname.' '.auth()->guard('admin')->user()->lastname }}">{{ $admin_name = auth()->guard('admin')->user()->firstname.' '.auth()->guard('admin')->user()->lastname }}</h2>
   
   @endif
+  
   <h3 class="mt-2">Admin</h3>
   <div class="social-links mt-2">
     <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
