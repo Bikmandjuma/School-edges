@@ -61,13 +61,13 @@
     </section>
 
     <div class="modal fade" id="EmailDataModal" tabindex="-1">
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
               <div class="modal-header" style="display: flex; flex-direction: column; align-items:center;">
                   <h5 class="modal-title">System users' registration !&nbsp;&nbsp;<i class="fa fa-list-alt"></i></h5>
               </div>
 
-              <div class="modal-body">
+              <div class="modal-body text-center">
                   <div class="table-container">
 
                     <!-- Bordered Tabs -->
