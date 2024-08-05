@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use App\Models\SendEmailToUserToRegister;
 use App\Models\UserRole;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -26,15 +27,15 @@ class UserController extends Controller
         return view('users.UserSelfRegister',compact('email','record_count','user_role_name','user_role_id'));
     }
 
-    public function SubmitSelfRegister(Request $request){
+    public function SubmitSelfRegister(Request $request,$email,$id){
         
         $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
             'gender' => 'required|string',
             'phone' => 'required|numeric|min:10|unique:users,phone|unique:admins,phone',
-            'username' => 'required|string|between:8,32',
-            'password' => 'required|string|between:8,32',
+            'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
+            'password' => 'required|string|between:8,32|confirmed',
             'dob' => 'required|string',
         ]);
 
@@ -42,12 +43,31 @@ class UserController extends Controller
         $lname=$request->lastname;
         $gender=$request->gender;
         $phone=$request->phone;
-        $email=$request->email;
+        $email=$email;
         $uname=$request->username;
         $dob=$request->dob;
-        $user_role=$request->role_id;
-        $password=crypt($request->password);
+        $image='user.png';
+        $user_role=$id;
+        $password=bcrypt($request->password);
 
+        $user=User::create([
+            'firstname' => $fname,
+            'lastname' => $lname,
+            'gender' => $gender,
+            'email' => $email,
+            'phone' => $phone,
+            'dob' => $dob,
+            'image' => $image,
+            'role_id' => $user_role,
+            'username' => $uname,
+            'password' => $password,
+        ]);
+
+        SendEmailToUserToRegister::where('email',$email)
+            ->where('role_id',$user_role)
+            ->update(['registered' =>'yes']);
+
+        return redirect()->back()->with('success','');
 
     }
 

@@ -7,13 +7,13 @@
 			<div class="col-lg-4 col-md-4 col-sm-12 ">
 				<div class="card">
 	            <div class="card-body">
-	              <h5 class="card-title text-center">You already registered</h5>
+	              <h5 class="card-title text-center">You are registered you can now access your account</h5>
 
 	              <!-- No Labels Form -->
 	              <div class="row">
 	          
 	                <div class="col-md-5 text-center text-primary">
-	                	<p  id="id_links" onclick="window.location.href='{{ route('login.form')}}'"><i class="fa fa-lock-open"></i>&nbsp;Login</p>
+	                	<p  id="id_links" onclick="window.location.href='{{ route('login.form' )}}'"><i class="fa fa-lock-open"></i>&nbsp;Login</p>
 	                </div>
 	                <div class="col-md-2 text-center">---</div>
 	                <div class="col-md-5 text-center text-primary">
@@ -27,6 +27,7 @@
 	@else
 		
 		<div class="row mt-5" id="FormId">
+			
 			<div class="col-lg-2 col-md-2 col-sm-2 "></div>
 			<div class="col-lg-8 col-md-8 col-sm-8 ">
 				<div class="card">
@@ -34,7 +35,7 @@
 	              <h5 class="card-title text-center">Fill this form</h5>
 
 	              <!-- No Labels Form -->
-	              <form class="row g-3" action="{{ route('registration.submit') }}" method="POST">
+	              <form class="row g-3" action="{{ url('/system-user/registrations') }}/{{ $email }}/{{ $user_role_id }}" method="POST">
 	              	@csrf
 	          
 	                <div class="col-md-6">
@@ -109,6 +110,12 @@
 						@enderror
 	                </div>
 	                <div class="col-md-6">
+	                  <label>User role</label>	
+	                	<select class="form-control" name="role_id" disabled>
+	                		<option value="{{ $user_role_id }}">{{ $user_role_name }}</option>
+	                	</select>
+	                </div>
+	                <div class="col-md-6">
 	                  <label>Password</label>	
 	                  <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password">
 	                    @error('password')
@@ -117,14 +124,14 @@
 						    </p>
 						@enderror
 	                </div>
-
 	                <div class="col-md-6">
-	                  <label>User role</label>	
-	                	<select class="form-control" name="role_id" disabled>
-	                		<option value="{{ $user_role_id }}">{{ $user_role_name }}</option>
-	                	</select>
+	                  <label>Re-enter Password</label>	
+	                  <input type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Re-enter Password">
+	                   
 	                </div>
-	                <div class="col-md-6 text-center">
+
+	                
+	                <div class="col-md-12 text-center">
 	                	<button type="submit" class="btn btn-primary mt-3">Submit</button>
 	                  <button type="reset" class="btn btn-secondary mt-3">Reset</button>
 	                </div>
