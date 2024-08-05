@@ -11,6 +11,7 @@ class SendEmailToUserToRegister extends Model
 
     protected $fillable=[
         'email',
+        'role_id',
         'registered',
     ];
 }

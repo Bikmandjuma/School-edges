@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -128,24 +129,30 @@ class AdminController extends Controller
 
         $data_count_email=collect($data_email)->count();
 
-        return view('admin.registerUserByEmail',compact('count_email_user','data_email','data_count_email','count','data_email_registered_count','data_email_registered'));
+        $user_role_data=UserRole::all();
+
+        return view('admin.registerUserByEmail',compact('count_email_user','data_email','data_count_email','count','data_email_registered_count','data_email_registered','user_role_data'));
     }
 
     public function submitUserEmailToRegister(Request $request){
         $request->validate([
-            'email' => 'required|email|unique:users,email|unique:admins,email|unique:send_email_to_user_to_registers,email'
+            'email' => 'required|email|unique:users,email|unique:admins,email|unique:send_email_to_user_to_registers,email',
+            'role_name' => 'required'
         ]);
 
         $email = $request->email;
+        $role_id = $request->role_name;
 
         $data = [
             'email' => $email,
+            'user_role' => $role_id,
         ];
 
         Mail::to($email)->send(new emailToUserToRegister($data));
 
         SendEmailToUserToRegister::create([
             'email' => $email,
+            'role_id' => $role_id,
             'registered' => 'not yet'
         ]);
 

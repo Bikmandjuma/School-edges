@@ -14,8 +14,14 @@ return new class extends Migration
         Schema::create('send_email_to_user_to_registers', function (Blueprint $table) {
             $table->id();
             $table->string('email');
+            $table->unsignedBigInteger('role_id');
             $table->string('registered');
             $table->timestamps();
+
+            $table->foreign('role_id')
+                  ->references('id')
+                  ->on('user_roles')
+                  ->onDelete('cascade');
         });
     }
 

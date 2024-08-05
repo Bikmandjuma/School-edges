@@ -71,7 +71,7 @@
 	                </div>
 
 	                <div class="col-md-6">
-	                  <input type="text" disabled class="form-control" value="Teacher">
+	                  <input type="text" disabled class="form-control" value="{{ $user_role_name }}">
 	                </div>
 	                <div class="col-md-6 text-center">
 	                	<button type="submit" class="btn btn-primary">Submit</button>

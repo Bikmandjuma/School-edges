@@ -43,5 +43,5 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
 
 
 //user self registration
-    Route::get('/system-user/registration/{encryptedEmail}', [UserController::class, 'showRegistrationForm'])->name('UserSelfRegistration.form');
+    Route::get('/system-user/registration/{encryptedEmail}/{user_role}', [UserController::class, 'showRegistrationForm'])->name('UserSelfRegistration.form');
     // Route::post('/system-user/registration', [UserController::class, 'register'])->name('registration.submit');
