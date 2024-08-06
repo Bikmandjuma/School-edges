@@ -5,23 +5,23 @@
         <div class="w-full max-w-md">
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Login here</h2>
-                @if (session('error-message'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert" id="error_message_id">
+                <!-- @if (session('error-message'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center" role="alert" id="error_message_id">
                         <span class="block sm:inline">{{ session('error-message') }}</span>
                     </div>
-                @endif
+                @endif -->
 
-                {{ session('success_login')}}
+                <!-- {{ session('success_login')}}
                 
                 @if ($errors->any())
-                    <div class="bg-red-100 border mt-2 border-red-400 text-red-700 px-4 py-3 text-center rounded relative" role="alert">
+                    <div class="bg-red-100 border mt-2 border-red-400 text-red-700 px-4 py-3 text-center rounded relative'" role="alert">
                         <span class="block sm:inline">All fields are required!</span>
                     </div>
-                @endif
+                @endif -->
 
                 <form class="mt-8 space-y-6" action="{{ route('post_login') }}" method="POST">
                     @csrf
-                    <div class="rounded-md shadow-md -space-y-px">
+                    <div class="rounded-md">
                         <div>
                             <label for="email-address" class="sr-only">Enter username</label>
                             <input id="email-address" name="username" value="{{old('username')}}" type="text" autocomplete="email"
@@ -29,12 +29,19 @@
                                 placeholder="Email address">
                         </div>
 
+                        <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;color: red;font-family: sans-serif;font-style: italic;">
+                            @error('username')  {{ $message }} @enderror
+                        </p>
+
                         <div style="margin-top:10px;">
                             <label for="password" class="sr-only">Enter password</label>
                             <input id="password" name="password" type="password" autocomplete="current-password" 
                             class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Password">
                         </div>
+                        <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;color: red;font-family: sans-serif;font-style: italic;">
+                            @error('password')  {{ $message }} @enderror
+                        </p>
                     </div>
                    
                     <div class="flex justify-center">
