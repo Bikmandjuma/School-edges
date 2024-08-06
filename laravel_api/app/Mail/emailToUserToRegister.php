@@ -36,8 +36,10 @@ class emailToUserToRegister extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.mailSendToRegister')
-                    ->with('data', $this->data);
+        // return $this->view('emails.mailSendToRegister')
+        //             ->with('data', $this->data);
+
+        return $this->markdown("emails.mailSendToRegister");
     }
 
     /**

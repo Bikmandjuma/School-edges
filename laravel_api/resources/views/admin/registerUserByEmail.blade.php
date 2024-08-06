@@ -1,5 +1,13 @@
 @extends('admin.cover')
 @section('content')
+  <style type="text/css">
+    @media (max-width: 576px) {
+      #role_selection {
+          margin-top:20px;
+      }
+  }
+  </style>
+   
   <div class="pagetitle">
       <h1>System users</h1>
       <nav>
@@ -42,7 +50,7 @@
                         <input type="text" name="email" class="form-control" placeholder="Enter email">
                       </div>
                       <div class="col-md-6">
-                        <select name="role_name" class="form-control" required>
+                        <select name="role_name" class="form-control" id="role_selection" required>
                           <option class="">User role . . .</option>
                           @foreach($user_role_data as $data)
                             <option value="{{ $data->id }}"><b>{{ $data->role_name }}</b></option>
@@ -54,19 +62,25 @@
                   <br>
                   <button class="btn btn-primary mb-4" type="submit">Send&nbsp;<i class="fa fa-paper-plane"></i></button>
                 </form>
-                @if($count_email_user != 0)
-                  <button class="btn btn-secondary mb-4 float-right" style="display: flex; flex-direction: column; align-items: center;" data-bs-toggle="modal" data-bs-target="#EmailDataModal">
-                    <span>User's emails registration list</span>
-                    
-                  </button>
-
-                @endif
               
           </div>
 
         </div>
         <div class="col-lg-2"></div>
       </div>
+
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+          @if($count_email_user != 0)
+              <button class="btn btn-secondary mb-4 float-right" style="display: flex; flex-direction: column; align-items: center;" data-bs-toggle="modal" data-bs-target="#EmailDataModal">
+                    <span>User's emails registration list</span>
+              </button>
+          @endif
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2"></div>
+      </div>
+
     </section>
 
     <div class="modal fade" id="EmailDataModal" tabindex="-1">
