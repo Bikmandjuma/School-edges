@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\Admin;
+use App\Models\User;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller{
     public function login_form(){
         return view('auth.login');
     }
@@ -38,6 +39,24 @@ class AuthController extends Controller
         Auth::guard('admin')->logout();
         return redirect()->route('login.form');
     }
+
+    public function submit_forgot_password(Request $request){
+        $request->validate([
+            'email' => 'required|email'
+        ]);
+
+        $email = $request->input('email');
+
+        $existsInAdmins = Admin::where('email', $email)->exists();
+        $existsInUsers = User::where('email', $email)->exists();
+
+        if (!$existsInAdmins && !$existsInUsers) {
+            return back()->withErrors(['email' => 'The email doesn\'t found in our database !']);
+        }
+
+        // Continue with password reset logic
+    }
+
 
     
 }

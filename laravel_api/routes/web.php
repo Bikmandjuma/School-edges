@@ -20,6 +20,8 @@ Route::post('submitContact',[homeController::class,'guestSubmitMessageContact'])
 Route::get('login',[AuthController::class,'login_form'])->name('login.form');
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 Route::get('forgot-password',[AuthController::class,'forgotpswd_form'])->name('forgotpswd.form');
+Route::post('forgot_password_submission',[AuthController::class,'submit_forgot_password'])->name('submit-forgot-password');
+
 Route::post('login-post',[AuthController::class,'login_functionality'])->name('post_login');
 Route::get('admin-home',[AdminController::class,'home']);
 

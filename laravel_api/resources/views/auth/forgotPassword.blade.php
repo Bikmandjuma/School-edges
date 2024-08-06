@@ -7,13 +7,16 @@
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Forgot Password</h2>
                 <form class="mt-8 space-y-6" action="{{ route('submit-forgot-password') }}" method="POST">
+                    @csrf
                     <div class="rounded-md shadow-md -space-y-px">
                         <div>
                             <label for="email-address" class="sr-only">Email address</label>
-                            <input id="email-address" name="email" type="email" autocomplete="email" required
-                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                            <input id="email-address" name="email" type="email" autocomplete="email"class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                 placeholder="Email address">
                         </div>
+                        <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;color: red;font-family: sans-serif;font-style: italic;">
+                            @error('email')  {{ $message }} @enderror
+                        </p>
 
                     </div>
                    
