@@ -67,7 +67,7 @@ class UserController extends Controller
             ->where('role_id',$user_role)
             ->update(['registered' =>'yes']);
 
-        return redirect()->back()->with('success','');
+        return redirect()->back()->with('success','Account created successfully !');
 
     }
 

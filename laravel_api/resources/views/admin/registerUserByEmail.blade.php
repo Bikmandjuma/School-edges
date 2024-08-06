@@ -87,7 +87,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
               <div class="modal-header" style="display: flex; flex-direction: column; align-items:center;">
-                  <h5 class="modal-title">System users' registration !&nbsp;&nbsp;<i class="fa fa-list-alt"></i></h5>
+                  <h5 class="modal-title">Registration list of system users!&nbsp;&nbsp;<i class="fa fa-list-alt"></i></h5>
               </div>
 
               <div class="modal-body text-center">

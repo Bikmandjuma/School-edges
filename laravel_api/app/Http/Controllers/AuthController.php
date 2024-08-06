@@ -77,7 +77,7 @@ class AuthController extends Controller{
 
             // toastr()->info('Email sent',['timeOut' => 5000]);
 
-            return redirect()->back()->with('success','');
+            return redirect()->back()->with('success','Check email we sent you a reset code !');
 
         }
 
@@ -96,16 +96,18 @@ class AuthController extends Controller{
         ]);
 
         // find the code
-        $passwordReset = ResetCodePassword::where('email',$email)->firstWhere('code', $request->code);
+        $passwordReset = ResetCodePassword::where('email', $email)
+                                      ->where('code', $code)
+                                      ->first();
 
         // check if it does not expired: the time is one hour
-        if ($passwordReset->created_at > now()->addHour()) {
+        if ($passwordReset->created_at < now()->subHour()) {
             $passwordReset->delete();
-            toastr()->error('passwords code is expired',['timeOut' => 5000]);
-            return redirect()->back();
+            // toastr()->error('passwords code is expired',['timeOut' => 5000]);
+            return redirect()->back()->with('error','The code is expired');
         }else{
             toastr()->success('password\'s code is valid !',['timeOut' => 5000]);
-            return redirect()->back()->with('valid_code','password\'s code is valid !');
+            return redirect()->back()->with('valid_code','The code is valid !');
         }
 
     }
@@ -115,7 +117,7 @@ class AuthController extends Controller{
         $code=Crypt::decrypt($code);
 
         dd($email." ".$code);
-        
+
     }
 
 

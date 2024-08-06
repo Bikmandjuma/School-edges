@@ -156,9 +156,9 @@ class AdminController extends Controller
             'registered' => 'not yet'
         ]);
 
-        toastr()->info('Email sent successfully !',['timeOut' => 5000]);
+        // toastr()->info('Email sent successfully !',['timeOut' => 5000]);
 
-        return redirect()->back();
+        return redirect()->back()->with('success','Email sent successfully !');
 
     }
 

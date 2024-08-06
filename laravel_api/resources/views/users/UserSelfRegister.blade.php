@@ -7,18 +7,14 @@
 			<div class="col-lg-4 col-md-4 col-sm-12 ">
 				<div class="card">
 	            <div class="card-body">
-	              <h5 class="card-title text-center">You are registered you can now access your account</h5>
-
+	              <h5 class="card-title text-center">You are registered ,now you can access your account in <b>{{ config('app.name','laravel') }}</b>'s system</h5>
 	              <!-- No Labels Form -->
 	              <div class="row">
 	          
-	                <div class="col-md-5 text-center text-primary">
-	                	<p  id="id_links" onclick="window.location.href='{{ route('login.form' )}}'"><i class="fa fa-lock-open"></i>&nbsp;Login</p>
+	                <div class="col-md-12 text-center text-primary">
+	                	<p  id="id_links" onclick="window.location.href='{{ route('login.form' )}}'"><i class="fa fa-lock-open"></i>&nbsp;Login here</p>
 	                </div>
-	                <div class="col-md-2 text-center">---</div>
-	                <div class="col-md-5 text-center text-primary">
-	                	<p id="id_links"  onclick="window.location.href='{{ route('forgotpswd.form')}}'"><i class="fa fa-key"></i>&nbsp;Forgot password</p>
-	                </div>
+	                
 	            </div>
 	        </div>
 			<div class="col-lg-4 col-md-4 col-sm-12 "></div>

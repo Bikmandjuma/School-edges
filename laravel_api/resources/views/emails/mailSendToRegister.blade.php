@@ -4,7 +4,7 @@
 
 @component('mail::panel')
     <p>Click the link below to register yourself:</p>
-    <a href="{{ URL::to('/') }}/system-user/registration/{{ Crypt::encrypt($data['email']) }}/{{ Crypt::encrypt($data['user_role']) }}" style="font-size:15px;text-decoration: none;font-family: sans-serif;font-style: italic;">Register now</a>
+    <a href="{{ URL::to('/') }}/system-user/registration/{{ Crypt::encrypt($data['email']) }}/{{ Crypt::encrypt($data['user_role']) }}" style="font-size:15px;text-decoration: none;font-family: sans-serif;font-style: italic;color: blue;">Register now</a>
 @endcomponent
 <p>God bless you , </p>
 @endcomponent
