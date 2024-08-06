@@ -24,6 +24,8 @@ Route::get('reset/password/code/{email}/{code}',[AuthController::class,'reset_pa
 Route::post('codeCheck/{email}/{code}',[AuthController::class,'codeCheck'])->name('codeCheck');
 Route::get('reset/password/{email}/{code}',[AuthController::class,'resetPassword'])->name('resetPassword');
 
+Route::post('submit/reset/password/{email}/{code}',[AuthController::class,'submitResetPassword'])->name('submitResetPassword');
+
 Route::post('forgot_password_submission',[AuthController::class,'submit_forgot_password'])->name('submit-forgot-password');
 
 Route::post('login-post',[AuthController::class,'login_functionality'])->name('post_login');

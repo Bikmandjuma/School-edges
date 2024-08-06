@@ -11,7 +11,8 @@
 	              @if(session('valid_code'))
 	              	<script type="text/javascript">
 	              		setTimeout(function(){
-	              			window.location.href="{{ url('reset/password/'.Crypt::encrypt($email).Crypt::encrypt($code)) }}";
+	              			window.location.href="{{ url('reset/password/') }}/{{ Crypt::encrypt($email) }}/{{ Crypt::encrypt($code) }}";
+	              			document.getElementById('spin_id').style.display="block"
 	              		},5000);
 	              	</script>
 	              @endif

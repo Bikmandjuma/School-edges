@@ -9,6 +9,7 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Models\ResetCodePassword;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 use App\Mail\SendCodeResetPassword;
 use Illuminate\Support\Facades\Crypt;
 
@@ -106,7 +107,7 @@ class AuthController extends Controller{
             // toastr()->error('passwords code is expired',['timeOut' => 5000]);
             return redirect()->back()->with('error','The code is expired');
         }else{
-            toastr()->success('password\'s code is valid !',['timeOut' => 5000]);
+            toastr()->success('The code is valid !',['timeOut' => 5000]);
             return redirect()->back()->with('valid_code','The code is valid !');
         }
 
@@ -116,7 +117,38 @@ class AuthController extends Controller{
         $email=Crypt::decrypt($email);
         $code=Crypt::decrypt($code);
 
-        dd($email." ".$code);
+        return view('users.reset-Password-form',compact('email','code'));
+
+    }
+
+    public function submitResetPassword(Request $request,$email,$code){
+        $request->validate([
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $password=$request->new_password;
+
+        // find the code
+        $passwordResetCode = ResetCodePassword::where('code', $code)
+                             ->where('email', $email)
+                             ->firstOrFail();
+
+        // Find the user or admin by email
+        $user = User::firstWhere('email', $passwordResetCode->email);
+        $admin = Admin::firstWhere('email', $passwordResetCode->email);
+
+        // Update the password if user or admin exists
+        if ($user) {
+            $user->update(['password' => bcrypt($password)]);
+            $passwordResetCode->delete();
+            return redirect()->route('login.form')->with('success', 'Password updated successfully for user.');
+            
+        } elseif ($admin) {
+            $admin->update(['password' => bcrypt($password)]);
+            $passwordResetCode->delete();
+            return redirect()->route('login.form')->with('success', 'Password updated successfully for admin.');
+
+        }
 
     }
 

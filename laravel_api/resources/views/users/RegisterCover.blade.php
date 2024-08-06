@@ -36,6 +36,33 @@
       cursor: pointer;
       color: black;
     }
+
+   /* styles.css */
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .wrapper {
+        flex: 1;
+    }
+
+    footer {
+      position: relative;
+        background: #f1f1f1;
+        padding: 20px 0;
+        text-align: center;
+        margin-bottom: 0px;'margin-top: 100-x;
+
+    }
+
+    /* Additional styling for content and footer */
+
   </style>
 </head>
 
@@ -44,6 +71,16 @@
   <main>
     @yield('content')
   </main>
+  <!-- <footer>
+        <div class="container text-center">
+            <div>
+                &copy; Copyright <strong><span>2024</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                Designed by <a href="#">{{ config('app.name','laravel') }}</a>
+            </div>
+        </div>
+  </footer> -->
 
   <!-- Vendor JS Files -->       
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/apexcharts/apexcharts.min.js"></script>
