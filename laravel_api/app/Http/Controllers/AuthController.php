@@ -126,7 +126,7 @@ class AuthController extends Controller{
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $password=$request->new_password;
+        $password=$request->password;
 
         // find the code
         $passwordResetCode = ResetCodePassword::where('code', $code)
@@ -141,12 +141,12 @@ class AuthController extends Controller{
         if ($user) {
             $user->update(['password' => bcrypt($password)]);
             $passwordResetCode->delete();
-            return redirect()->route('login.form')->with('success', 'Password updated successfully for user.');
+            return redirect()->route('login.form')->with('success', 'Password updated successfully !');
             
         } elseif ($admin) {
             $admin->update(['password' => bcrypt($password)]);
             $passwordResetCode->delete();
-            return redirect()->route('login.form')->with('success', 'Password updated successfully for admin.');
+            return redirect()->route('login.form')->with('success', 'Password updated successfully !');
 
         }
 
