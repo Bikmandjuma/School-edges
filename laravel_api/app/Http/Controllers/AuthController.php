@@ -115,6 +115,7 @@ class AuthController extends Controller{
         $code=Crypt::decrypt($code);
 
         dd($email." ".$code);
+        
     }
 
 

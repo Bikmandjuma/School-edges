@@ -39,7 +39,8 @@
 	                </div>
 	                
 	                <div class="col-md-12 text-center">
-	                	<button type="submit" class="btn btn-primary mt-3">check</button>
+	                	<button type="submit" class="btn btn-primary mt-3">check code&nbsp;<i class="fa fa-spinner fa-spin" style="display: none;" id="spin_id"></i>
+</button>
 	                </div>
 	                
 	              </form><!-- End No Labels Form -->
