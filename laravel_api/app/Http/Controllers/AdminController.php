@@ -53,15 +53,15 @@ class AdminController extends Controller
 
     public function editInfo(Request $request,$id){
         
-        // $request->validate([
-        //     'firstname' => 'required|string',
-        //     'lastname' => 'required|string',
-        //     'gender' => 'required|string',
-        //     'phone' => 'required|string|exists:users',
-        //     'email' => 'required|string|email',
-        //     'username' => 'required|string|between:8,32',
-        //     'dob' => 'required|string',
-        // ]);
+        $request->validate([
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'gender' => 'required|string',
+            'phone' => 'required|string|unique:users,phone|unique:admins,phone',
+            'email' => 'required|string|email|unique:users,email|unique:admins,email',
+            'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
+            'dob' => 'required|string',
+        ]);
 
         $admin_id=$id;
         $fname=$request->firstname;
@@ -115,7 +115,8 @@ class AdminController extends Controller
     }
 
     public function registerUserByInformation(){
-        return view('admin.registerUserByInfo');
+        $data_role_users=UserRole::all();
+        return view('admin.registerUserByInfo',compact('data_role_users'));
     }
 
     public function registerUserByEmail(){

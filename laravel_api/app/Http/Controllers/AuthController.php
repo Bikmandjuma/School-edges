@@ -132,7 +132,7 @@ class AuthController extends Controller{
         $passwordResetCode = ResetCodePassword::where('code', $code)
                              ->where('email', $email)
                              ->firstOrFail();
-
+ 
         // Find the user or admin by email
         $user = User::firstWhere('email', $passwordResetCode->email);
         $admin = Admin::firstWhere('email', $passwordResetCode->email);

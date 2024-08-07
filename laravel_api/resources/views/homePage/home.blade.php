@@ -5,9 +5,9 @@
 
       <img src="{{ URL::to('/')}}/homePage/assets/img/bg_1.jpg" alt="" data-aos="fade-in">
 
-      <div class="container">
+      <!-- <div class="container">
         <h2 data-aos="fade-up text-center" data-aos-delay="100">Learning To discover</h2>
-      </div>
+      </div> -->
 
     </section><!-- /Hero Section -->
 
