@@ -32,10 +32,11 @@ class UserController extends Controller
         $request->validate([
             'firstname' => 'required|string',
             'lastname' => 'required|string',
-            'gender' => 'required|string',
+            'gender' => 'required|in:Male,Female',
             'phone' => 'required|numeric|min:10|unique:users,phone|unique:admins,phone',
             'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
             'password' => 'required|string|between:8,32|confirmed',
+            
             'dob' => 'required|string',
         ]);
 

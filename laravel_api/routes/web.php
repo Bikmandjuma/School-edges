@@ -46,6 +46,7 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('registerUserByEmail',[AdminController::class,'registerUserByEmail'])->name('registerUserByEmail');
     Route::post('submitUserEmailToRegister',[AdminController::class,'submitUserEmailToRegister'])->name('submitUserEmailToRegister');
     Route::get('view-user-data/{id}', [AdminController::class, 'viewUserData'])->name('viewUserData');
+    Route::post('register/system-user', [AdminController::class, 'registerSystemUser'])->name('register-system-user');
 
 });
 

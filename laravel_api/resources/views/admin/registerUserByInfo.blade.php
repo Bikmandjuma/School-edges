@@ -14,6 +14,16 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
+          
+          @if(session('account_created'))
+            <script type="text/javascript">
+              
+              setTimeout(function(){ 
+                window.location.href="{{ route('view_users') }}";
+              },5000);
+
+            </script>
+          @endif
 
           <div class="card">
             <div class="card-body text-center" style="overflow: auto;">
@@ -25,7 +35,7 @@
                   <div class="col-md-10">
                 
                       <!-- No Labels Form -->
-                      <form class="row g-3" action="" method="POST">
+                      <form class="row g-3" action="{{ route('register-system-user') }}" method="POST">
                         @csrf
                   
                         <div class="col-md-6">
@@ -51,8 +61,8 @@
                           <label>Gender</label> 
                           <select id="inputState" name="gender" class="form-select">
                               <option selected>Gender</option>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
+                              <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                              <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
                           </select>
                           @error('gender')
                               <p style="color:Red;">
@@ -62,7 +72,7 @@
                         </div>
                         <div class="col-md-6">
                           <label>Email</label>  
-                          <input type="email" name="email" class="form-control" placeholder="enter email" required>
+                          <input type="email" name="email" class="form-control" placeholder="enter email" value="{{ old('email') }}">
                             @error('email')
                                 <p style="color:Red;">
                                     {{ $message }}
@@ -104,9 +114,14 @@
                           <select class="form-control" name="role_id">
                             <option value="">Select user role ...</option>
                             @foreach($data_role_users as $data)
-                              <option value="{{ $data->id }}">{{ $data->role_name }}</option>
+                              <option value="{{ $data->id }}" {{ old('role_id') == $data->id ? 'selected' : '' }}>{{ $data->role_name }}</option>
                             @endforeach
                           </select>
+                            @error('role_id')
+                                <p style="color:Red;">
+                                    {{ $message }}
+                                </p>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                           <label>Password</label> 
