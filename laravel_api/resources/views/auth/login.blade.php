@@ -5,11 +5,11 @@
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Login here</h2>
-                <!-- @if (session('error-message'))
+                @if (session('error-message'))
                     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center" role="alert" id="error_message_id">
                         <span class="block sm:inline">{{ session('error-message') }}</span>
                     </div>
-                @endif -->
+                @endif
 
                 <!-- {{ session('success_login')}}
                 

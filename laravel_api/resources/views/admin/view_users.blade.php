@@ -60,6 +60,12 @@
 	                @endforeach
                 </tbody>
               </table>
+              <h3>Online Users:</h3>
+              <ul>
+                  @foreach($onlineUsers as $user)
+                      <li>{{ $user->firstname }}</li>
+                  @endforeach
+              </ul>
               <!-- End Table with stripped rows -->
 
             </div>
