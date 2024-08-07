@@ -209,9 +209,9 @@ class AdminController extends Controller
             ->where('role_id',$user_role)
             ->update(['registered' =>'yes']);
         
-        toastr()->info('Account created successfully !',['timeOut' => 5000]);
+        // toastr()->info('User added successfully !',['timeOut' => 5000]);
 
-        return redirect()->back()->with('account_created','done');
+        return redirect()->route('view_users')->with('info','User added successfully !');
 
     }
 

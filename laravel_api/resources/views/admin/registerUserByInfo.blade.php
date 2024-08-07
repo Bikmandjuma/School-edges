@@ -14,16 +14,6 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
-          
-          @if(session('account_created'))
-            <script type="text/javascript">
-              
-              setTimeout(function(){ 
-                window.location.href="{{ route('view_users') }}";
-              },5000);
-
-            </script>
-          @endif
 
           <div class="card">
             <div class="card-body text-center" style="overflow: auto;">
