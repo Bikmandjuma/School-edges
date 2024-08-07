@@ -50,6 +50,10 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
 
 });
 
+Route::group(['prefix'=>'user' , 'middleware'=>'user'],function(){
+    Route::get('cover',[UserController::class,'selectRole'])->name('cover');
+    Route::get('home',[UserController::class,'home'])->name('user.dashboard');
+});
 
 //user self registration
     Route::get('/system-user/registration/{encryptedEmail}/{user_role}', [UserController::class, 'showRegistrationForm'])->name('UserSelfRegistration.form');

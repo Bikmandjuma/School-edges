@@ -112,9 +112,12 @@ class AdminController extends Controller
         $count_no=1;
         $users_data=User::all();
 
-        $onlineUsers =User::where('last_active_at', '>=', now()->subMinutes(5))->get();
+        // $onlineUsers =User::where('last_active_at', '>=', now()->subMinutes(5))->get();
+        foreach ($users_data as $user) {
+            $is_online = $user->last_active_at >= now()->subMinutes(5);
+        }
 
-        return view('admin.view_users',compact('users_data','count_no','onlineUsers'));
+        return view('admin.view_users',compact('users_data','count_no','is_online'));
     }
 
     public function registerUserByInformation(){

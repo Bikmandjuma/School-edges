@@ -128,7 +128,7 @@
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form> -->
-      <h3 style="font-family:sans-serif;font-style: italic;">{{ auth()->guard('user')->user()->role_id }} panel</h3>
+      <h3 style="font-family:sans-serif;font-style: italic;">{{ $user_role }} panel</h3>
     </div><!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
@@ -148,7 +148,7 @@
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
               <h6>{{ auth()->guard('user')->user()->firstname }}</h6>
-              <span>Admin</span>
+              <span>{{ $user_role }}</span>
             </li>
             <li>
               <hr class="dropdown-divider">

@@ -32,7 +32,7 @@ class AuthController extends Controller{
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
             return redirect()->route('dashboard');
         }elseif (Auth::guard('user')->attempt(['username' => $request->username, 'password' => $request->password])) {
-            return redirect()->back()->with('success_login','User login well');
+            return redirect()->route('user.dashboard')->with('info','welcome '.Auth::guard('user')->user()->firstname);
         }else{
             Session::flash('error-message','Invalid Username or Password');
             return back();
@@ -40,10 +40,19 @@ class AuthController extends Controller{
 
     }
 
-    function logout(){
-        Auth::guard('admin')->logout();
+    public function logout(){
+        // Check which guard is currently authenticated
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout(); // Logout admin
+        } elseif (Auth::guard('user')->check()) {
+            Auth::guard('user')->user()->update(['last_active_at' => now()->subMinutes(10)]);
+            Auth::guard('user')->logout(); // Logout normal user
+        }
+
+        // Redirect to login form
         return redirect()->route('login.form');
     }
+
 
     public function submit_forgot_password(Request $request){
         $request->validate([

@@ -1,5 +1,24 @@
 @extends('admin.cover')
 @section('content')
+  <style>
+    .profile-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    .online-indicator {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background-color: green; /* Color for online status */
+        border: 2px solid #fff; /* Optional: Border to make it stand out */
+  }
+  </style>
+
+
   <div class="pagetitle">
       <h1>System users</h1>
       <nav>
@@ -51,6 +70,13 @@
 	                    <td>{{ $count_no++ }}</td>
                       <td>
                           <img src="{{ URL::to('/') }}/userPanel/profile/{{ $data->image }}" alt="Profile" class="rounded-circle" style="border:2px solid #eee;width: 40px;height: 40px;">
+
+                            
+                      </td>
+                      <td>
+                          @if ($is_online == True)
+                              <div class="online-indicator"></div>
+                          @endif
                       </td>
 	                    <td>{{ $data->firstname }}</td>
 	                    <td>{{ $data->lastname }}</td>
@@ -60,12 +86,7 @@
 	                @endforeach
                 </tbody>
               </table>
-              <h3>Online Users:</h3>
-              <ul>
-                  @foreach($onlineUsers as $user)
-                      <li>{{ $user->firstname }}</li>
-                  @endforeach
-              </ul>
+              
               <!-- End Table with stripped rows -->
 
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Models\SendEmailToUserToRegister;
 use App\Models\UserRole;
 use App\Models\User;
@@ -36,7 +37,7 @@ class UserController extends Controller
             'phone' => 'required|numeric|min:10|unique:users,phone|unique:admins,phone',
             'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
             'password' => 'required|string|between:8,32|confirmed',
-            
+
             'dob' => 'required|string',
         ]);
 
@@ -70,6 +71,22 @@ class UserController extends Controller
 
         return redirect()->back()->with('success','Account created successfully !');
 
+    }
+
+    public function selectRole(){
+        $user_id=Auth::guard('user')->user()->role_id;
+        $get_user_role=UserRole::find($user_id);
+        $user_role=$get_user_role->role_name;
+
+        return view('users.cover',compact('user_role'));
+    }
+
+    public function home(){
+        $user_id=Auth::guard('user')->user()->role_id;
+        $get_user_role=UserRole::find($user_id);
+        $user_role=$get_user_role->role_name;
+
+        return view('users.home',compact('user_role'));
     }
 
 
