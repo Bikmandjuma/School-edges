@@ -70,8 +70,6 @@
 	                    <td>{{ $count_no++ }}</td>
                       <td>
                           <img src="{{ URL::to('/') }}/userPanel/profile/{{ $data->image }}" alt="Profile" class="rounded-circle" style="border:2px solid #eee;width: 40px;height: 40px;">
-
-                            
                       </td>
                       <td>
                           @if ($is_online == True)
