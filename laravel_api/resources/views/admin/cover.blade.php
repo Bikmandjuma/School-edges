@@ -186,7 +186,7 @@
 
       <li class="nav-item">
         <a class="nav-link @if(Request::segment(1) == 'home') collapsed @endif " href="{{ route('dashboard') }}">
-          <i class="bi bi-grid"></i>
+          <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
