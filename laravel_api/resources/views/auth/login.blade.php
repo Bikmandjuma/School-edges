@@ -66,9 +66,13 @@
                 @endif
                 
                 @if ($errors->any())
-                    <div class="bg-red-100 border mt-2 border-red-400 text-red-700 px-4 py-3 text-center rounded relative'" role="alert">
-                        <span class="block sm:inline">All fields are required!</span>
-                    </div>
+                    <!-- <div class="bg-red-100 border mt-2 border-red-400 text-red-700 px-4 py-3 text-center rounded relative'" role="alert">
+                        <span class="block sm:inline"></span>
+                    </div> -->
+
+                    <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;margin-top: 20px;color: #e74c3c;font-size: 14px;" id="error_msg">
+                        All fields are required!
+                    </p>
                 @endif
 
                 <form class="mt-8 space-y-6" action="{{ route('post_login') }}" method="POST" id="login-form">
@@ -77,14 +81,15 @@
                         <div  class="form-group">
                             <input name="username" value="{{old('username')}}" type="text" autocomplete="email" placeholder=" " id="username">
                             <label for="username">Enter username</label>
+                            <div class="error-message" id="username-error"></div>
                         </div>
-                        <div class="error-message" id="username-error"></div>
+                        
 
                         <div style="margin-top:10px;"  class="form-group">
                             <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password" >
-                            <label for="password">Enter password</label>
+                            <label for="password">Enter password</label><div class="error-message" id="password-error"></div>
                         </div>
-                        <div class="error-message" id="password-error"></div>
+                        
                     </div>
                    
                     <div class="flex justify-center">
@@ -123,6 +128,7 @@
                     if (input.value.trim() === '') {
                         input.classList.add('invalid');
                         errorElement.textContent = 'This field is required.';
+                        document.getElementById('error_msg').style.display="none";
                     } else {
                         input.classList.remove('invalid');
                     }

@@ -60,6 +60,8 @@ class AuthController extends Controller{
     public function submit_forgot_password(Request $request){
         $request->validate([
             'email' => 'required|email'
+        ],[
+            'email.required' => 'Please enter an email !'
         ]);
 
         $email = $request->input('email');

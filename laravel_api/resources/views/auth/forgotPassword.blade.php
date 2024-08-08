@@ -7,26 +7,74 @@
             font-size: 14px;
             margin-top: 5px;
         }
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            font-size: 16px;
+            color: #888;
+            transition: all 0.2s ease-out;
+            pointer-events: none;
+            background-color: #fff; /* Ensure background is opaque */
+            padding: 0 4px; /* Space for the label to sit on top of the input */
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 12px 12px 12px; /* Add padding to accommodate label */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -12px;
+            left: 12px;
+            font-size: 12px;
+            color: #007bff;
+        }
+        .form-group input.invalid,
+        .form-group textarea.invalid {
+            border-color: #e74c3c;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
     </style>
-    
+
     <div class="flex items-center justify-center min-h-screen bg-gray-100"  style="margin-top:-50px;">
         <div class="w-full max-w-md">
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Forgot Password</h2>
                 <form class="mt-8 space-y-6" action="{{ route('submit-forgot-password') }}" method="POST" id="forgot-pswd-form">
                     @csrf
-                    <div class="rounded-md shadow-md -space-y-px">
-                        <div>
-                            <label for="email-address" class="sr-only">Email address</label>
-                            <input name="email" type="email" autocomplete="email"class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Email address" id="email">
+                    <div class="">
+                        <div class="form-group">
+                            
+                            <input name="email" type="email" autocomplete="email"
+                                placeholder=" " id="email">
+                            <label for="email">Email address</label>
+                            <div class="error-message" id="email-error"></div>
+                            <p class="error-message" id="error_msg">@error('email')  {{ $message }} @enderror</p>
                         </div>
-                        <!-- <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;color: red;font-family: sans-serif;font-style: italic;">
-                            @error('email')  {{ $message }} @enderror
-                        </p> -->
-
-                        <div class="error-message" id="email-error"></div>
-
                     </div>
                    
                     <div class="flex justify-center">
@@ -62,6 +110,7 @@
                     if (input.value.trim() === '') {
                         input.classList.add('invalid');
                         errorElement.textContent = 'This field is required.';
+                        document.getElementById('error_msg').style.display="none";
                     } else {
                         input.classList.remove('invalid');
                     }
