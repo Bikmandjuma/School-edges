@@ -2,7 +2,14 @@
 @section('content')
     <!-- Page Title -->
     <div class="page-title" data-aos="fade">
-      <div class="heading" style='background-image:url("{{ URL::to('/')}}/homePage/assets/img/bg_2.jpg");'>
+      <!-- <div class="heading" style='background-image:url("{{ URL::to('/')}}/homePage/assets/img/contact_us.jfif");'> -->
+        <div class="heading" style="
+            background-image: url('{{ URL::to('/')}}/homePage/assets/img/events-item-2.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+          ">
+            
         <div class="container">
           <div class="row d-flex justify-content-center text-center">
             <div class="col-lg-8">
