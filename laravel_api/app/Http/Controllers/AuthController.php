@@ -37,8 +37,8 @@ class AuthController extends Controller{
         }elseif (Auth::guard('user')->attempt(['username' => $request->username, 'password' => $request->password])) {
             return redirect()->route('user.dashboard')->with('info','welcome '.Auth::guard('user')->user()->firstname);
         }else{
-            Session::flash('error-message','Invalid Username or Password');
-            return back();
+            // Session::flash('error-message','Invalid Username or Password');
+            return redirect()->back()->with('error','Invalid Username or Password ,try again !');
         }
 
     }

@@ -60,18 +60,14 @@
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Login here</h2>
                 @if (session('error-message'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-center" role="alert" id="error_message_id">
-                        <span class="block sm:inline">{{ session('error-message') }}</span>
-                    </div>
+                    <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;margin-top: 20px;color: #e74c3c;font-size: 14px;" id="error_msg">
+                        {{ session('error-message') }}
+                    </p>
                 @endif
                 
                 @if ($errors->any())
-                    <!-- <div class="bg-red-100 border mt-2 border-red-400 text-red-700 px-4 py-3 text-center rounded relative'" role="alert">
-                        <span class="block sm:inline"></span>
-                    </div> -->
-
                     <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;margin-top: 20px;color: #e74c3c;font-size: 14px;" id="error_msg">
-                        All fields are required!
+                        Please enter username and password to login !
                     </p>
                 @endif
 
