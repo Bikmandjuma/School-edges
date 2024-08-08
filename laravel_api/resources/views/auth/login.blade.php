@@ -1,6 +1,60 @@
 @extends('homePage.cover')
 @section('content')
 
+    <style type="text/css">
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            font-size: 16px;
+            color: #888;
+            transition: all 0.2s ease-out;
+            pointer-events: none;
+            background-color: #fff; /* Ensure background is opaque */
+            padding: 0 4px; /* Space for the label to sit on top of the input */
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 12px 12px 12px; /* Add padding to accommodate label */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -12px;
+            left: 12px;
+            font-size: 12px;
+            color: #007bff;
+        }
+        .form-group input.invalid,
+        .form-group textarea.invalid {
+            border-color: #e74c3c;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+    </style>
+
     <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top:-50px;">
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
@@ -10,36 +64,27 @@
                         <span class="block sm:inline">{{ session('error-message') }}</span>
                     </div>
                 @endif
-                <!-- 
+                
                 @if ($errors->any())
                     <div class="bg-red-100 border mt-2 border-red-400 text-red-700 px-4 py-3 text-center rounded relative'" role="alert">
                         <span class="block sm:inline">All fields are required!</span>
                     </div>
-                @endif> -->
+                @endif
 
-                <form class="mt-8 space-y-6" action="{{ route('post_login') }}" method="POST">
+                <form class="mt-8 space-y-6" action="{{ route('post_login') }}" method="POST" id="login-form">
                     @csrf
                     <div class="rounded-md">
-                        <div>
-                            <label for="email-address" class="sr-only">Enter username</label>
-                            <input id="email-address" name="username" value="{{old('username')}}" type="text" autocomplete="email"
-                                class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Email address">
+                        <div  class="form-group">
+                            <input name="username" value="{{old('username')}}" type="text" autocomplete="email" placeholder=" " id="username">
+                            <label for="username">Enter username</label>
                         </div>
+                        <div class="error-message" id="username-error"></div>
 
-                        <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;color: red;font-family: sans-serif;font-style: italic;">
-                            @error('username')  {{ $message }} @enderror
-                        </p>
-
-                        <div style="margin-top:10px;">
-                            <label for="password" class="sr-only">Enter password</label>
-                            <input id="password" name="password" type="password" autocomplete="current-password" 
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                placeholder="Password">
+                        <div style="margin-top:10px;"  class="form-group">
+                            <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password" >
+                            <label for="password">Enter password</label>
                         </div>
-                        <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;color: red;font-family: sans-serif;font-style: italic;">
-                            @error('password')  {{ $message }} @enderror
-                        </p>
+                        <div class="error-message" id="password-error"></div>
                     </div>
                    
                     <div class="flex justify-center">
@@ -52,7 +97,6 @@
 
                 </form>
                 <p class="mt-4 text-center text-sm text-gray-600">
-                
                     <a href="{{ route('forgotpswd.form')}}" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password&nbsp;<i class="fa fa-arrow-right"></i></a>
                 </p>
             </div>
@@ -61,8 +105,29 @@
     <script>
         setTimeout(() => {
             var msg=document.getElementById('error_message_id');
-            // msg.style.display="none";
             console.log(msg);
         },2000);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('login-form');
+
+            form.addEventListener('blur', (event) => {
+                const input = event.target;
+                const errorElement = document.getElementById(`${input.id}-error`);
+                
+                if (input.tagName === 'INPUT') {
+                    // Clear previous error message
+                    errorElement.textContent = '';
+
+                    // Simple validation example
+                    if (input.value.trim() === '') {
+                        input.classList.add('invalid');
+                        errorElement.textContent = 'This field is required.';
+                    } else {
+                        input.classList.remove('invalid');
+                    }
+                }
+            }, true);
+        });
     </script>
 @endsection

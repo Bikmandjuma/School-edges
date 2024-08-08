@@ -3,7 +3,7 @@
 	<!-- Hero Section -->
     <section id="hero" class="hero section dark-background">
 
-      <img src="{{ URL::to('/')}}/homePage/assets/img/bg_1.jpg" alt="" data-aos="fade-in">
+      <img src="{{ URL::to('/')}}/homePage/assets/img/bg_0.jpg" alt="" data-aos="fade-in">
 
     </section><!-- /Hero Section -->
 

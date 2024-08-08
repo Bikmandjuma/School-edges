@@ -1,5 +1,60 @@
 @extends('homePage.cover')
 @section('content')
+<style>
+        
+        .form-container {
+            /*max-width: 500px;
+            width: 100%;*/
+            margin: 20px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 16px;
+            color: #888;
+            transition: all 0.2s ease-out;
+            pointer-events: none;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            padding-top: 30px; /* Space for the floating label */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 0;
+            font-size: 12px;
+            color: #007bff;
+            background: #fff;
+            padding: 0 5px;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+    </style>
+
     <!-- Page Title -->
     <div class="page-title" data-aos="fade">
       <!-- <div class="heading" style='background-image:url("{{ URL::to('/')}}/homePage/assets/img/contact_us.jfif");'> -->
@@ -112,7 +167,7 @@
                   </div>
               </div>
             @endif
-
+<!-- 
             <form action="{{ route('guestSubmitcontact') }}" method="post" data-aos="fade-up" data-aos-delay="200">
               @csrf
               <div class="row gy-4">
@@ -137,12 +192,30 @@
                   <!-- <div class="loading">Loading</div>
                   <div class="error-message"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
+
+
  -->
-                  <button type="submit" class="btn btn-primary">Send Message</button>
+                <div class="form-container">
+                  <form>
+                      <div class="form-group">
+                          <input type="text" id="name" name="name" placeholder=" " required>
+                          <label for="name">Name</label>
+                      </div>
+                      <div class="form-group">
+                          <input type="email" id="email" name="email" placeholder=" " required>
+                          <label for="email">Email</label>
+                      </div>
+                      <div class="form-group">
+                          <textarea id="message" name="message" rows="4" placeholder=" " required></textarea>
+                          <label for="message">Message</label>
+                      </div>
+              
+                          <button type="submit" class="btn btn-primary">Send Message</button>
+                      </div>
+
+                  </form>
                 </div>
 
-              </div>
-            </form>
           </div><!-- End Contact Form -->
 
         </div>

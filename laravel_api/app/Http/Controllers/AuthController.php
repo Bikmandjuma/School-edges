@@ -27,6 +27,9 @@ class AuthController extends Controller{
         $request->validate([
             'username'=>'required|string',
             'password'=>'required|string',
+        ],[
+            'username.required' =>'',
+            'password.required' =>''
         ]);
 
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
