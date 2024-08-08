@@ -17,7 +17,18 @@ use App\Mail\emailToUserToRegister;
 class AdminController extends Controller
 {
     public function home(){
-        return view('admin.home');
+        $system_users=collect(User::all())->count();
+        $onlineUsers =User::where('last_active_at', '>=', now()->subMinutes(5))->get();
+        $count_onlineUsers=collect($onlineUsers)->count();
+
+        $user_roles=DB::table('user_roles')
+                    ->join('users','user_roles.id','=','users.role_id')
+                    ->select('user_roles.*')
+                    ->where('user_roles.role_name','=','Teacher')
+                    ->get();
+        $count_user_roles=collect($user_roles)->count();
+
+        return view('admin.home',compact('count_onlineUsers','system_users','count_user_roles'));
     }
 
     public function profile(){
@@ -110,6 +121,7 @@ class AdminController extends Controller
 
     public function view_users(){
         $count_no=1;
+
         $users_data=User::all();
 
         // $onlineUsers =User::where('last_active_at', '>=', now()->subMinutes(5))->get();

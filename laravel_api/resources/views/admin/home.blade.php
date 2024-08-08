@@ -29,7 +29,7 @@
                       <i class="fa fa-users"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>0</h6>
+                      <h6>{{ $system_users }}</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
                     </div>
                   </div>
@@ -50,7 +50,7 @@
                       <i class="bi bi-person-badge"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>0</h6>
+                      <h6>{{ $count_user_roles }}</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -94,7 +94,7 @@
                           <i class="fas fa-user-circle"></i>
                         </div>
                         <div class="ps-3">
-                          <h6>0</h6>
+                          <h6>{{ $count_onlineUsers }}</h6>
                           <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                         </div>
