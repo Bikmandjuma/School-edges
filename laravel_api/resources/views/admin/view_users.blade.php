@@ -65,23 +65,29 @@
                   </tr>
                 </thead>
                 <tbody>
-                	@foreach($users_data as $data)
-	                  <tr>
-	                    <td>{{ $count_no++ }}</td>
-                      <td>
-                          <img src="{{ URL::to('/') }}/userPanel/profile/{{ $data->image }}" alt="Profile" class="rounded-circle" style="border:2px solid #eee;width: 40px;height: 40px;">
-                      </td>
-                      <td>
-                          @if ($is_online == True)
-                              <div class="online-indicator"></div>
-                          @endif
-                      </td>
-	                    <td>{{ $data->firstname }}</td>
-	                    <td>{{ $data->lastname }}</td>
-	                    <td>{{ $data->gender }}</td>
-	                    <td><a href="{{ route('viewUserData',Crypt::encrypt($data->id)) }}"><i class="fa fa-eye"></i>&nbsp;View</a> </td>
-	                  </tr>
-	                @endforeach
+                  @foreach($users_data as $user)
+                    <tr>
+                        <td>{{ $count_no++ }}</td>
+                        <td>
+                            <div style="position: relative; display: inline-block;">
+                                <img src="{{ URL::to('/') }}/userPanel/profile/{{ $user->image }}" alt="Profile" class="rounded-circle" style="border:2px solid #eee;width: 40px;height: 40px;">
+                                @if($user->is_online)
+                                    <div class='online_indicator_user' title="{{ $user->firstname }} {{ $user->lastname }} is online right now !">
+                                        <span class='blink_online_icon_user'></span>
+                                    </div>
+                                @else
+                                    <span style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background-color: #dc3545; border-radius: 50%; border: 2px solid white;"></span>
+                                @endif
+                            </div>
+                        </td>
+                        <td>{{ $user->firstname }}</td>
+                        <td>{{ $user->lastname }}</td>
+                        <td>{{ $user->gender }}</td>
+                        <td><a href="{{ route('viewUserData', Crypt::encrypt($user->id)) }}"><i class="fa fa-eye"></i>&nbsp;View</a></td>
+                    </tr>
+                @endforeach
+
+
                 </tbody>
               </table>
               

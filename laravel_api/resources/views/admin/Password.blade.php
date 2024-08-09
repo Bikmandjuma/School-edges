@@ -1,5 +1,59 @@
 @extends('admin.cover')
 @section('content')
+    <style type="text/css">
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            font-size: 16px;
+            color: #888;
+            transition: all 0.2s ease-out;
+            pointer-events: none;
+            background-color: #fff; /* Ensure background is opaque */
+            padding: 0 4px; /* Space for the label to sit on top of the input */
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 12px 12px 12px; /* Add padding to accommodate label */
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        .form-group input:focus + label,
+        .form-group input:not(:placeholder-shown) + label,
+        .form-group textarea:focus + label,
+        .form-group textarea:not(:placeholder-shown) + label {
+            top: -12px;
+            left: 12px;
+            font-size: 12px;
+            color: #007bff;
+        }
+        .form-group input.invalid,
+        .form-group textarea.invalid {
+            border-color: #e74c3c;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+    </style>
+
     <div class="pagetitle">
       <h1>Profile</h1>
       <nav>
@@ -40,14 +94,11 @@
 
                 <div class="tab-pane fade show active pt-3" id="profile-change-password">
                   @if($errors->any())
-                      <div class="d-flex align-items-center justify-content-center" id="error_msg">
-                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                              @foreach($errors->all() as $error)
-                                  {{ $error }}<br>
-                              @endforeach
-                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                          </div>
-                      </div>
+                      <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;color: #e74c3c;font-size: 14px;" class="error-message" id="error_msg">
+                        @foreach($errors->all() as $error)
+                            {{ $error }}<br>
+                        @endforeach
+                      </p>
                   @endif
 
                   @if(session('current_password'))
@@ -59,36 +110,32 @@
                       </div>
                   @endif
 
-
-      
-                  <!-- Change Password Form -->
-                  <form action="{{ route('password') }}" method="POST">
+                  <form class="mt-8 space-y-6 ml-4" action="{{ route('password') }}" method="POST" id="password-form">
                     @csrf
-                    <div class="row mb-3">
-                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="current_password" type="password" class="form-control" id="currentPassword">
-                      </div>
-                    </div>
+                    <div class="rounded-md">
+                        <div  class="form-group">
+                            <input name="current-password" value="{{old('password')}}" type="password" autocomplete="password" placeholder=" " id="password">
+                            <label for="password">Enter current password</label>
+                            <div class="error-message" id="password-error"></div>
+                        </div>
+                        
 
-                    <div class="row mb-3">
-                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="new_password" type="password" class="form-control" id="newPassword">
-                      </div>
-                    </div>
+                        <div style="margin-top:10px;"  class="form-group">
+                            <input name="new-password" type="password" autocomplete="current-password" placeholder=" " id="new-password" >
+                            <label for="new-password">Enter new password</label><div class="error-message" id="new-password-error"></div>
+                        </div>
 
-                    <div class="row mb-3">
-                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                      <div class="col-md-8 col-lg-9">
-                        <input name="new_password_confirmation" type="password" class="form-control" id="renewPassword">
-                      </div>
+                        <div style="margin-top:10px;"  class="form-group">
+                            <input name="password_confirmation" type="password" autocomplete="current-password" placeholder=" " id="repeat-new-password" >
+                            <label for="repeat-new-password">Repeat new-password</label><div class="error-message" id="repeat-new-password-error"></div>
+                        </div>
+                        
                     </div>
-
+                   
                     <div class="text-center">
                       <button type="submit" class="btn btn-primary">Change Password</button>
                     </div>
-                  </form><!-- End Change Password Form -->
+                  </form>
 
                 </div>
 
@@ -120,9 +167,32 @@
               </div><!-- End Vertically centered Modal-->
 
       <script>
-        setTimeout(function(){
-          document.getElementById('error_msg').style.display="none";
-        },5000);
+       
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('password-form');
+
+            form.addEventListener('blur', (event) => {
+                const input = event.target;
+                const errorElement = document.getElementById(`${input.id}-error`);
+                
+                if (input.tagName === 'INPUT') {
+                    // Clear previous error message
+                    errorElement.textContent = '';
+
+                    // Simple validation example
+                    if (input.value.trim() === '') {
+                        input.classList.add('invalid');
+                        errorElement.textContent = 'This field is required.';
+                        document.getElementById('error_msg').style.display="none";
+                    } else {
+                        input.classList.remove('invalid');
+                    }
+                }
+            }, true);
+        });
+    </script>
+
+
       </script>
 
 @endsection

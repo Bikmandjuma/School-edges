@@ -96,10 +96,10 @@
                     <!-- Bordered Tabs -->
                     <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#registered" type="button" role="tab" aria-controls="home" aria-selected="true">Registered&nbsp;<i class="mt-2" style="background-color:blue;border-radius: 50px;padding:3px;color: white"><b>{{$data_email_registered_count}}</b></i></button>
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#registered" type="button" role="tab" aria-controls="home" aria-selected="true">Registered&nbsp;<i class="badge bg-primary"><b>{{$data_email_registered_count}}</b></i></button>
                       </li>
                       <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#not_registered" type="button" role="tab" aria-controls="profile" aria-selected="false">Not registered yet&nbsp;<i class="mt-2" style="background-color:blue;border-radius: 50px;padding:3px;color: white"><b>{{$data_count_email}}</b></i></button>
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#not_registered" type="button" role="tab" aria-controls="profile" aria-selected="false">Not registered yet&nbsp;<i class="badge bg-primary"><b>{{$data_count_email}}</b></i></button>
                       </li>
                       
                     </ul>

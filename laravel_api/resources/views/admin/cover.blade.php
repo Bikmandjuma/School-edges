@@ -107,6 +107,38 @@
              }
     }
 
+    /*blink online user*/
+    div.online_indicator_user {
+        position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background-color: #28a745; border-radius: 50%; border: 2px solid white;
+        z-index: 1;
+        background-color:lightskyblue;
+        border-radius: 50%;
+        position: absolute;
+    }
+
+    div.online_indicator_user:hover{
+      cursor: alias;
+    }
+      
+    span.blink_online_icon_user {
+        display: block;
+        width: 12px;
+        height: 12px;
+        margin-top: -2px;
+        margin-left: -2px;
+        background-color:blue;
+        opacity: 0.6;
+        border-radius: 50%;
+        animation: blink 1s linear infinite;
+    }
+
+    /*Animations*/
+    @keyframes blink {
+        100% { transform: scale(2, 2); 
+                opacity: 0;
+          }
+    }
+
   </style>
 </head>
 

@@ -48,7 +48,7 @@ class AuthController extends Controller{
         if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout(); // Logout admin
         } elseif (Auth::guard('user')->check()) {
-            Auth::guard('user')->user()->update(['last_active_at' => now()->subMinutes(10)]);
+            Auth::guard('user')->user()->update(['last_active_at' => now()]);
             Auth::guard('user')->logout(); // Logout normal user
         }
 

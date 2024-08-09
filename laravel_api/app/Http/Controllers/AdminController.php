@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\validator;
 use App\Models\SendEmailToUserToRegister;
 use App\Mail\emailToUserToRegister;
 
@@ -46,10 +47,27 @@ class AdminController extends Controller
     }
 
     public function password(Request $request){
-        $request->validate ([
-            'current_password' => 'required',
-            'new_password' => 'required|string|min:8|confirmed',
+        // Validate the request for specific fields
+
+        $validator = Validator::make($request->all(), [
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:8|confirmed',
         ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            // Set a general error message if any required field is missing
+            $errors = $validator->errors();
+            
+            // Check if any required field errors exist
+            if ($errors->has('current-password') || $errors->has('new-password')) {
+                return redirect()->back()->withErrors(['all_fields_required' => 'Please , all fields are required !']);
+            }
+
+            // Return specific errors if needed
+            return redirect()->back()->withErrors($validator);
+        }
+
 
         if (!Hash::check($request->current_password, Auth::guard('admin')->user()->password)) {
             return redirect()->back()->withErrors(['current_password' => 'Current password does not match'])->withInput();
@@ -57,22 +75,22 @@ class AdminController extends Controller
 
         Auth::guard('admin')->user()->update(['password' => Hash::make($request->new_password)]);
 
-        toastr()->info('Password changed successfully',['timeOut' => 5000]);
+        // toastr()->info('Password changed successfully',['timeOut' => 5000]);
         
-        return redirect()->back();
+        return redirect()->back()->with('info','Password changed successfully');
     }
 
     public function editInfo(Request $request,$id){
         
-        $request->validate([
-            'firstname' => 'required|string',
-            'lastname' => 'required|string',
-            'gender' => 'required|string',
-            'phone' => 'required|string|unique:users,phone|unique:admins,phone',
-            'email' => 'required|string|email|unique:users,email|unique:admins,email',
-            'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
-            'dob' => 'required|string',
-        ]);
+        // $request->validate([
+        //     'firstname' => 'required|string',
+        //     'lastname' => 'required|string',
+        //     'gender' => 'required|in:Male,Female',
+        //     'phone' => 'required|numeric|unique:users,phone|unique:admins,phone',
+        //     'email' => 'required|email|unique:users,email|unique:admins,email',
+        //     'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
+        //     'dob' => 'required|string',
+        // ]);
 
         $admin_id=$id;
         $fname=$request->firstname;
@@ -93,9 +111,9 @@ class AdminController extends Controller
         $user->username=$uname;
         $user->save();
 
-        toastr()->info("Data updated successfully !", ['timeOut' =>5000]);
+        // toastr()->info("Data updated successfully !", ['timeOut' =>5000]);
 
-        return redirect()->back();
+        return redirect()->back()->with('info','Data updated successfully !');
 
     }
 
@@ -121,15 +139,21 @@ class AdminController extends Controller
 
     public function view_users(){
         $count_no=1;
+        $users_data = User::all();
 
-        $users_data=User::all();
+        // Get the current time
+        $now = now();
 
-        // $onlineUsers =User::where('last_active_at', '>=', now()->subMinutes(5))->get();
+        // Determine online status for each user
         foreach ($users_data as $user) {
-            $is_online = $user->last_active_at >= now()->subMinutes(5);
+            // Check if the user was active within the last 5 minutes
+            $user->is_online = $user->last_active_at >= $now->subMinutes(5);
+            // Reset the time for the next comparison
+            $now = now();
         }
 
-        return view('admin.view_users',compact('users_data','count_no','is_online'));
+        return view('admin.view_users', compact('users_data', 'count_no'));
+
     }
 
     public function registerUserByInformation(){
