@@ -76,7 +76,7 @@
                                         <span class='blink_online_icon_user'></span>
                                     </div>
                                 @else
-                                    <span style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background-color: #dc3545; border-radius: 50%; border: 2px solid white;"></span>
+                                    <span style="position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background-color: #dc3545; border-radius: 50%; border: 2px solid white;" title="{{ $user->firstname }} {{ $user->lastname }} is offline right now !"></span>
                                 @endif
                             </div>
                         </td>
