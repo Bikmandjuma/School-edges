@@ -45,23 +45,25 @@
                 <form action="{{ route('submitUserEmailToRegister') }}" method="POST" style="padding-left:10px;padding-right: 10px;">
                   @csrf
 
-                    <div class="row">
+                  <div class="row">
                       <div class="col-md-6">
-                        <input type="text" name="email" class="form-control" placeholder="Enter email">
+                          <input type="text" name="email" class="form-control" placeholder="Enter email">
                       </div>
                       <div class="col-md-6">
-                        <select name="role_name" class="form-control" id="role_selection" required>
-                          <option class="">User role . . .</option>
-                          @foreach($user_role_data as $data)
-                            <option value="{{ $data->id }}"><b>{{ $data->role_name }}</b></option>
-                          @endforeach
-                        </select>
+                          <select name="role_name" class="form-control" id="role_selection" required>
+                              <option class="">User role . . .</option>
+                              @foreach($user_role_data as $data)
+                                  <option value="{{ $data->id }}"><b>{{ $data->role_name }}</b></option>
+                              @endforeach
+                          </select>
                       </div>
-                    </div>
+                  </div>
 
                   <br>
-                  <button class="btn btn-primary mb-4" type="submit">Send&nbsp;<i class="fa fa-paper-plane"></i></button>
-                </form>
+                  <div class="text-center">
+                      <button class="btn btn-primary mb-4" type="submit">Send&nbsp;<i class="fa fa-paper-plane"></i></button>
+                  </div>
+              </form>
               
           </div>
 

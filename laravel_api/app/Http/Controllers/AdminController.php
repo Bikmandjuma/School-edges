@@ -18,7 +18,10 @@ use App\Mail\emailToUserToRegister;
 class AdminController extends Controller
 {
     public function home(){
-        $system_users=collect(User::all())->count();
+        $admin_count = Admin::all()->count();
+        $normal_users = User::all()->count();
+        $system_users = $admin_count + $normal_users;
+        
         $onlineUsers =User::where('last_active_at', '>=', now()->subMinutes(5))->get();
         $count_onlineUsers=collect($onlineUsers)->count();
 
