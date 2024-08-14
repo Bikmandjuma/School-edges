@@ -31,6 +31,10 @@ Route::post('forgot_password_submission',[AuthController::class,'submit_forgot_p
 Route::post('login-post',[AuthController::class,'login_functionality'])->name('post_login');
 Route::get('admin-home',[AdminController::class,'home']);
 
+Route::get('testing',function(){
+    return view('mainHome.auth.login');
+});
+
 Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('home',[AdminController::class,'home'])->name('dashboard');
     Route::get('profile',[AdminController::class,'profile'])->name('profile.page');
