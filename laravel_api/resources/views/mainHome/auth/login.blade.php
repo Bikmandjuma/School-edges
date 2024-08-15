@@ -102,13 +102,12 @@
 
                 </form>
                 <p class="mt-4 text-center text-sm text-gray-600">
-                    <a href="{{ route('forgotpswd.form')}}" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password&nbsp;<i class="fa fa-arrow-right"></i></a>
+                    <a href="{{ route('main.forgot_password.page')}}" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password&nbsp;<i class="fa fa-arrow-right"></i></a>
                 </p>
             </div>
         </div>
     </div>
     <script>
-        document.getElementById('footer').style.display="none";
         setTimeout(() => {
             var msg=document.getElementById('error_message_id');
             console.log(msg);

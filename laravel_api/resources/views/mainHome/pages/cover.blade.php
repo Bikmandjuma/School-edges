@@ -64,32 +64,33 @@
 		<!-- Header Area -->
 		<header class="header" >
 			<!-- Topbar -->
-			<div class="topbar">
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-6 col-md-5 col-12">
-							<!-- Contact -->
-							<ul class="top-link">
-								<li><a href="#about"><i class="fa fa-facebook"></i>&nbsp;</a></li>
-								<li><a href="#services"><i class="fa fa-whatsapp"></i>&nbsp;</a></li>
-								<li><a href="#contact"><i class="fa fa-phone"></i>&nbsp;</a></li>
-								<li><a href="#contact"><i class="fa fa-instagram"></i>&nbsp;</a></li>
-								<li><a href="#contact"><i class="fa fa-twitter"></i>&nbsp;</a></li>
-								<li><a href="#contact"><i class="fa fa-envelope"></i>&nbsp;</a></li>
-							</ul>
-							<!-- End Contact -->
-						</div>
-						<div class="col-lg-6 col-md-7 col-12">
-							<!-- Top Contact -->
-							<ul class="top-contact">
-								<li><i class="fa fa-phone"></i>+250785389000</li>
-								<li><i class="fa fa-envelope"></i><a href="mailto:support@yourmail.com">{{ config('app.name','laravel') }}@gmail.com</a></li>
-							</ul>
-							<!-- End Top Contact -->
-						</div>
-					</div>
-				</div>
-			</div>
+			<div class="topbar" style="background: #1a76d1;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-5 col-12">
+                <!-- Contact -->
+                <ul class="top-link" style="list-style: none; padding: 0; margin: 0;">
+                    <li style="display: inline; margin-right: 10px;"><a href="#about" style="color: #fff;"><i class="fa fa-facebook"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#services" style="color: #fff;"><i class="fa fa-whatsapp"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-phone"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-instagram"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-twitter"></i>&nbsp;</a></li>
+                    <li style="display: inline; margin-right: 10px;"><a href="#contact" style="color: #fff;"><i class="fa fa-envelope"></i>&nbsp;</a></li>
+                </ul>
+                <!-- End Contact -->
+            </div>
+            <div class="col-lg-6 col-md-7 col-12">
+                <!-- Top Contact -->
+                <ul class="top-contact" style="list-style: none; padding: 0; margin: 0; color: #fff;">
+                    <li style="color:white;"><i class="fa fa-phone" style="color:white;"></i>+250785389000</li>
+                    <li><i class="fa fa-envelope" style="color:white;"></i><a href="mailto:support@yourmail.com" style="color: #fff;">{{ config('app.name','laravel') }}@gmail.com</a></li>
+                </ul>
+                <!-- End Top Contact -->
+            </div>
+        </div>
+    </div>
+</div>
+
 			<!-- End Topbar -->
 			<!-- Header Inner -->
 			<div class="header-inner">

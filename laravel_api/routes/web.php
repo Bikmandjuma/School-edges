@@ -13,6 +13,7 @@ Route::get('/', function () {
 
 //start .. Main homepage , this code block is about mainpage
 Route::get('login-form',[mainAuthController::class,'login'])->name('main.login.page');
+Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');
 //end .. Main homepage , this code block is about mainpage
 
 Route::get('about-us',[homeController::class,'about_us'])->name('about_us');
