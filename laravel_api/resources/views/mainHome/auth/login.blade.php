@@ -53,6 +53,10 @@
         .form-group textarea {
             resize: vertical;
         }
+
+        #footer{
+            display: {{ $hideFooter ? 'none' : 'block'}};
+        }
     </style>
 
     <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top:-50px;">
@@ -104,6 +108,7 @@
         </div>
     </div>
     <script>
+        document.getElementById('footer').style.display="none";
         setTimeout(() => {
             var msg=document.getElementById('error_message_id');
             console.log(msg);

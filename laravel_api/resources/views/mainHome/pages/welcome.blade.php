@@ -1,4 +1,4 @@
-@extends('mainHomePage.cover')
+@extends('mainHome.pages.cover')
 @section('content')
 <!-- Slider Area -->
 		<section class="slider">
@@ -182,10 +182,10 @@
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Start Single Fun -->
 						<div class="single-fun">
-							<i class="icofont icofont-home"></i>
+							<i class="fa fa-home"></i>
 							<div class="content">
-								<span class="counter">3468</span>
-								<p>Hospital Rooms</p>
+								<span class="counter">0</span>
+								<p>Schools</p>
 							</div>
 						</div>
 						<!-- End Single Fun -->
@@ -195,8 +195,8 @@
 						<div class="single-fun">
 							<i class="icofont icofont-user-alt-3"></i>
 							<div class="content">
-								<span class="counter">557</span>
-								<p>Specialist Doctors</p>
+								<span class="counter">0</span>
+								<p>system users</p>
 							</div>
 						</div>
 						<!-- End Single Fun -->
@@ -204,10 +204,10 @@
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Start Single Fun -->
 						<div class="single-fun">
-							<i class="icofont-simple-smile"></i>
+							<i class="fa fa-book"></i>
 							<div class="content">
-								<span class="counter">4379</span>
-								<p>Happy Patients</p>
+								<span class="counter">0</span>
+								<p>Students</p>
 							</div>
 						</div>
 						<!-- End Single Fun -->
@@ -215,9 +215,9 @@
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Start Single Fun -->
 						<div class="single-fun">
-							<i class="icofont icofont-table"></i>
+							<i class="fa fa-wrench"></i>
 							<div class="content">
-								<span class="counter">32</span>
+								<span class="counter">0</span>
 								<p>Years of Experience</p>
 							</div>
 						</div>
@@ -233,11 +233,12 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="section-title">
-							<h2>We Offer Different Services To Improve Your Health</h2>
-							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#">
-							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
+						<div class="section-title" style="text-align: center;">
+						    <h2>We Offer Different Services To Improve Your Health</h2>
+						    <img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="display: block; margin: 0 auto;">
+						    <p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
+
 					</div>
 				</div>
 				<div class="row">
@@ -651,9 +652,9 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12">
-						<div class="section-title">
+						<div class="section-title" style="text-align:center;">
 							<h2>We Are Always Ready to Help You. Book An Appointment</h2>
-							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#">
+							<img src="{{ URL::to('/') }}/mainHomePage/img/section-img.png" alt="#" style="display: block; margin: 0 auto;">
 							<p>Lorem ipsum dolor sit amet consectetur adipiscing elit praesent aliquet. pretiumts</p>
 						</div>
 					</div>

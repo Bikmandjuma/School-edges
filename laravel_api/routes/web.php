@@ -5,10 +5,15 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\mainAuthController;
 
 Route::get('/', function () {
     return view('homePage.home');
 })->name('guest_homepage');
+
+//start .. Main homepage , this code block is about mainpage
+Route::get('login-form',[mainAuthController::class,'login'])->name('main.login.page');
+//end .. Main homepage , this code block is about mainpage
 
 Route::get('about-us',[homeController::class,'about_us'])->name('about_us');
 Route::get('service',[homeController::class,'service'])->name('service');
@@ -32,8 +37,12 @@ Route::post('login-post',[AuthController::class,'login_functionality'])->name('p
 Route::get('admin-home',[AdminController::class,'home']);
 
 Route::get('testing',function(){
-    return view('mainHome.auth.login');
+    return view('mainHome.pages.welcome');
 });
+
+// Route::get('testing',function(){
+//     return view('mainHome.auth.login');
+// });
 
 Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('home',[AdminController::class,'home'])->name('dashboard');

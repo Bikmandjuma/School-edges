@@ -117,7 +117,7 @@
 											<li><a href="#"><i class="fa fa-list-alt"></i>&nbsp;About </a></li>
 											<li><a href="#"><i class="fa fa-wrench"></i>&nbsp;Services </a></li>
 											<li><a href="#"><i class="fa fa-money"></i>&nbsp;Pricing </a></li>
-											<li><a href="contact.html"><i class="fa fa-phone"></i>&nbsp;Contact Us</a></li>
+											<li><a href="#"><i class="fa fa-phone"></i>&nbsp;Contact Us</a></li>
 										</ul>
 									</nav>
 								</div>
@@ -125,7 +125,7 @@
 							</div>
 							<div class="col-lg-2 col-12">
 								<div class="get-quote">
-									<a href="{{ route('login.form') }}" class="btn"> <i class="fa fa-user"></i> Account</a>
+									<a href="{{ route('main.login.page') }}" class="btn"> <i class="fa fa-user"></i> Account</a>
 								</div>
 							</div>
 						</div>
