@@ -62,7 +62,7 @@
     <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top:-100px;">
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
-                <h2 class="text-2xl font-bold text-center text-gray-800">Login here</h2>
+                <h2 class="text-2xl font-bold text-center text-gray-800">Registration contact</h2>
                 @if (session('error-message'))
                     <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;margin-top: 20px;color: #e74c3c;font-size: 14px;" id="error_msg">
                         {{ session('error-message') }}
@@ -79,33 +79,31 @@
                     @csrf
                     <div class="rounded-md">
                         <div  class="form-group">
-                            <input name="username" value="{{old('username')}}" type="text" autocomplete="email" placeholder=" " id="username">
-                            <label for="username">Enter username</label>
+                            <input name="email" value="{{old('email')}}" type="text" autocomplete="email" placeholder=" " id="username">
+                            <label for="username">Enter email</label>
                             <div class="error-message" id="username-error"></div>
                         </div>
                         
 
                         <div style="margin-top:10px;"  class="form-group">
-                            <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password" >
-                            <label for="password">Enter password</label><div class="error-message" id="password-error"></div>
+                            <input name="phone" type="number" autocomplete="phone" placeholder=" " id="password" >
+                            <label for="password">Enter phone</label><div class="error-message" id="password-error"></div>
                         </div>
                         
                     </div>
                    
                     <div class="flex justify-center">
                         <button type="submit"
-                            style="width: 150px;" 
+                            style="width: 180px;" 
                             class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Login&nbsp;&nbsp;<i class="fa fa-lock-open mt-1"></i>
+                            Send contact&nbsp;&nbsp;<i class="fa fa-send mt-1"></i>
                         </button>
                     </div>
 
                 </form>
-                <p class="mt-4 text-center text-sm text-gray-600">
-                    <a href="{{ route('main.forgot_password.page')}}" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password&nbsp;<i class="fa fa-arrow-right"></i></a>
-                </p>
+                
                 <p class="mt-4 text-center">
-                    Don't have an account : <a href="{{ route('main.send_mail_toRegister.page')}}" class="font-medium hover:text-indigo-500" style="color: blueviolet;">Sign up</i></a>
+                    Already have an account : <a href="{{ route('main.login.page')}}" class="font-medium hover:text-indigo-500" style="color: blueviolet;">Sign in</i></a>
                 </p>
             </div>
         </div>

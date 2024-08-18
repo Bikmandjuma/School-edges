@@ -19,7 +19,7 @@ $(document).ready(function(){
 		clickable: false
 	});
 
-	var image = 'img/map-marker.png';
+	var image = "{{URL::to('/')}}/mainHomePage/img/map-marker.png";
 	map.addMarker({
 		lat: 51.507351,
 		lng: -0.127758,

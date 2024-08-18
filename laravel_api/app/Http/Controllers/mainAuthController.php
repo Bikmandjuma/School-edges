@@ -34,5 +34,29 @@ class mainAuthController extends Controller
         return view('mainHome.pages.contact');
     }
 
-    
+    public function send_mail_to_register(){
+        return view('mainHome.auth.mail_toRegister')->with('hideFooter',true);
+    }
+
+    public function SubmitContact(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|numeric',
+            'subject' => 'required|string',
+            'message' => 'required|string',
+        ]);
+
+        mainContact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'subject' => $request->subject,
+            'message' => $request->message
+        ]);
+
+        return redirect()->back()->with('info','message sent , We\'ll reply to you soon');
+    }
+
+
 }

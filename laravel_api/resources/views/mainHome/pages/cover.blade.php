@@ -163,7 +163,7 @@
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
 								<h2>About Us</h2>
-								<p>Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.</p>
+								<p>SchoolEdge is a user-friendly management information system designed to streamline school operations, track student progress, and enhance communication between teachers, students, and parents.it helps schools improve efficiency by machine learning technology and prevent student dropouts</p>
 								<!-- Social -->
 								<ul class="social">
 									<li><a href="#"><i class="icofont-facebook"></i></a></li>
@@ -181,21 +181,16 @@
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-12">
 										<ul>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Services</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Our Cases</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Other Links</a></li>	
+											<li><a href="{{ route('main.home') }}"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
+											<li><a href="{{ route('main.about') }}"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a></li>
+											<li><a href="{{ route('main.services') }}"><i class="fa fa-caret-right" aria-hidden="true"></i>Services</a></li>
+											<li><a href="{{ route('main.pricing') }}"><i class="fa fa-caret-right" aria-hidden="true"></i>pricing</a></li>
+											<li><a href="{{ route('main.contact') }}"><i class="fa fa-caret-right" aria-hidden="true"></i>contact us</a></li>	
+											<li><a href="{{ route('main.login.page') }}"><i class="fa fa-caret-right" aria-hidden="true"></i>account</a></li>	
 										</ul>
 									</div>
 									<div class="col-lg-6 col-md-6 col-12">
-										<ul>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Consuling</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Testimonials</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contact Us</a></li>	
-										</ul>
+										
 									</div>
 								</div>
 							</div>
@@ -203,18 +198,18 @@
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
 								<h2>Open Hours</h2>
-								<p>Lorem ipsum dolor sit ame consectetur adipisicing elit do eiusmod tempor incididunt.</p>
+								<p></p>
 								<ul class="time-sidual">
-									<li class="day">Monday - Fridayp <span>8.00-20.00</span></li>
-									<li class="day">Saturday <span>9.00-18.30</span></li>
-									<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
+									<li class="day">Monday - Friday <span>8:00-17:00</span></li>
+									<li class="day">Saturday <span>closed</span></li>
+									<li class="day">Sunday <span>closed</span></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
 								<h2>Newsletter</h2>
-								<p>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
+								<p>Subscribe to our newsletter to receive all our latest news and updates in your inbox in real-time, ensuring you stay informed about every event as it happens!</p>
 								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
 									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
 										onblur="this.placeholder = 'Your email address'" required="" type="email">
@@ -232,7 +227,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-12">
 							<div class="copyright-content">
-								<p>© Copyright 2018  |  All Rights Reserved by <a href="https://www.wpthemesgrid.com" target="_blank">wpthemesgrid.com</a> </p>
+								<p>© Copyright {{ date('Y') }}  |  All Rights Reserved by <a href="{{ route('main.home') }}" target="_blank"><strong>{{ config('app.name','laravel') }} </strong> </a> </p>
 							</div>
 						</div>
 					</div>

@@ -14,6 +14,7 @@ Route::get('/school', function () {
 //start .. Main homepage , this code block is about mainpage
 Route::get('login',[mainAuthController::class,'login'])->name('main.login.page');
 Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');
+Route::get('send_mail_to_register',[mainAuthController::class,'send_mail_to_register'])->name('main.send_mail_toRegister.page');
 
 Route::get('/',[mainAuthController::class,'home'])->name('main.home');
 Route::get('/about-us',[mainAuthController::class,'about_us'])->name('main.about');
