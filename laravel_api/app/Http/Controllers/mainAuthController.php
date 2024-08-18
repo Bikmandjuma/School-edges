@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\mainContact;
+use App\Models\mainSubscriber;
 
 class mainAuthController extends Controller
 {
@@ -55,7 +57,28 @@ class mainAuthController extends Controller
             'message' => $request->message
         ]);
 
-        return redirect()->back()->with('info','message sent , We\'ll reply to you soon');
+        return redirect()->back()->with('success','message sent , We\'ll reply to you soon');
+    }
+
+    public function submit_subscription_email(Request $request){
+        
+        try {
+            $request->validate([
+                'email' => 'required|email|unique:main_subscribers',
+            ], [], [], 'subscription');
+            
+            mainSubscriber::create([
+                'email' => $request->email,
+            ]);
+            
+            return redirect()->back()->with(['success' => 'Subscription successful !']);
+
+        } catch (ValidationException $e) {
+            
+            return redirect()->back()->with(['error' => $e->errors()['subscription']]);
+        
+        }
+
     }
 
 

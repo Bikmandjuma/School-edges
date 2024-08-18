@@ -9,7 +9,7 @@
 						<div class="col-12">
 							<h2>Contact Us</h2>
 							<ul class="bread-list">
-								<li><a href="index.html">Home</a></li>
+								<li><a href="{{ route('main.home') }}">Home</a></li>
 								<li><i class="icofont-simple-right"></i></li>
 								<li class="active">Contact Us</li>
 							</ul>
@@ -44,31 +44,46 @@
 								<h2>Contact With Us</h2>
 								<p>If you have any questions please feel free to contact with us.</p>
 								<!-- Form -->
-								<form class="form" method="post" action="mail/mail.php">
+									@if($errors->contact->any())
+										<div class="alert alert-danger">
+											<ul>
+											    @foreach($errors->contact->all() as $error)
+											        <li>{{ $error }}.</li>
+											    @endforeach
+											</ul>
+										</div>
+									@endif
+
+								<form class="form" method="POST" action="{{ route('main.submit.contact') }}">
+									@csrf
 									<div class="row">
 										<div class="col-lg-6">
 											<div class="form-group">
-												<input type="text" name="name" placeholder="Name" required="">
+												<input type="text" name="name" placeholder="Name" value="{{ old('name') }}">
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="form-group">
-												<input type="email" name="email" placeholder="Email" required="">
+												<input type="email" name="email" placeholder="Email" value="{{ old('email') }}">
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="form-group">
-												<input type="text" name="phone" placeholder="Phone" required="">
+												<input type="text" name="phone" placeholder="Phone" value="{{ old('phone') }}">
 											</div>
 										</div>
 										<div class="col-lg-6">
 											<div class="form-group">
-												<input type="text" name="subject" placeholder="Subject" required="">
+												<input type="text" name="subject" placeholder="Subject"  value="{{ old('subject') }}">
 											</div>
 										</div>
 										<div class="col-lg-12">
 											<div class="form-group">
-												<textarea name="message" placeholder="Your Message" required=""></textarea>
+												<!-- <textarea name="message" rows="4"placeholder="Your Message" required="">
+													 {{ old('message') }}
+												</textarea> -->
+												<textarea name="message" placeholder="Your Message"></textarea>
+											</div>
 											</div>
 										</div>
 										<div class="col-12">
@@ -104,8 +119,8 @@
 							<div class="single-info">
 								<i class="icofont-google-map"></i>
 								<div class="content">
-									<h3>2 Fir e Brigade Road</h3>
-									<p>Chittagonj, Lakshmipur</p>
+									<h3>KG 276 St , ave 25</h3>
+									<p>Kigali-Gasabo-Kacyiru</p>
 								</div>
 							</div>
 						</div>
@@ -115,8 +130,8 @@
 							<div class="single-info">
 								<i class="icofont icofont-wall-clock"></i>
 								<div class="content">
-									<h3>Mon - Sat: 8am - 5pm</h3>
-									<p>Sunday Closed</p>
+									<h3>Mon - Frid: 8am - 5pm</h3>
+									<p>Saturday - Sunday : Closed</p>
 								</div>
 							</div>
 						</div>

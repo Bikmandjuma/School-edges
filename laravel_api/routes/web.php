@@ -21,6 +21,8 @@ Route::get('/about-us',[mainAuthController::class,'about_us'])->name('main.about
 Route::get('/services',[mainAuthController::class,'services'])->name('main.services');
 Route::get('/pricing',[mainAuthController::class,'pricing'])->name('main.pricing');
 Route::get('/contact',[mainAuthController::class,'contact'])->name('main.contact');
+Route::post('submit/contact',[mainAuthController::class,'SubmitContact'])->name('main.submit.contact');
+Route::post('submit_subscription_email',[mainAuthController::class,'submit_subscription_email'])->name('main.submit_subscription_email');
 
 //end .. Main homepage , this code block is about mainpage
 

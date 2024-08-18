@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('aggreements', function (Blueprint $table) {
+        Schema::create('main_subscribers', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->unique();
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('aggreements');
+        Schema::dropIfExists('main_subscribers');
     }
 };

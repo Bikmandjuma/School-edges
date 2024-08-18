@@ -101,7 +101,9 @@
 								<!-- Start Logo -->
 								<div class="logo">
 									<!-- <h2><a href="index.html">{{ config('app.name','laravel') }}</a></h2> -->
-									<img src="{{URL::to('/')}}/mainHomePage/img/logo.png" alt="#">
+									<!-- <img src="{{URL::to('/')}}/mainHomePage/img/logo.png" alt="#"> -->
+									<img src="{{URL::to('/')}}/mainHomePage/img/icons.png" alt="#" style="width:60px;height:50px;">
+
 								</div>
 								<!-- End Logo -->
 								<!-- Mobile Nav -->
@@ -210,11 +212,13 @@
 							<div class="single-footer">
 								<h2>Newsletter</h2>
 								<p>Subscribe to our newsletter to receive all our latest news and updates in your inbox in real-time, ensuring you stay informed about every event as it happens!</p>
-								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Your email address'" required="" type="email">
-									<button class="button"><i class="icofont icofont-paper-plane"></i></button>
+
+								<form action="{{ route('main.submit_subscription_email') }}" method="POST" class="newsletter-inner">
+								    @csrf
+								    <input type="email" name="email" placeholder="Your email address" class="common-input" required="">
+								    <button type="submit" class="button"><i class="icofont icofont-paper-plane"></i></button>
 								</form>
+
 							</div>
 						</div>
 					</div>
