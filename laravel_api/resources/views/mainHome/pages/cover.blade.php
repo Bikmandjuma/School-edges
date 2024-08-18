@@ -100,8 +100,8 @@
 							<div class="col-lg-3 col-md-3 col-12">
 								<!-- Start Logo -->
 								<div class="logo">
-									<h2><a href="index.html">{{ config('app.name','laravel') }}</a></h2>
-									<!-- <img src="{{URL::to('/')}}/mainHomePage/img/logo.png" alt="#"> -->
+									<!-- <h2><a href="index.html">{{ config('app.name','laravel') }}</a></h2> -->
+									<img src="{{URL::to('/')}}/mainHomePage/img/logo.png" alt="#">
 								</div>
 								<!-- End Logo -->
 								<!-- Mobile Nav -->
@@ -113,13 +113,13 @@
 								<div class="main-menu">
 									<nav class="navigation">
 										<ul class="nav menu">
-											<li class="active"><a href="{{ route('main.home') }}"><i class="fa fa-home"></i>&nbsp;Home</a>
+											<li class="@if (Request::segment(1) == null ) active @endif"><a href="{{ route('main.home') }}"><i class="fa fa-home"></i>&nbsp;Home</a>
 											</li>
-											<li><a href="{{ route('main.about') }}"><i class="fa fa-list-alt"></i>&nbsp;About </a></li>
-											<li><a href="{{ route('main.services') }}"><i class="fa fa-wrench"></i>&nbsp;Services </a></li>
-											<li><a href="{{ route('main.pricing') }}"><i class="fa fa-money"></i>&nbsp;Pricing </a></li>
-											<li><a href="{{ route('main.contact') }}"><i class="fa fa-phone"></i>&nbsp;Contact Us</a></li>
-											<li class="d-block d-sm-none">
+											<li class="@if (Request::segment(1) == 'about-us' ) active @endif"><a href="{{ route('main.about') }}"><i class="fa fa-list-alt"></i>&nbsp;About </a></li>
+											<li class="@if (Request::segment(1) == 'services' ) active @endif"><a href="{{ route('main.services') }}"><i class="fa fa-wrench"></i>&nbsp;Services </a></li>
+											<li class="@if (Request::segment(1) == 'pricing' ) active @endif"><a href="{{ route('main.pricing') }}"><i class="fa fa-money"></i>&nbsp;Pricing </a></li>
+											<li class="@if (Request::segment(1) == 'contact' ) active @endif"><a href="{{ route('main.contact') }}"><i class="fa fa-phone"></i>&nbsp;Contact Us</a></li>
+											<li class="d-block d-sm-none ">
 											    <a href="{{ route('main.login.page') }}" style="color:blue;">
 											        <i class="fa fa-phone"></i>&nbsp;Account
 											    </a>
@@ -133,9 +133,15 @@
 							</div>
 							
 							<div class="col-lg-2 col-md-4 col-sm-6 col-12">
-							    <div class="get-quote">
+							   <!--  <div class="get-quote @if (Request::segment(1) == 'login-form' ) document.write(this).style.display='none' @endif">
 							        <a href="{{ route('main.login.page') }}" class="btn"> <i class="fa fa-user"></i> Account</a>
-							    </div>
+							    </div> -->
+							    <div class="get-quote">
+								    <a href="{{ route('main.login.page') }}" class="btn @if (Request::segment(1) == 'login') d-none @endif">
+								        <i class="fa fa-user"></i> Account
+								    </a>
+								</div>
+
 							</div>
 
 						</div>

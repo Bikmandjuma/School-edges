@@ -104,6 +104,9 @@
                 <p class="mt-4 text-center text-sm text-gray-600">
                     <a href="{{ route('main.forgot_password.page')}}" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot password&nbsp;<i class="fa fa-arrow-right"></i></a>
                 </p>
+                <p class="mt-4 text-center text-sm text-gray-600">
+                    Don't have an account : <a href="{{ route('main.forgot_password.page')}}" class="font-medium text-indigo-600 hover:text-indigo-500" class="text-sm text-blue-600">Sign up</i></a>
+                </p>
             </div>
         </div>
     </div>

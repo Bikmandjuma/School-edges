@@ -12,7 +12,7 @@ Route::get('/school', function () {
 })->name('guest_homepage');
 
 //start .. Main homepage , this code block is about mainpage
-Route::get('login-form',[mainAuthController::class,'login'])->name('main.login.page');
+Route::get('login',[mainAuthController::class,'login'])->name('main.login.page');
 Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');
 
 Route::get('/',[mainAuthController::class,'home'])->name('main.home');
@@ -23,34 +23,26 @@ Route::get('/contact',[mainAuthController::class,'contact'])->name('main.contact
 
 //end .. Main homepage , this code block is about mainpage
 
-Route::get('about-us',[homeController::class,'about_us'])->name('about_us');
-Route::get('service',[homeController::class,'service'])->name('service');
-Route::get('course',[homeController::class,'course'])->name('course');
-Route::get('teachers',[homeController::class,'teachers'])->name('teachers');
-Route::get('contact',[homeController::class,'contact'])->name('contact');
+Route::get('/school/about-us',[homeController::class,'about_us'])->name('about_us');
+Route::get('/school/service',[homeController::class,'service'])->name('service');
+Route::get('/school/course',[homeController::class,'course'])->name('course');
+Route::get('/school/teachers',[homeController::class,'teachers'])->name('teachers');
+Route::get('/school/contact',[homeController::class,'contact'])->name('contact');
 Route::post('submitContact',[homeController::class,'guestSubmitMessageContact'])->name('guestSubmitcontact');
 
-Route::get('login',[AuthController::class,'login_form'])->name('login.form');
-Route::get('logout',[AuthController::class,'logout'])->name('logout');
-Route::get('forgot-password',[AuthController::class,'forgotpswd_form'])->name('forgotpswd.form');
-Route::get('reset/password/code/{email}/{code}',[AuthController::class,'reset_password_code']);
-Route::post('codeCheck/{email}/{code}',[AuthController::class,'codeCheck'])->name('codeCheck');
-Route::get('reset/password/{email}/{code}',[AuthController::class,'resetPassword'])->name('resetPassword');
+Route::get('/school/login',[AuthController::class,'login_form'])->name('login.form');
+Route::get('/school/logout',[AuthController::class,'logout'])->name('logout');
+Route::get('/school/forgot-password',[AuthController::class,'forgotpswd_form'])->name('forgotpswd.form');
+Route::get('/school/reset/password/code/{email}/{code}',[AuthController::class,'reset_password_code']);
+Route::post('/school/codeCheck/{email}/{code}',[AuthController::class,'codeCheck'])->name('codeCheck');
+Route::get('/school/reset/password/{email}/{code}',[AuthController::class,'resetPassword'])->name('resetPassword');
 
-Route::post('submit/reset/password/{email}/{code}',[AuthController::class,'submitResetPassword'])->name('submitResetPassword');
+Route::post('/school/submit/reset/password/{email}/{code}',[AuthController::class,'submitResetPassword'])->name('submitResetPassword');
 
-Route::post('forgot_password_submission',[AuthController::class,'submit_forgot_password'])->name('submit-forgot-password');
+Route::post('/school/forgot_password_submission',[AuthController::class,'submit_forgot_password'])->name('submit-forgot-password');
 
-Route::post('login-post',[AuthController::class,'login_functionality'])->name('post_login');
+Route::post('/school/login-post',[AuthController::class,'login_functionality'])->name('post_login');
 Route::get('admin-home',[AdminController::class,'home']);
-
-Route::get('testing',function(){
-    return view('mainHome.pages.welcome');
-});
-
-// Route::get('testing',function(){
-//     return view('mainHome.auth.login');
-// });
 
 Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('home',[AdminController::class,'home'])->name('dashboard');
