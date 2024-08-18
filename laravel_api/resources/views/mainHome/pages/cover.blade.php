@@ -113,12 +113,12 @@
 								<div class="main-menu">
 									<nav class="navigation">
 										<ul class="nav menu">
-											<li class="active"><a href="#"><i class="fa fa-home"></i>&nbsp;Home</a>
+											<li class="active"><a href="{{ route('main.home') }}"><i class="fa fa-home"></i>&nbsp;Home</a>
 											</li>
-											<li><a href="#"><i class="fa fa-list-alt"></i>&nbsp;About </a></li>
-											<li><a href="#"><i class="fa fa-wrench"></i>&nbsp;Services </a></li>
-											<li><a href="#"><i class="fa fa-money"></i>&nbsp;Pricing </a></li>
-											<li><a href="#"><i class="fa fa-phone"></i>&nbsp;Contact Us</a></li>
+											<li><a href="{{ route('main.about') }}"><i class="fa fa-list-alt"></i>&nbsp;About </a></li>
+											<li><a href="{{ route('main.services') }}"><i class="fa fa-wrench"></i>&nbsp;Services </a></li>
+											<li><a href="{{ route('main.pricing') }}"><i class="fa fa-money"></i>&nbsp;Pricing </a></li>
+											<li><a href="{{ route('main.contact') }}"><i class="fa fa-phone"></i>&nbsp;Contact Us</a></li>
 											<li class="d-block d-sm-none">
 											    <a href="{{ route('main.login.page') }}" style="color:blue;">
 											        <i class="fa fa-phone"></i>&nbsp;Account

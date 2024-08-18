@@ -7,13 +7,20 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\mainAuthController;
 
-Route::get('/', function () {
+Route::get('/school', function () {
     return view('homePage.home');
 })->name('guest_homepage');
 
 //start .. Main homepage , this code block is about mainpage
 Route::get('login-form',[mainAuthController::class,'login'])->name('main.login.page');
 Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');
+
+Route::get('/',[mainAuthController::class,'home'])->name('main.home');
+Route::get('/about-us',[mainAuthController::class,'about_us'])->name('main.about');
+Route::get('/services',[mainAuthController::class,'services'])->name('main.services');
+Route::get('/pricing',[mainAuthController::class,'pricing'])->name('main.pricing');
+Route::get('/contact',[mainAuthController::class,'contact'])->name('main.contact');
+
 //end .. Main homepage , this code block is about mainpage
 
 Route::get('about-us',[homeController::class,'about_us'])->name('about_us');
