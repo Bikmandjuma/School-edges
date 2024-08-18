@@ -119,16 +119,25 @@
 											<li><a href="#"><i class="fa fa-wrench"></i>&nbsp;Services </a></li>
 											<li><a href="#"><i class="fa fa-money"></i>&nbsp;Pricing </a></li>
 											<li><a href="#"><i class="fa fa-phone"></i>&nbsp;Contact Us</a></li>
+											<li class="d-block d-sm-none">
+											    <a href="{{ route('main.login.page') }}" style="color:blue;">
+											        <i class="fa fa-phone"></i>&nbsp;Account
+											    </a>
+											</li>
+
+
 										</ul>
 									</nav>
 								</div>
 								<!--/ End Main Menu -->
 							</div>
-							<div class="col-lg-2 col-12">
-								<div class="get-quote">
-									<a href="{{ route('main.login.page') }}" class="btn"> <i class="fa fa-user"></i> Account</a>
-								</div>
+							
+							<div class="col-lg-2 col-md-4 col-sm-6 col-12">
+							    <div class="get-quote">
+							        <a href="{{ route('main.login.page') }}" class="btn"> <i class="fa fa-user"></i> Account</a>
+							    </div>
 							</div>
+
 						</div>
 					</div>
 				</div>
