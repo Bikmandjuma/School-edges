@@ -231,7 +231,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-12">
 							<div class="copyright-content">
-								<p>© Copyright {{ date('Y') }}  |  All Rights Reserved by <a href="{{ route('main.home') }}" target="_blank"><strong>{{ config('app.name','laravel') }} </strong> </a> </p>
+								<p>© Copyright {{ date('Y') }}  |  All Rights Reserved by <a href="{{ route('main.home') }}"><strong>{{ config('app.name','laravel') }} </strong> </a> </p>
 							</div>
 						</div>
 					</div>
