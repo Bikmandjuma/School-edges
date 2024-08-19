@@ -22,11 +22,11 @@
               <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">System users</h5>
+                  <h5 class="card-title">all Schools</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="fa fa-users"></i>
+                      <i class="fa fa-chalkboard-teacher"></i>
                     </div>
                     <div class="ps-3">
                       <h6>0</h6>
@@ -43,11 +43,11 @@
               <div class="card info-card revenue-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">Teachers</h5>
+                  <h5 class="card-title">System users</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-person-badge"></i>
+                      <i class="fas fa-user-cog"></i>
                     </div>
                     <div class="ps-3">
                       <h6>0</h6>
@@ -106,22 +106,21 @@
 
                 <div class="row">
 
-            <div class="col-lg-6">
+            <!--div class="col-lg-6">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Line Chart</h5>
 
-                  <!-- Line Chart -->
                   <canvas id="lineChart" style="max-height: 400px;"></canvas>
                   <script>
                     document.addEventListener("DOMContentLoaded", () => {
                       new Chart(document.querySelector('#lineChart'), {
                         type: 'line',
                         data: {
-                          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','aug','sept','oct','nov','dec'],
                           datasets: [{
                             label: 'Line Chart',
-                            data: [65, 59, 80, 81, 56, 55, 40],
+                            data: [65, 59, 80, 81, 56, 55, 40 ,43, 56, 78, 91, 126,],
                             fill: false,
                             borderColor: 'rgb(75, 192, 192)',
                             tension: 0.1
@@ -137,13 +136,12 @@
                       });
                     });
                   </script>
-                  <!-- End Line CHart -->
 
                 </div>
               </div>
-            </div>
+            </div-->
 
-            <div class="col-lg-6">
+            <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Bar CHart</h5>
@@ -155,10 +153,10 @@
                       new Chart(document.querySelector('#barChart'), {
                         type: 'bar',
                         data: {
-                          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July','aug','sept','oct','nov','dec'],
                           datasets: [{
                             label: 'Bar Chart',
-                            data: [65, 59, 80, 81, 56, 55, 40],
+                            data: [65, 59, 80, 81, 56, 55, 40 ,43, 56, 78, 91, 126,],
                             backgroundColor: [
                               'rgba(255, 99, 132, 0.2)',
                               'rgba(255, 159, 64, 0.2)',

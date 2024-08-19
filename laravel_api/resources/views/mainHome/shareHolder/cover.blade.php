@@ -224,18 +224,79 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#system-user" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>System Users</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#homepage" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-home"></i><span>Homepage</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="system-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="homepage" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('view_users') }}" >
-              <i class="bi bi-circle"></i><span>view users</span>
+              <i class="fas fa-home"></i><span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="fas fa-wrench"></i><span>About</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="fas fa-list"></i><span>Services</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="fas fa-money-bill"></i><span>Pricing</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="fas fa-phone"></i><span>Contact</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#schools" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-chalkboard-teacher"></i><span>Schools</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="schools" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>view schools</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#employee" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-users"></i><span>Employee</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="employee" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>view employee</span>
             </a>
           </li>
         </ul>
       </li><!-- End Components Nav -->
       
+
+       <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#wallets" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-dollar-sign"></i><i class="fas fa-money-bill"></i><span>Wallet</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="wallets" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>view wallet</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Components Nav -->
+
+       
     </ul>
 
   </aside><!-- End Sidebar-->
