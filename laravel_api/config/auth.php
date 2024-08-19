@@ -50,6 +50,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'shareHolder' => [
+            'driver' => 'session',
+            'provider' => 'shareHolders',
+        ],
     ],
 
     /*
@@ -78,6 +83,11 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+
+        'shareHolders' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\ShareHolder::class,
         ],
 
     ],

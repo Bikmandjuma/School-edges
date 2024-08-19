@@ -75,7 +75,7 @@
                     </p>
                 @endif
 
-                <form class="mt-8 space-y-6" action="{{ route('post_login') }}" method="POST" id="login-form">
+                <form class="mt-8 space-y-6" action="{{ route('main.submit.login') }}" method="POST" id="login-form">
                     @csrf
                     <div class="rounded-md">
                         <div  class="form-group">

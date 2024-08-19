@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
 
-class AdminMiddleware
+class ShareHolderMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,11 +16,11 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next , $guard = null): Response
     {
-        if (Auth::guard('admin')->guest()) {
+        if (Auth::guard('shareHolder')->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect(url('/school/login'));
+                return redirect(url('/login'));
             }
         }
 

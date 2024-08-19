@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\mainContact;
 use App\Models\mainSubscriber;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 
 class mainAuthController extends Controller
 {
@@ -81,5 +85,39 @@ class mainAuthController extends Controller
 
     }
 
+    public function submit_login(Request $request){
+        
+        $request->validate([
+            'username'=>'required|string',
+            'password'=>'required|string',
+        ],[
+            'username.required' =>'',
+            'password.required' =>''
+        ]);
+
+        if (Auth::guard('shareHolder')->attempt(['username' => $request->username, 'password' => $request->password])) {
+
+            return redirect()->route('main.shareHolder.dashboard');
+
+        }else{
+
+            // Session::flash('error-message','Invalid Username or Password');
+            return redirect()->back()->with('error','Invalid Username or Password ,try again !');
+
+        }
+
+    }
+
+    public function logout(){
+
+        // Check which guard is currently authenticated
+        if (Auth::guard('shareHolder')->check()) {
+            Auth::guard('shareHolder')->logout(); // Logout admin
+        } 
+
+        // Redirect to login form
+        return redirect()->route('main.login.page');
+        
+    }
 
 }

@@ -13,6 +13,8 @@ Route::get('/school', function () {
 
 //start .. Main homepage , this code block is about mainpage
 Route::get('login',[mainAuthController::class,'login'])->name('main.login.page');
+Route::post('submit_login',[mainAuthController::class,'submit_login'])->name('main.submit.login');
+
 Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');
 Route::get('send_mail_to_register',[mainAuthController::class,'send_mail_to_register'])->name('main.send_mail_toRegister.page');
 
@@ -23,8 +25,9 @@ Route::get('/pricing',[mainAuthController::class,'pricing'])->name('main.pricing
 Route::get('/contact',[mainAuthController::class,'contact'])->name('main.contact');
 Route::post('submit/contact',[mainAuthController::class,'SubmitContact'])->name('main.submit.contact');
 Route::post('submit_subscription_email',[mainAuthController::class,'submit_subscription_email'])->name('main.submit_subscription_email');
-
 //end .. Main homepage , this code block is about mainpage
+
+
 
 Route::get('/school/about-us',[homeController::class,'about_us'])->name('about_us');
 Route::get('/school/service',[homeController::class,'service'])->name('service');
@@ -47,6 +50,17 @@ Route::post('/school/forgot_password_submission',[AuthController::class,'submit_
 Route::post('/school/login-post',[AuthController::class,'login_functionality'])->name('post_login');
 Route::get('admin-home',[AdminController::class,'home']);
 
+
+
+//mainController panel
+Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
+    Route::get('home',[mainAuthController::class,'home'])->name('main.shareHolder.dashboard');
+});
+//end mainController panel
+
+
+
+//School's admin Controller
 Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::get('home',[AdminController::class,'home'])->name('dashboard');
     Route::get('profile',[AdminController::class,'profile'])->name('profile.page');
@@ -65,11 +79,18 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
     Route::post('register/system-user', [AdminController::class, 'registerSystemUser'])->name('register-system-user');
 
 });
+//end School's admin Controller
 
+
+
+//School's users Controller
 Route::group(['prefix'=>'user' , 'middleware'=>'user'],function(){
     Route::get('cover',[UserController::class,'selectRole'])->name('cover');
     Route::get('home',[UserController::class,'home'])->name('user.dashboard');
 });
+//School's users Controller
+
+
 
 //user self registration
     Route::get('/system-user/registration/{encryptedEmail}/{user_role}', [UserController::class, 'showRegistrationForm'])->name('UserSelfRegistration.form');
