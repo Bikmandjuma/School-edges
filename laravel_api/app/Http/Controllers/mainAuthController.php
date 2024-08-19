@@ -117,7 +117,11 @@ class mainAuthController extends Controller
 
         // Redirect to login form
         return redirect()->route('main.login.page');
-        
+
+    }
+
+    public function panel_home(){
+        return view('mainHome.shareHolder.home');
     }
 
 }

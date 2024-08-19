@@ -54,7 +54,8 @@ Route::get('admin-home',[AdminController::class,'home']);
 
 //mainController panel
 Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
-    Route::get('home',[mainAuthController::class,'home'])->name('main.shareHolder.dashboard');
+    Route::get('home',[mainAuthController::class,'panel_home'])->name('main.shareHolder.dashboard');
+    Route::get('logout',[mainAuthController::class,'logout'])->name('main.logout');
 });
 //end mainController panel
 
