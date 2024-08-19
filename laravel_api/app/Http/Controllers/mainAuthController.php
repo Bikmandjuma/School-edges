@@ -124,4 +124,20 @@ class mainAuthController extends Controller
         return view('mainHome.shareHolder.home');
     }
 
+    public function shareHolder_profile(){
+        return view('mainHome.shareHolder.profile');
+    }
+
+    public function shareHolder_username(){
+        return view('mainHome.shareHolder.username');
+    }
+
+    public function shareHolder_information(){
+        return view('mainHome.shareHolder.myInformation');
+    }
+
+    public function shareHolder_password(){
+        return view('mainHome.shareHolder.password');
+    }
+
 }

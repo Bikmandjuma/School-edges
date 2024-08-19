@@ -100,9 +100,9 @@
 							<div class="col-lg-3 col-md-3 col-12">
 								<!-- Start Logo -->
 								<div class="logo">
-									<!-- <h2><a href="index.html">{{ config('app.name','laravel') }}</a></h2> -->
+									<h2><a href="index.html">{{ config('app.name','laravel') }}</a></h2>
 									<!-- <img src="{{URL::to('/')}}/mainHomePage/img/logo.png" alt="#"> -->
-									<img src="{{URL::to('/')}}/mainHomePage/img/icons.png" alt="#" style="width:60px;height:50px;">
+									<!-- <img src="{{URL::to('/')}}/mainHomePage/img/icons.png" alt="#" style="width:60px;height:50px;"> -->
 
 								</div>
 								<!-- End Logo -->

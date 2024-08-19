@@ -2,6 +2,16 @@
 @section('content')
 
  <style type="text/css">
+        html, body {
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        * {
+            box-sizing: border-box; /* Include padding and border in element's total width and height */
+        }
+
         .error-message {
             color: #e74c3c;
             font-size: 14px;

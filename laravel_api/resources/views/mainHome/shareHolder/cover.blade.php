@@ -187,7 +187,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#" onclick="window.location.href='{{ route('profile.page') }}'" data-bs-toggle="tab" data-bs-target="#profile-edit">
+              <a class="dropdown-item d-flex align-items-center" href="#" onclick="window.location.href='{{ route('main.show.profile') }}'" data-bs-toggle="tab" data-bs-target="#profile-edit">
                 <i class="bi bi-gear"></i>
                 <span>My account</span>
               </a>
@@ -285,7 +285,7 @@
 
        <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#wallets" data-bs-toggle="collapse" href="#">
-          <i class="fas fa-dollar-sign"></i><i class="fas fa-money-bill"></i><span>Wallet</span><i class="bi bi-chevron-down ms-auto"></i>
+          </i><i class="fas fa-money-bill"></i><span>Wallet</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="wallets" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>

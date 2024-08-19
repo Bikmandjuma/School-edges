@@ -22,7 +22,7 @@
               <div class="card info-card sales-card">
 
                 <div class="card-body">
-                  <h5 class="card-title">all Schools</h5>
+                  <h5 class="card-title">All schools</h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -106,11 +106,12 @@
 
                 <div class="row">
 
-            <!--div class="col-lg-6">
+            <div class="col-lg-6">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Line Chart</h5>
 
+                  <!-- Line Chart -->
                   <canvas id="lineChart" style="max-height: 400px;"></canvas>
                   <script>
                     document.addEventListener("DOMContentLoaded", () => {
@@ -136,12 +137,13 @@
                       });
                     });
                   </script>
+                  <!-- End Line CHart -->
 
                 </div>
               </div>
-            </div-->
+            </div>
 
-            <div class="col-lg-12">
+            <div class="col-lg-6">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Bar CHart</h5>
