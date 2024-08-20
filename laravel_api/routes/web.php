@@ -51,7 +51,6 @@ Route::post('/school/login-post',[AuthController::class,'login_functionality'])-
 Route::get('admin-home',[AdminController::class,'home']);
 
 
-
 //mainController panel
 Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
     Route::get('home',[mainAuthController::class,'panel_home'])->name('main.shareHolder.dashboard');
@@ -60,9 +59,9 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
     Route::get('information',[mainAuthController::class,'shareHolder_information'])->name('main.show.myInformation');
     Route::get('username',[mainAuthController::class,'shareHolder_username'])->name('main.show.username');
     Route::get('password',[mainAuthController::class,'shareHolder_password'])->name('main.show.password');
+    Route::post('edit_info',[mainAuthController::class,'editInfo'])->name('main.editInfo');
 });
 //end mainController panel
-
 
 
 //School's admin Controller

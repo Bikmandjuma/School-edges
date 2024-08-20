@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\mainContact;
 use App\Models\mainSubscriber;
+use App\Models\ShareHolder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
@@ -138,6 +139,44 @@ class mainAuthController extends Controller
 
     public function shareHolder_password(){
         return view('mainHome.shareHolder.password');
+    }
+
+    public function editInfo(Request $request){
+        
+
+        // $request->validate([
+        //     'firstname' => 'required|string',
+        //     'lastname' => 'required|string',
+        //     'gender' => 'required|in:Male,Female',
+        //     'phone' => 'required|numeric|unique:users,phone|unique:admins,phone',
+        //     'email' => 'required|email|unique:users,email|unique:admins,email',
+        //     'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
+        //     'dob' => 'required|string',
+        // ]);
+
+        $auth_user_id=Auth::guard('shareHolder')->user()->id;
+        $fname=$request->firstname;
+        $lname=$request->lastname;
+        $gender=$request->gender;
+        $phone=$request->phone;
+        $email=$request->email;
+        $uname=$request->username;
+        $dob=$request->dob;
+
+        $user=ShareHolder::find($auth_user_id);
+        $user->firstname=$fname;
+        $user->lastname=$lname;
+        $user->gender=$gender;
+        $user->phone=$phone;
+        $user->email=$email;
+        $user->dob=$dob;
+        $user->username=$uname;
+        $user->save();
+
+        // toastr()->info("Data updated successfully !", ['timeOut' =>5000]);
+
+        return redirect()->back()->with('info','Data updated successfully !');
+
     }
 
 }
