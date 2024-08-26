@@ -49,7 +49,7 @@
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
 										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">Conatct Now</a>
+										<a href="#" class="btn primary">Contact Now</a>
 									</div>
 								</div>
 							</div>
