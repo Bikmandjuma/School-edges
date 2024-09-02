@@ -83,7 +83,6 @@
                             <label for="username">Enter username</label>
                             <div class="error-message" id="username-error"></div>
                         </div>
-                        
 
                         <div style="margin-top:10px;"  class="form-group">
                             <input name="password" type="password" autocomplete="current-password" placeholder=" " id="password" >
@@ -96,7 +95,7 @@
                         <button type="submit"
                             style="width: 150px;" 
                             class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Login&nbsp;&nbsp;<i class="fa fa-lock-open mt-1"></i>
+                            Login&nbsp;&nbsp;<i class="fas fa-lock-open mt-1"></i>
                         </button>
                     </div>
 
