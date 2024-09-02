@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\period_price;
+use App\Models\price_range;
 
 class mainAuthController extends Controller
 {
@@ -34,7 +36,12 @@ class mainAuthController extends Controller
     }
 
     public function pricing(){
-        return view('mainHome.pages.pricing');
+
+        $period_price = period_price::all()->where('period','Monthly')->get('price');
+        $price_range = price_range::all();
+        // dd($price_range);
+        return view('mainHome.pages.pricing',compact('period_price','price_range'));
+
     }
 
     public function contact(){
