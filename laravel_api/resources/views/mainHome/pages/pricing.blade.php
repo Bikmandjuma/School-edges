@@ -71,25 +71,13 @@
 									<input type="range" id="student-progress" min="0" max="3000" value="500">
 								</div> -->
 								<!-- <input type="range" id="student-progress" min="0" max="3000" value="500"> -->
-							        <!-- <div class="price">
+							        <div class="price">
 							            <ul class="table-list">
 							                <li><i class="icofont icofont-ui-check"></i>Number of Students: <span id="min">0</span> - <span id="max">200</span></li>
 							                <li><i class="icofont icofont-ui-check"></i>Amount: <span id="amount">300,000 FRW</span></li>
 							            </ul>
 							        </div>
-							        <input type="range" id="student-progress" min="0" max="3000" value="500"> -->
-
-							     <div class="price">
-								    <ul class="table-list">
-								        <li><i class="icofont icofont-ui-check"></i>Number of Students: <span id="min">0</span> - <span id="max">200</span></li>
-								        <li><i class="icofont icofont-ui-check"></i>Amount: <span id="amount">300,000 FRW</span></li>
-								    </ul>
-								</div>
-								<input type="range" id="student-progress" min="0" max="3000" value="500">
-
-								@foreach ($price_range as $data)
-						            { min: {{ $data->min_student }}, max: {{ $data->max_student }}, price: {{ $data->prices }} },
-						        @endforeach
+							        <input type="range" id="student-progress" min="0" max="3000" value="500">
 
 							</div>
 							<!-- Table List -->
@@ -193,115 +181,68 @@
 		</section>	
 		<!--/ End Pricing Table -->
 	<script type="text/javascript">
-		// // Pricing ranges for monthly plan
-
-		// const pricingRangesMonthly = [
-		// 	@foreach ($price_range as $data):
-		// 		{ min: {{ $data['min_student'] }}, max: {{ $data['max_student'] }}, price: {{ $data['prices'] }} },
-		// 	@endforeach
-		    
-		//     // Add more ranges as needed
-		// ];
-
-		// // Get HTML elements
-		// const progressBar = document.getElementById('student-progress');
-		// const minDisplay = document.getElementById('min');
-		// const maxDisplay = document.getElementById('max');
-		// const amountDisplay = document.getElementById('amount');
-
-		// // Function to get the price based on student count and update range
-		// function getPrice(students) {
-		//     let price = 0;
-		//     let minRange = 0;
-		//     let maxRange = 0;
-
-		//     for (const range of pricingRangesMonthly) {
-		//         if (students >= range.min && students <= range.max) {
-		//             price = range.price;
-		//             minRange = range.min;
-		//             maxRange = range.max;
-		//             break;
-		//         }
-		//     }
-		    
-		//     // Optionally handle cases where students are out of defined ranges
-		//     if (price === 0) {
-		//         price = "Pricing not available";
-		//         minRange = 0;
-		//         maxRange = 3000; // Default max range
-		//     }
-
-		//     return { price, minRange, maxRange };
-		// }
-
-		// // Function to update the displayed amount and ranges based on the number of students
-		// function updateAmount() {
-		//     const students = parseInt(progressBar.value);
-		//     const { price, minRange, maxRange } = getPrice(students);
-		    
-		//     minDisplay.textContent = minRange;
-		//     maxDisplay.textContent = maxRange;
-		//     amountDisplay.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
-		// }
-
-		// // Initialize the display
-		// updateAmount();
-
-		// // Add event listener to update the display when the progress bar changes
-		// progressBar.addEventListener('input', updateAmount);
-
 		// Pricing ranges for monthly plan
-	    const pricingRangesMonthly = [
-	        @foreach ($price_range as $data)
-	            { min: {{ $data->min_student }}, max: {{ $data->max_student }}, price: {{ $data->prices }} },
-	        @endforeach
-	    ];
 
-	    // Get HTML elements
-	    const progressBar = document.getElementById('student-progress');
-	    const minDisplay = document.getElementById('min');
-	    const maxDisplay = document.getElementById('max');
-	    const amountDisplay = document.getElementById('amount');
+		const pricingRangesMonthly = [
+			<?php foreach ($price_range as $data): ?>
+				{ min: 0, max: 200, price: 100000 },
+			    { min: 201, max: 450, price: 200000 },
+			    { min: 451, max: 500, price: 300000 },
+			    { min: 501, max: 600, price: 320000 },
+			    { min: 601, max: 700, price: 420000 },
+			    { min: 701, max: 800, price: 520000 },
+			    { min: 801, max: 900, price: 620000 },
+			<?php endforeach ?>
+		    
+		    // Add more ranges as needed
+		];
 
-	    // Function to get the price based on student count and update range
-	    function getPrice(students) {
-	        let price = 0;
-	        let minRange = 0;
-	        let maxRange = 0;
+		// Get HTML elements
+		const progressBar = document.getElementById('student-progress');
+		const minDisplay = document.getElementById('min');
+		const maxDisplay = document.getElementById('max');
+		const amountDisplay = document.getElementById('amount');
 
-	        for (const range of pricingRangesMonthly) {
-	            if (students >= range.min && students <= range.max) {
-	                price = range.price;
-	                minRange = range.min;
-	                maxRange = range.max;
-	                break;
-	            }
-	        }
-	        
-	        // Handle cases where students are out of defined ranges
-	        if (price === 0) {
-	            price = "Pricing not available";
-	            minRange = 0;
-	            maxRange = 3000; // Default max range
-	        }
+		// Function to get the price based on student count and update range
+		function getPrice(students) {
+		    let price = 0;
+		    let minRange = 0;
+		    let maxRange = 0;
 
-	        return { price, minRange, maxRange };
-	    }
+		    for (const range of pricingRangesMonthly) {
+		        if (students >= range.min && students <= range.max) {
+		            price = range.price;
+		            minRange = range.min;
+		            maxRange = range.max;
+		            break;
+		        }
+		    }
+		    
+		    // Optionally handle cases where students are out of defined ranges
+		    if (price === 0) {
+		        price = "Pricing not available";
+		        minRange = 0;
+		        maxRange = 3000; // Default max range
+		    }
 
-	    // Function to update the displayed amount and ranges based on the number of students
-	    function updateAmount() {
-	        const students = parseInt(progressBar.value);
-	        const { price, minRange, maxRange } = getPrice(students);
-	        
-	        minDisplay.textContent = minRange;
-	        maxDisplay.textContent = maxRange;
-	        amountDisplay.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
-	    }
+		    return { price, minRange, maxRange };
+		}
 
-	    // Initialize the display
-	    updateAmount();
+		// Function to update the displayed amount and ranges based on the number of students
+		function updateAmount() {
+		    const students = parseInt(progressBar.value);
+		    const { price, minRange, maxRange } = getPrice(students);
+		    
+		    minDisplay.textContent = minRange;
+		    maxDisplay.textContent = maxRange;
+		    amountDisplay.textContent = typeof price === 'number' ? `${price.toLocaleString()} FRW` : price;
+		}
 
-	    // Add event listener to update the display when the progress bar changes
-	    progressBar.addEventListener('input', updateAmount);
+		// Initialize the display
+		updateAmount();
+
+		// Add event listener to update the display when the progress bar changes
+		progressBar.addEventListener('input', updateAmount);
+
 	</script>
 @endsection
