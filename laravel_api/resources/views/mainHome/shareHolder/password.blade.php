@@ -93,6 +93,7 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active pt-3" id="profile-change-password">
+                  
                   @if($errors->any())
                       <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;color: #e74c3c;font-size: 14px;" class="error-message" id="error_msg">
                         @foreach($errors->all() as $error)
@@ -110,8 +111,10 @@
                       </div>
                   @endif
 
-                  <form class="mt-8 space-y-6 ml-4" action="{{ route('password') }}" method="POST" id="password-form">
+                  <form class="mt-8 space-y-6 ml-4" action="{{ route('main.submit.password') }}" method="POST" id="password-form">
+                    
                     @csrf
+                    
                     <div class="rounded-md">
                         <div  class="form-group">
                             <input name="current-password" value="{{old('password')}}" type="password" autocomplete="password" placeholder=" " id="password">

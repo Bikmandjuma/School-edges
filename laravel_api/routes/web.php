@@ -60,6 +60,7 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
     Route::get('username',[mainAuthController::class,'shareHolder_username'])->name('main.show.username');
     Route::post('submit_username',[mainAuthController::class,'shareHolder_submit_username'])->name('main.submit.username');
     Route::get('password',[mainAuthController::class,'shareHolder_password'])->name('main.show.password');
+    Route::post('submit_password',[mainAuthController::class,'shareHolder_submit_password'])->name('main.submit.password');
     Route::post('edit_info',[mainAuthController::class,'editInfo'])->name('main.editInfo');
 });
 //end mainController panel

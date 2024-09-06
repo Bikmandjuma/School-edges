@@ -9,6 +9,7 @@ use App\Models\ShareHolder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\validator;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
 use App\Models\price_range;
@@ -203,5 +204,42 @@ class mainAuthController extends Controller
         return redirect()->back()->with('info','Username is updated well !');
 
     }
+
+
+    public function shareHolder_submit_password(Request $request){
+        // Validate the request for specific fields
+
+        $validator = Validator::make($request->all(), [
+            'current-password' => 'required',
+            'new-password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            // Set a general error message if any required field is missing
+            $errors = $validator->errors();
+            
+            // Check if any required field errors exist
+            if ($errors->has('current-password') || $errors->has('new-password')) {
+                return redirect()->back()->withErrors(['all_fields_required' => 'Please , all fields are required !']);
+            }
+
+            // Return specific errors if needed
+            return redirect()->back()->withErrors($validator);
+        }
+
+
+        if (!Hash::check($request->current_password, Auth::guard('shareHolder')->user()->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Current password does not match'])->withInput();
+        }
+
+        Auth::guard('shareHolder')->user()->update(['password' => Hash::make($request->new_password)]);
+
+        // toastr()->info('Password changed successfully',['timeOut' => 5000]);
+        
+        return redirect()->back()->with('info','Password changed successfully');
+
+    }
+
 
 }
