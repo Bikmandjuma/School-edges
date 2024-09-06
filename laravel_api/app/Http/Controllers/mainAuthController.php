@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
 use App\Models\price_range;
+use Illuminate\Validation\Rule;
 
 class mainAuthController extends Controller
 {
@@ -109,7 +110,6 @@ class mainAuthController extends Controller
 
         }else{
 
-            // Session::flash('error-message','Invalid Username or Password');
             return redirect()->back()->with('error','Invalid Username or Password ,try again !');
 
         }
@@ -183,6 +183,24 @@ class mainAuthController extends Controller
         // toastr()->info("Data updated successfully !", ['timeOut' =>5000]);
 
         return redirect()->back()->with('info','Data updated successfully !');
+
+    }
+
+    public function shareHolder_submit_username(Request $request){
+
+        $request->validate([
+            'username' => [
+                'required','string','between:8,32',
+                Rule::unique('share_holders')->ignore(Auth::guard('shareHolder')->user()->username,'username')
+            ]
+        ]);
+
+        $username=$request->username;
+        $auth_user_id=Auth::guard('shareHolder')->user()->id;
+
+        ShareHolder::where('id', $auth_user_id)->update(['username' => $username]);
+
+        return redirect()->back()->with('info','Username is updated well !');
 
     }
 

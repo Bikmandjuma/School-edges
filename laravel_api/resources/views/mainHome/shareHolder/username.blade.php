@@ -93,13 +93,6 @@
               <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active pt-3" id="profile-change-password">
-                  @if($errors->any())
-                      <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;color: #e74c3c;font-size: 14px;" class="error-message" id="error_msg">
-                        @foreach($errors->all() as $error)
-                            {{ $error }}<br>
-                        @endforeach
-                      </p>
-                  @endif
 
                   @if(session('current_password'))
                       <div class="d-flex align-items-center justify-content-center" id="session_msg_container" id="error_msg">
@@ -110,7 +103,7 @@
                       </div>
                   @endif
 
-                  <form class="mt-8 space-y-6 ml-4" action="{{ route('password') }}" method="POST" id="password-form">
+                  <form class="mt-8 space-y-6 ml-4" action="{{ route('main.submit.username') }}" method="POST" id="password-form">
                     @csrf
                     <div class="rounded-md">
                     	<h5><p> <i class="fas fa-arrow-right"></i> Current username : <span><b>{{ auth()->guard('shareHolder')->user()->username }}</b></span> </p> </h5>
@@ -118,7 +111,16 @@
 
                             <input name="username" value="{{old('username')}}" type="username" autocomplete="username" placeholder=" " id="password">
                             <label for="password">Enter username</label>
-                            <div class="error-message" id="password-error"></div>
+                            <!-- <div class="error-message" id="password-error"></div> -->
+                            
+                            @if($errors->any())
+                                <p style="display: flex;text-align: center;align-items: center;justify-content: center;justify-items: center;font-family: sans-serif;font-style: italic;color: #e74c3c;font-size: 14px;" class="error-message" id="error_msg">
+                                  @foreach($errors->all() as $error)
+                                      {{ $error }}<br>
+                                  @endforeach
+                                </p>
+                            @endif
+
                         </div>
                         
                         
