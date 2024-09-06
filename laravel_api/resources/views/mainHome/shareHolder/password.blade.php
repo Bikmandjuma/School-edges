@@ -117,12 +117,11 @@
                     
                     <div class="rounded-md">
                         <div  class="form-group">
-                            <input name="current-password" value="{{old('password')}}" type="password" autocomplete="password" placeholder=" " id="password">
+                            <input name="current-password" value="{{old('current-password')}}" type="password" autocomplete="password" placeholder=" " id="password">
                             <label for="password">Enter current password</label>
                             <div class="error-message" id="password-error"></div>
                         </div>
                         
-
                         <div style="margin-top:10px;"  class="form-group">
                             <input name="new-password" type="password" autocomplete="current-password" placeholder=" " id="new-password" >
                             <label for="new-password">Enter new password</label><div class="error-message" id="new-password-error"></div>

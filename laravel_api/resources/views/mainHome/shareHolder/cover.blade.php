@@ -217,7 +217,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link @if(Request::segment(1) == 'home') collapsed @endif " href="{{ route('dashboard') }}">
+        <a class="nav-link @if(Request::segment(1) == 'home') collapsed @endif " href="{{ route('main.shareHolder.dashboard') }}">
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>

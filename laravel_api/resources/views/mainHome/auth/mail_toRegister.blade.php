@@ -59,7 +59,7 @@
         }
     </style>
 
-    <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top:-100px;">
+    <div class="flex items-center justify-center min-h-screen bg-gray-100" style="margin-top:-50px;">
         <div class="w-full max-w-md" style="box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
             <div class="bg-white shadow-lg rounded-lg p-8">
                 <h2 class="text-2xl font-bold text-center text-gray-800">Registration contact</h2>
@@ -79,14 +79,19 @@
                     @csrf
                     <div class="rounded-md">
                         <div  class="form-group">
-                            <input name="email" value="{{old('email')}}" type="text" autocomplete="email" placeholder=" " id="username">
+                            <input name="school_name" value="{{ old('school_name') }}" type="text" autocomplete="school_name" placeholder=" " id="school_name">
+                            <label for="school_name">Enter school name</label>
+                            <div class="error-message" id="school_name-error"></div>
+                        </div>
+
+                        <div  class="form-group">
+                            <input name="email" value="{{ old('email') }}" type="text" autocomplete="email" placeholder=" " id="username">
                             <label for="username">Enter email</label>
                             <div class="error-message" id="username-error"></div>
-                        </div>
-                        
+                        </div>                        
 
                         <div style="margin-top:10px;"  class="form-group">
-                            <input name="phone" type="number" autocomplete="phone" placeholder=" " id="password" >
+                            <input name="phone" type="number" autocomplete="phone" placeholder=" " id="password" value="{{ old('phone') }}">
                             <label for="password">Enter phone</label><div class="error-message" id="password-error"></div>
                         </div>
                         
@@ -96,7 +101,7 @@
                         <button type="submit"
                             style="width: 180px;" 
                             class="group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Send contact&nbsp;&nbsp;<i class="fa fa-send mt-1"></i>
+                            Register&nbsp;&nbsp;<i class="fa fa-send mt-1"></i>
                         </button>
                     </div>
 
