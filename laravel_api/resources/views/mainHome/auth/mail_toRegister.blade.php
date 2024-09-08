@@ -113,6 +113,7 @@
             </div>
         </div>
     </div>
+
     <script>
         setTimeout(() => {
             var msg=document.getElementById('error_message_id');
@@ -142,4 +143,5 @@
             }, true);
         });
     </script>
+    
 @endsection

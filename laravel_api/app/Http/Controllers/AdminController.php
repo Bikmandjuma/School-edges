@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\validator;
 use App\Models\SendEmailToUserToRegister;
 use App\Mail\emailToUserToRegister;
 
-class AdminController extends Controller
-{
+class AdminController extends Controller{
     public function home(){
         $admin_count = Admin::all()->count();
         $normal_users = User::all()->count();

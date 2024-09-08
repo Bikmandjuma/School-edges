@@ -10,9 +10,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\validator;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
 use App\Models\price_range;
+use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
 
 class mainAuthController extends Controller
@@ -238,6 +240,35 @@ class mainAuthController extends Controller
         // toastr()->info('Password changed successfully',['timeOut' => 5000]);
         
         return redirect()->back()->with('info','Password changed successfully');
+
+    }
+
+    public function customer_partial_register(Request $request){
+        $request->validate([
+            'school_name' => 'required|string|unique:customer_partial_registers,school_name',
+            'email' => 'required|string|unique:customer_partial_registers,email',
+            'phone' => 'required|string|min:10|unique:customer_partial_registers,phone',
+        ]);
+
+        $school_name=$request->school_name;
+        $email=$request->email;
+        $phone=$request->phone;
+        $country="Rwanda";
+
+        CustomerPartialRegister::create([
+            'school_name' => $school_name,
+            'email' => $email,
+            'phone' => $phone,
+            'country' => $country,
+        ]);
+
+        $data=[
+            'school_name' => bcrypt($school_name),
+            'email' => bcrypt($email),
+            'phone' => bcrypt($phone),
+        ];
+
+        Mail::to($email)->send(new CustomerToRegiterMail($data));
 
     }
 

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customer_partial_registers', function (Blueprint $table) {
+        Schema::create('allow_customer_to_regiters', function (Blueprint $table) {
             $table->id();
-            $table->string('school_name');
-            $table->string('email');
-            $table->string('phone');
-            $table->string('country')->nullable();
+            $table->unsignedBigInteger('customer_partial_reg_fk_id');
+            $table->foreign('customer_partial_reg_fk_id')->references('id')->on('customer_partial_registers')->onDelete('cascade');
+            $table->string('status');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('customer_partial_registers');
+        Schema::dropIfExists('allow_customer_to_regiters');
     }
 };
