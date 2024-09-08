@@ -16,6 +16,7 @@ use App\Models\period_price;
 use App\Models\price_range;
 use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
+use App\Mail\CustomerToRegiterMail;
 
 class mainAuthController extends Controller
 {
@@ -245,8 +246,8 @@ class mainAuthController extends Controller
 
     public function customer_partial_register(Request $request){
         $request->validate([
-            'school_name' => 'required|string|unique:customer_partial_registers,school_name',
-            'email' => 'required|string|unique:customer_partial_registers,email',
+            'school_name' => 'required|string',
+            'email' => 'required|string|email|unique:customer_partial_registers,email',
             'phone' => 'required|string|min:10|unique:customer_partial_registers,phone',
         ]);
 
@@ -263,14 +264,27 @@ class mainAuthController extends Controller
         ]);
 
         $data=[
-            'school_name' => bcrypt($school_name),
-            'email' => bcrypt($email),
-            'phone' => bcrypt($phone),
+            'school_name' => $school_name,
+            'email' => $email,
+            'phone' => $phone,
         ];
 
         Mail::to($email)->send(new CustomerToRegiterMail($data));
 
+        return redirect()->back()->with('info','Well done , now check your email !');
+
     }
+
+    public function customer_self_registrion($name,$email,$phone){
+        $school_name = Crypt::decrypt($name);
+        $email = Crypt::decrypt($email);
+        $phone = Crypt::decrypt($phone);
+
+        return view('mainHome.auth.customer_self_registration',compact('school_name','email','phone'))->with('hideFooter',true);; 
+
+    }
+
+
 
 
 }

@@ -17,6 +17,7 @@ Route::post('submit_login',[mainAuthController::class,'submit_login'])->name('ma
 
 Route::get('forgot-password-form',[mainAuthController::class,'forgot_password'])->name('main.forgot_password.page');
 Route::get('send_mail_to_register',[mainAuthController::class,'send_mail_to_register'])->name('main.send_mail_toRegister.page');
+Route::post('customer_partial_register',[mainAuthController::class,'customer_partial_register'])->name('main.customer_partial_register');
 
 Route::get('/',[mainAuthController::class,'home'])->name('main.home');
 Route::get('/about-us',[mainAuthController::class,'about_us'])->name('main.about');
@@ -25,6 +26,8 @@ Route::get('/pricing',[mainAuthController::class,'pricing'])->name('main.pricing
 Route::get('/contact',[mainAuthController::class,'contact'])->name('main.contact');
 Route::post('submit/contact',[mainAuthController::class,'SubmitContact'])->name('main.submit.contact');
 Route::post('submit_subscription_email',[mainAuthController::class,'submit_subscription_email'])->name('main.submit_subscription_email');
+Route::get('/customer/self-registration/{school_name}/{email}/{phone}',[mainAuthController::class,'customer_self_registrion'])->name('main.customer_self_registrion');
+
 //end .. Main homepage , this code block is about mainpage
 
 

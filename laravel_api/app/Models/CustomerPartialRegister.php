@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerPartialRegister extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'school_name',
+        'email',
+        'phone',
+        'country',
+    ];
 }
