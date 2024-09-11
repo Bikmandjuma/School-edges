@@ -9,12 +9,14 @@ use App\Models\ShareHolder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\validator;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
 use App\Models\price_range;
 use App\Models\Customer;
+use App\Models\AllowCustomerToRegiter;
 use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
 use App\Mail\CustomerToRegiterMail;
@@ -277,7 +279,10 @@ class mainAuthController extends Controller
             'status' => 'Not Allowed'
         ]);
 
+        $registrar_id = $partial_register->id;
+
         $data=[
+            'id' => $registrar_id,
             'school_name' => $school_name,
             'email' => $email,
             'phone' => $phone,
@@ -289,12 +294,17 @@ class mainAuthController extends Controller
 
     }
 
-    public function customer_self_registrion($name,$email,$phone){
+    public function customer_self_registrion($id,$name,$email,$phone){
+        $customer_id = Crypt::decrypt($id);
         $school_name = Crypt::decrypt($name);
         $email = Crypt::decrypt($email);
         $phone = Crypt::decrypt($phone);
 
-        return view('mainHome.auth.customer_self_registration',compact('school_name','email','phone'))->with('hideFooter',true);; 
+        $status = DB::table('allow_customer_to_regiters')
+            ->where('customer_partial_reg_fk_id', $customer_id)
+            ->value('status');
+
+        return view('mainHome.auth.customer_self_registration',compact('id','school_name','email','phone','status'))->with('hideFooter',true);; 
 
     }
 

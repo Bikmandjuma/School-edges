@@ -26,11 +26,9 @@ Route::get('/pricing',[mainAuthController::class,'pricing'])->name('main.pricing
 Route::get('/contact',[mainAuthController::class,'contact'])->name('main.contact');
 Route::post('submit/contact',[mainAuthController::class,'SubmitContact'])->name('main.submit.contact');
 Route::post('submit_subscription_email',[mainAuthController::class,'submit_subscription_email'])->name('main.submit_subscription_email');
-Route::get('/customer/self-registration/{school_name}/{email}/{phone}',[mainAuthController::class,'customer_self_registrion'])->name('main.customer_self_registrion');
+Route::get('/customer/self-registration/{id}/{school_name}/{email}/{phone}',[mainAuthController::class,'customer_self_registrion'])->name('main.customer_self_registrion');
 Route::post('/submit_customer_registration',[mainAuthController::class,'submit_customer_registration'])->name('main.submit_customer_registration');
 //end .. Main homepage , this code block is about mainpage
-
-
 
 Route::get('/school/about-us',[homeController::class,'about_us'])->name('about_us');
 Route::get('/school/service',[homeController::class,'service'])->name('service');

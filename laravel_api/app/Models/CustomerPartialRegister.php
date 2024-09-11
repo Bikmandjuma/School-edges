@@ -16,6 +16,6 @@ class CustomerPartialRegister extends Model
     ];
 
     public function CustomerPartialRegisterFn(){
-        return $this->hasOne(AllowCustomerToRegiter::class,'customer_partial_reg_fk_id')
+        return $this->hasOne(AllowCustomerToRegiter::class,'customer_partial_reg_fk_id');
     }
 }
