@@ -43,73 +43,88 @@
 <body>
     <div class="main">
 
-        @if($status == 'Not Allowed')
-
+        @if($registration_done == 'Done')
+            
             <!-- Allowed block -->
             <section>
                 <div class="container" style="margin-top:-10%; box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
                     <div class="signup-content">
-                        <h2 style="font-size:20px;">Please be patient and wait for admin approval.</h2>
+                        <h2 style="font-size:20px;">You are already registered in {{ config('app.name', 'our') }}'s system.</h2>
                     </div>
                 </div>
             </section>
 
         @else
 
-            <!-- Sign up form -->
-            <section class="signup">
-                <div class="container" style="margin-top:-20%;box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
-                    <div class="signup-content">
-                        <div class="signup-form">
-                            <h2 class="form-title">Register here</h2>
-                            @if($errors->any())
-                                <ul>
-                                @foreach($errors->all() as $error)
-                                    <li style="color:red;">{{ $error }}</li>
-                                @endforeach
-                                </ul>
-                            @endif
-                            <form method="POST" action="{{ route('main.submit_customer_registration',Crypt::encrypt($id)) }}" class="register-form" id="register-form">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                    <input type="text" name="school_name" id="name" placeholder="Enter school name" value="{{ $school_name }}" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="email"><i class="zmdi zmdi-email material-icons-name"></i></label>
-                                    <input type="email" name="email" id="email" placeholder="Enter email" value="{{ $email }}" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone"><i class="zmdi zmdi-phone"></i></label>
-                                    <input type="phone" name="phone" id="phone" placeholder="Enter phone" value="{{ $phone }}" r eadonly />
-                                </div>
-                                <div class="form-group">
-                                    <label for="username"><i class="zmdi zmdi-account"></i></label>
-                                    <input type="text" name="username" id="username" placeholder="Username" value="{{ old('username') }}" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                                    <input type="password" name="password" id="password" placeholder="Password"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="re-enter-password"><i class="zmdi zmdi-lock-outline"></i></label>
-                                    <input type="password" name="password_confirmation" id="re-enter-password" placeholder="Repeat your password"/>
-                                </div>
+            @if($status == 'Not Allowed')
 
-                                <div class="form-group form-button">
-                                    <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
-                                </div>
-                            
-                            </form>
-                        </div>
-                        <div class="signup-image">
-                            <figure><img src="{{URL::to('/')}}/CustomerSelfRegister/images/signup-image.jpg" alt="sing up image"></figure>
-                            <p class="signup-image-link" style="text-decoration: none;color:gray;">You can modify your info in your account after registration !</p>
+                <!-- Allowed block -->
+                <section>
+                    <div class="container" style="margin-top:-10%; box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
+                        <div class="signup-content">
+                            <h2 style="font-size:20px;">Please be patient and wait for admin approval.</h2>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
 
+            @else
+
+                <!-- Sign up form -->
+                <section class="signup">
+                    <div class="container" style="margin-top:-20%;box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
+                        <div class="signup-content">
+                            <div class="signup-form">
+                                <h2 class="form-title">Register here</h2>
+                                @if($errors->any())
+                                    <ul>
+                                    @foreach($errors->all() as $error)
+                                        <li style="color:red;">{{ $error }}</li>
+                                    @endforeach
+                                    </ul>
+                                @endif
+                                <form method="POST" action="{{ route('main.submit_customer_registration',Crypt::encrypt($id)) }}" class="register-form" id="register-form">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                        <input type="text" name="school_name" id="name" placeholder="Enter school name" value="{{ $school_name }}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email"><i class="zmdi zmdi-email material-icons-name"></i></label>
+                                        <input type="email" name="email" id="email" placeholder="Enter email" value="{{ $email }}" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone"><i class="zmdi zmdi-phone"></i></label>
+                                        <input type="phone" name="phone" id="phone" placeholder="Enter phone" value="{{ $phone }}" r eadonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="username"><i class="zmdi zmdi-account"></i></label>
+                                        <input type="text" name="username" id="username" placeholder="Username" value="{{ old('username') }}" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                        <input type="password" name="password" id="password" placeholder="Password"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="re-enter-password"><i class="zmdi zmdi-lock-outline"></i></label>
+                                        <input type="password" name="password_confirmation" id="re-enter-password" placeholder="Repeat your password"/>
+                                    </div>
+
+                                    <div class="form-group form-button">
+                                        <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                    </div>
+                                
+                                </form>
+                            </div>
+                            <div class="signup-image">
+                                <figure><img src="{{URL::to('/')}}/CustomerSelfRegister/images/signup-image.jpg" alt="sing up image"></figure>
+                                <p class="signup-image-link" style="text-decoration: none;color:gray;">You can modify your info in your account after registration !</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            @endif
+        
         @endif
 
     </div>

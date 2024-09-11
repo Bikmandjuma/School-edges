@@ -277,7 +277,6 @@ class mainAuthController extends Controller
         AllowCustomerToRegiter::create([
             'customer_partial_reg_fk_id' => $partial_register->id,
             'status' => 'Not Allowed',
-            'registration_done' => 'Not yet',
         ]);
 
         $registrar_id = $partial_register->id;
@@ -305,7 +304,11 @@ class mainAuthController extends Controller
             ->where('customer_partial_reg_fk_id', $customer_id)
             ->value('status');
 
-        return view('mainHome.auth.customer_self_registration',compact('id','school_name','email','phone','status'))->with('hideFooter',true);; 
+        $registration_done=$status = DB::table('allow_customer_to_regiters')
+            ->where('customer_partial_reg_fk_id', $customer_id)
+            ->value('registration_done');
+
+        return view('mainHome.auth.customer_self_registration',compact('id','school_name','email','phone','status','registration_done'))->with('hideFooter',true);
 
     }
 
@@ -341,7 +344,7 @@ class mainAuthController extends Controller
 
         // Update the records where the foreign key matches the given id
         AllowCustomerToRegiter::where('customer_partial_reg_fk_id', $customer_id)
-                 ->update(['registration_dane' => $newStatus]);
+                 ->update(['registration_done' => $newStatus]);
 
         return redirect()->route('main.login.page')->with('info','Account created well,you can login !');
 
