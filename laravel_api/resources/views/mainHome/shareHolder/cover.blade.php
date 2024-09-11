@@ -224,9 +224,10 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#homepage" data-bs-toggle="collapse" href="#">
-          <i class="fas fa-home"></i><span>Homepage</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed {{ Auth::guard('shareHolder')->user()->role != 'Admin' ? 'd-none' : '' }}" data-bs-target="#homepage" data-bs-toggle="collapse" href="#">
+            <i class="fas fa-home"></i><span>Homepage</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+
         <ul id="homepage" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{ route('view_users') }}" >
@@ -262,7 +263,7 @@
         </a>
         <ul id="schools" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('view_users') }}" >
+            <a href="{{ route('main.view_school') }}" >
               <i class="bi bi-circle"></i><span>view schools</span>
             </a>
           </li>

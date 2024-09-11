@@ -63,6 +63,8 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
     Route::get('password',[mainAuthController::class,'shareHolder_password'])->name('main.show.password');
     Route::post('submit_password',[mainAuthController::class,'shareHolder_submit_password'])->name('main.submit.password');
     Route::post('edit_info',[mainAuthController::class,'editInfo'])->name('main.editInfo');
+    Route::get('view-school',[mainAuthController::class,'view_school'])->name('main.view_school');
+
 });
 //end mainController panel
 

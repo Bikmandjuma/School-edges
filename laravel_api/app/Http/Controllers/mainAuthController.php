@@ -136,7 +136,8 @@ class mainAuthController extends Controller
     }
 
     public function panel_home(){
-        return view('mainHome.shareHolder.home');
+        $customer_count=collect(Customer::all())->count();
+        return view('mainHome.shareHolder.home',compact('customer_count'));
     }
 
     public function shareHolder_profile(){
@@ -353,6 +354,9 @@ class mainAuthController extends Controller
 
     }
 
-
+    //view schools
+    public function view_school(){
+        return view('mainHome.shareHolder.view_schools');
+    }
 
 }
