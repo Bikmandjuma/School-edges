@@ -279,6 +279,10 @@ class mainAuthController extends Controller
             'status' => 'Not Allowed',
         ]);
 
+        DB::table('allow_customer_to_regiters')
+            ->where('customer_partial_reg_fk_id', $partial_register->id)
+            ->update(['registration_done' => 'Not yet']);
+
         $registrar_id = $partial_register->id;
 
         $data=[
@@ -290,7 +294,7 @@ class mainAuthController extends Controller
 
         Mail::to($email)->send(new CustomerToRegiterMail($data));
 
-        return redirect()->back()->with('info','Well done , now check your email !');
+        return redirect()->back()->with('info','You’re registered! Please check your email for next steps');
 
     }
 
@@ -302,13 +306,12 @@ class mainAuthController extends Controller
 
         $status = DB::table('allow_customer_to_regiters')
             ->where('customer_partial_reg_fk_id', $customer_id)
-            ->value('status');
+            ->first(['status', 'registration_done']);
 
-        $registration_done=$status = DB::table('allow_customer_to_regiters')
-            ->where('customer_partial_reg_fk_id', $customer_id)
-            ->value('registration_done');
+        $statusValue = $status->status;
+        $registrationDone = $status->registration_done;
 
-        return view('mainHome.auth.customer_self_registration',compact('id','school_name','email','phone','status','registration_done'))->with('hideFooter',true);
+        return view('mainHome.auth.customer_self_registration',compact('id','school_name','email','phone','statusValue','registrationDone'))->with('hideFooter',true);
 
     }
 
@@ -321,7 +324,7 @@ class mainAuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $customer_id =Crypt::decrypt($id);
+        $customer_id =$id;
         $name = $request->school_name;
         $email = $request->email;
         $phone = $request->phone;
@@ -340,11 +343,11 @@ class mainAuthController extends Controller
             'image' => $image,
         ]);
 
-        $newStatus = 'Done'; // Replace with the new status or other values to update
+        DB::table('allow_customer_to_regiters')
+            ->where('customer_partial_reg_fk_id', Crypt::decrypt($customer_id))
+            ->update(['registration_done' => 'Done']);
 
-        // Update the records where the foreign key matches the given id
-        AllowCustomerToRegiter::where('customer_partial_reg_fk_id', $customer_id)
-                 ->update(['registration_done' => $newStatus]);
+
 
         return redirect()->route('main.login.page')->with('info','Account created well,you can login !');
 
