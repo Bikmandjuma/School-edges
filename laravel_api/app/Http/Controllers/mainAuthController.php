@@ -276,7 +276,8 @@ class mainAuthController extends Controller
 
         AllowCustomerToRegiter::create([
             'customer_partial_reg_fk_id' => $partial_register->id,
-            'status' => 'Not Allowed'
+            'status' => 'Not Allowed',
+            'registration_dane' => 'Not yet'
         ]);
 
         $registrar_id = $partial_register->id;
@@ -308,7 +309,7 @@ class mainAuthController extends Controller
 
     }
 
-    public function submit_customer_registration(Request $request){
+    public function submit_customer_registration(Request $request,$id){
         $request->validate([
             'school_name' => 'required|string',
             'email' => 'required|string|email|unique:customers,email',
@@ -317,6 +318,7 @@ class mainAuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
+        $customer_id =Crypt::decrypt($id);
         $name = $request->school_name;
         $email = $request->email;
         $phone = $request->phone;
@@ -334,6 +336,12 @@ class mainAuthController extends Controller
             'password' => $password,
             'image' => $image,
         ]);
+
+        $newStatus = 'Done'; // Replace with the new status or other values to update
+
+        // Update the records where the foreign key matches the given id
+        AllowCustomerToRegiter::where('customer_partial_reg_fk_id', $customer_id)
+                 ->update(['registration_dane' => $newStatus]);
 
         return redirect()->route('main.login.page')->with('info','Account created well,you can login !');
 
