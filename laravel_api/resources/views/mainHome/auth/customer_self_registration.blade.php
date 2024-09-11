@@ -46,7 +46,7 @@
         @if($status == 'Not Allowed')
 
             <!-- Allowed block -->
-            <section class="signup">
+            <section>
                 <div class="container" style="margin-top:-10%; box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
                     <div class="signup-content">
                         <h2 style="font-size:20px;">Please be patient and wait for admin approval.</h2>

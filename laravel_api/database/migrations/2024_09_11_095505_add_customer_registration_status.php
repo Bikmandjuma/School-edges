@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('allow_customer_to_regiters', function (Blueprint $table) {
-            $table->string('registration_dane')->nullable();
+            $table->string('registration_done')->after('status')->nullable();
         });
     }
 

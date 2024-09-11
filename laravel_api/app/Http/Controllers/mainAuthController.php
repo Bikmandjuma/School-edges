@@ -277,7 +277,7 @@ class mainAuthController extends Controller
         AllowCustomerToRegiter::create([
             'customer_partial_reg_fk_id' => $partial_register->id,
             'status' => 'Not Allowed',
-            'registration_dane' => 'Not yet'
+            'registration_done' => 'Not yet',
         ]);
 
         $registrar_id = $partial_register->id;
