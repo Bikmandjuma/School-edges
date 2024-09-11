@@ -316,7 +316,58 @@ class mainAuthController extends Controller
 
     }
 
-    public function submit_customer_registration(Request $request,$id){
+    // public function submit_customer_registration(Request $request,$id){
+    //     $request->validate([
+    //         'school_name' => 'required|string',
+    //         'email' => 'required|string|email|unique:customers,email',
+    //         'phone' => 'required|string|unique:customers,phone',
+    //         'username' => 'required|string|min:8|unique:customers,username',
+    //         'password' => 'required|string|min:8|confirmed',
+    //     ]);
+
+    //     $customer_id =$id;
+    //     $name = $request->school_name;
+    //     $email = $request->email;
+    //     $phone = $request->phone;
+    //     $country = 'Rwanda';
+    //     $username = $request->username;
+    //     $password = bcrypt($request->password);
+    //     $image = 'user.png';
+
+    //     function generateStudentNumber($sequenceNumber) {
+    //         // Prefix for the student number
+    //         $prefix = 'SE';
+
+    //         // Format the sequence number to be zero-padded to 5 digits
+    //         $formattedNumber = str_pad($sequenceNumber, 5, '0', STR_PAD_LEFT);
+
+    //         return $prefix . $formattedNumber;
+    //     }
+
+    //     // Example usage
+    //     $sequenceNumber = 1; // This should be dynamically determined based on your logic
+    //     $studentNumber = generateStudentNumber($sequenceNumber);
+
+    //     Customer::create([
+    //         'school_code' => $studentNumber,
+    //         'school_name' => $name,
+    //         'email' => $email,
+    //         'phone' => $phone,
+    //         'country' => $country,
+    //         'username' => $username,
+    //         'password' => $password,
+    //         'image' => $image,
+    //     ]);
+
+    //     DB::table('allow_customer_to_regiters')
+    //         ->where('customer_partial_reg_fk_id', Crypt::decrypt($customer_id))
+    //         ->update(['registration_done' => 'Done']);
+
+    //     return redirect()->route('main.login.page')->with('info','Account created well,you can login !');
+
+    // }
+
+    public function submit_customer_registration(Request $request, $id) {
         $request->validate([
             'school_name' => 'required|string',
             'email' => 'required|string|email|unique:customers,email',
@@ -325,41 +376,55 @@ class mainAuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $customer_id =$id;
-        $name = $request->school_name;
-        $email = $request->email;
-        $phone = $request->phone;
-        $country = 'Rwanda';
-        $username = $request->username;
-        $password = bcrypt($request->password);
-        $image = 'user.png';
+        // Retrieve the current sequence number and increment it
+        $latestSchoolCode = DB::table('customers')->orderBy('school_code', 'desc')->value('school_code');
 
-        // Generate the next registration code
-        $latestStudent = Customer::latest()->first();
-        $currentYear = now()->year;
-        $nextNumber = $latestStudent ? ((int)substr($latestStudent->registration_code, 6)) + 1 : 1;
-        $registrationCode = $currentYear . 'SE' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT); // 2024SE0001, 2024SE0002...
+        if ($latestSchoolCode) {
+            // Strip the 'SE' prefix and convert the number part to an integer
+            $sequenceNumber = (int) substr($latestSchoolCode, 2);
+        } else {
+            // Initialize sequence number if no codes exist
+            $sequenceNumber = 0;
+        }
 
+        // Increment the sequence number
+        $newSequenceNumber = $sequenceNumber + 1;
+
+        // Generate the new school code with the prefix
+        $newSchoolCode = $this->generateStudentNumber($newSequenceNumber);
+
+        // Create the customer
         Customer::create([
-            'school_code' => $registrationCode,
-            'school_name' => $name,
-            'email' => $email,
-            'phone' => $phone,
-            'country' => $country,
-            'username' => $username,
-            'password' => $password,
-            'image' => $image,
+            'school_code' => $newSchoolCode,
+            'school_name' => $request->school_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'country' => 'Rwanda',
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'image' => 'user.png',
         ]);
 
+        // Update the registration status
         DB::table('allow_customer_to_regiters')
-            ->where('customer_partial_reg_fk_id', Crypt::decrypt($customer_id))
+            ->where('customer_partial_reg_fk_id', Crypt::decrypt($id))
             ->update(['registration_done' => 'Done']);
 
-
-
-        return redirect()->route('main.login.page')->with('info','Account created well,you can login !');
-
+        // Redirect with success message
+        return redirect()->route('main.login.page')->with('info', 'Account created successfully. You can now login!');
     }
+
+    private function generateStudentNumber($sequenceNumber) {
+        // Prefix for the student number
+        $prefix = 'SE';
+
+        // Format the sequence number to be zero-padded to 5 digits
+        $formattedNumber = str_pad($sequenceNumber, 5, '0', STR_PAD_LEFT);
+
+        return $prefix . $formattedNumber;
+    }
+
+
 
     //view schools
     public function view_school(){
