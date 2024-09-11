@@ -265,11 +265,16 @@ class mainAuthController extends Controller
         $phone=$request->phone;
         $country="Rwanda";
 
-        CustomerPartialRegister::create([
+        $partial_register = CustomerPartialRegister::create([
             'school_name' => $school_name,
             'email' => $email,
             'phone' => $phone,
             'country' => $country,
+        ]);
+
+        AllowCustomerToRegiter::create([
+            'customer_partial_reg_fk_id' => $partial_register->id,
+            'status' => 'Not Allowed'
         ]);
 
         $data=[
