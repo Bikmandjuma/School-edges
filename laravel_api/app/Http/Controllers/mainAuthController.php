@@ -334,7 +334,14 @@ class mainAuthController extends Controller
         $password = bcrypt($request->password);
         $image = 'user.png';
 
+        // Generate the next registration code
+        $latestStudent = Customer::latest()->first();
+        $currentYear = now()->year;
+        $nextNumber = $latestStudent ? ((int)substr($latestStudent->registration_code, 6)) + 1 : 1;
+        $registrationCode = $currentYear . 'SE' . str_pad($nextNumber, 4, '0', STR_PAD_LEFT); // 2024SE0001, 2024SE0002...
+
         Customer::create([
+            'school_code' => $registrationCode,
             'school_name' => $name,
             'email' => $email,
             'phone' => $phone,

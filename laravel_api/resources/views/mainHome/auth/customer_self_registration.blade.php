@@ -114,7 +114,7 @@
             <section>
                 <div class="container" style="margin-top:-10%; box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
                     <div class="signup-content">
-                        <h2 style="font-size:20px;padding: 5px;">You are already a registered user of {{ config('app.name', 'our') }}. <a href="{{ route('main.login.page') }}" style="color:blue;text-decoration: none;" target="_blank">Login here</a> </h2>
+                        <h2 style="font-size:20px;padding: 5px;">You are already a registered user of {{ config('app.name', 'our') }}. <a href="{{ route('main.login.page') }}" style="color:blue;text-decoration: none;" target="self">Login here</a> </h2>
                     </div>
                 </div>
             </section>

@@ -12,6 +12,7 @@ class Customer extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable=[
+        'school_code',
         'school_name',
         'email',
         'phone',
