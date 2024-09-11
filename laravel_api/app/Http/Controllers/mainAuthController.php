@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
 use App\Models\price_range;
+use App\Models\Customer;
 use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
 use App\Mail\CustomerToRegiterMail;
@@ -247,8 +248,16 @@ class mainAuthController extends Controller
     public function customer_partial_register(Request $request){
         $request->validate([
             'school_name' => 'required|string',
-            'email' => 'required|string|email|unique:customer_partial_registers,email',
-            'phone' => 'required|string|min:10|unique:customer_partial_registers,phone',
+            'email' => 'required|string|email|unique:customer_partial_registers,email|unique:admins,email|',
+            // 'phone' => 'required|string|min:10|unique:customer_partial_registers,phone',
+            'phone' => [
+                    'required',
+                    'string',
+                    'min:10',
+                    'unique:customer_partial_registers,phone',
+                    'regex:/^(078|072|079|073)\d{6,}$/',
+            ],
+        
         ]);
 
         $school_name=$request->school_name;
@@ -284,6 +293,36 @@ class mainAuthController extends Controller
 
     }
 
+    public function submit_customer_registration(Request $request){
+        $request->validate([
+            'school_name' => 'required|string',
+            'email' => 'required|string|email|unique:customers,email',
+            'phone' => 'required|string|unique:customers,phone',
+            'username' => 'required|string|min:8|unique:customers,username',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $name = $request->school_name;
+        $email = $request->email;
+        $phone = $request->phone;
+        $country = 'Rwanda';
+        $username = $request->username;
+        $password = bcrypt($request->password);
+        $image = 'user.png';
+
+        Customer::create([
+            'school_name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'country' => $country,
+            'username' => $username,
+            'password' => $password,
+            'image' => $image,
+        ]);
+
+        return redirect()->route('main.login.page')->with('info','Account created well,you can login !');
+
+    }
 
 
 

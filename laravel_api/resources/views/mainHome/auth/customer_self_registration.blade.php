@@ -22,34 +22,44 @@
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title">Register here</h2>
-                        <form method="POST" class="register-form" id="register-form">
+                        @if($errors->any())
+                            <ul>
+                            @foreach($errors->all() as $error)
+                                <li style="color:red;">{{ $error }}</li>
+                            @endforeach
+                            </ul>
+                        @endif
+                        <form method="POST" action="{{ route('main.submit_customer_registration') }}" class="register-form" id="register-form">
+                            @csrf
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="school_name" id="name" placeholder="Enter school name" value="{{ $school_name }}" />
                             </div>
                             <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-email material-icons-name"></i></label>
-                                <input type="email" name="email" id="name" placeholder="Enter email" value="{{ $email }}" disabled />
+                                <label for="email"><i class="zmdi zmdi-email material-icons-name"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Enter email" value="{{ $email }}" readonly />
                             </div>
                             <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-phone"></i></label>
-                                <input type="number" name="phone" id="phone" placeholder="Enter phone" value="{{ $phone }}" disabled />
+                                <label for="phone"><i class="zmdi zmdi-phone"></i></label>
+                                <input type="phone" name="phone" id="phone" placeholder="Enter phone" value="{{ $phone }}" r eadonly />
                             </div>
                             <div class="form-group">
-                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Password"/>
+                                <label for="username"><i class="zmdi zmdi-account"></i></label>
+                                <input type="text" name="username" id="username" placeholder="Username" value="{{ old('username') }}" />
                             </div>
                             <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="password" placeholder="Password"/>
                             </div>
-                            <!-- <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
-                            </div> -->
+                            <div class="form-group">
+                                <label for="re-enter-password"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="password_confirmation" id="re-enter-password" placeholder="Repeat your password"/>
+                            </div>
+
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                             </div>
+                        
                         </form>
                     </div>
                     <div class="signup-image">

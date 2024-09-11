@@ -56,7 +56,6 @@ class AuthController extends Controller{
         return redirect()->route('login.form');
     }
 
-
     public function submit_forgot_password(Request $request){
         $request->validate([
             'email' => 'required|email'
