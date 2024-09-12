@@ -20,6 +20,7 @@ use App\Models\AllowCustomerToRegiter;
 use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
 use App\Mail\CustomerToRegiterMail;
+use Carbon\Carbon;
 
 class mainAuthController extends Controller
 {
@@ -433,6 +434,9 @@ class mainAuthController extends Controller
         $number = collect(Customer::all())->count();
         $school_count = $this->formatNumber($number); // Use $this-> to call a method within the same controller
 
+        //Time ago
+        // Add the 'time ago' for each school
+
         return view('mainHome.shareHolder.view_schools', compact('school_data', 'count', 'school_count'));
     }
 
@@ -448,10 +452,20 @@ class mainAuthController extends Controller
     }
 
 
-    //view single school's info
-    public function view_single_school_info($id){
-        $school_id=Crypt::decrypt($id);
-        return view('mainHome.shareHolder.view_single_school_info');
+     // View single school's info
+    public function view_single_school_info($id)
+    {
+        // Decrypt the ID
+        $school_id = Crypt::decrypt($id);
+
+        // Retrieve the single school data based on the decrypted ID
+        $school_data = Customer::findOrFail($school_id); // Fetch a single school
+
+        // Add the 'time ago' for the single school
+        $school_data->time_ago = Carbon::parse($school_data->created_at)->diffForHumans();
+
+        // Pass the school data to the view
+        return view('mainHome.shareHolder.view_single_school_info', compact('school_data'));
     }
 
 }
