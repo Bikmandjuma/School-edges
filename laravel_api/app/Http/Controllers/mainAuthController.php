@@ -402,7 +402,7 @@ class mainAuthController extends Controller
             'country' => 'Rwanda',
             'username' => $request->username,
             'password' => bcrypt($request->password),
-            'image' => 'user.png',
+            'image' => 'school_logo.jpg',
         ]);
 
         // Update the registration status
@@ -426,9 +426,32 @@ class mainAuthController extends Controller
 
 
 
-    //view schools
-    public function view_school(){
-        return view('mainHome.shareHolder.view_schools');
+    public function view_school() {
+        $school_data = Customer::all();
+        $count = 1;
+
+        $number = collect(Customer::all())->count();
+        $school_count = $this->formatNumber($number); // Use $this-> to call a method within the same controller
+
+        return view('mainHome.shareHolder.view_schools', compact('school_data', 'count', 'school_count'));
+    }
+
+    public function formatNumber($number) {
+        if ($number >= 1000000000) {
+            return number_format($number / 1000000000, 1) . 'B'; // Billion
+        } elseif ($number >= 1000000) {
+            return number_format($number / 1000000, 1) . 'M'; // Million
+        } elseif ($number >= 1000) {
+            return number_format($number / 1000, 1) . 'K'; // Thousand
+        }
+        return $number; // Less than 1000, no abbreviation
+    }
+
+
+    //view single school's info
+    public function view_single_school_info($id){
+        $school_id=Crypt::decrypt($id);
+        return view('mainHome.shareHolder.view_single_school_info');
     }
 
 }
