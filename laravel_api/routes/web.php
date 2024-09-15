@@ -6,6 +6,7 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\mainAuthController;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/school', function () {
     return view('homePage.home');
@@ -91,7 +92,12 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
 });
 //end School's admin Controller
 
-
+//Start of customer block's route
+Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
+    Route::get('home', [CustomerController::class, 'customer_home'])->name('main.customer.dashboard');
+    Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
+});
+//end of customer block's route
 
 //School's users Controller
 Route::group(['prefix'=>'user' , 'middleware'=>'user'],function(){
@@ -99,8 +105,6 @@ Route::group(['prefix'=>'user' , 'middleware'=>'user'],function(){
     Route::get('home',[UserController::class,'home'])->name('user.dashboard');
 });
 //School's users Controller
-
-
 
 //user self registration
     Route::get('/system-user/registration/{encryptedEmail}/{user_role}', [UserController::class, 'showRegistrationForm'])->name('UserSelfRegistration.form');

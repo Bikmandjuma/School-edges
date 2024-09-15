@@ -116,6 +116,10 @@ class mainAuthController extends Controller
 
             return redirect()->route('main.shareHolder.dashboard');
 
+        }elseif(Auth::guard('customer')->attempt(['username' => $request->username, 'password' => $request->password])) {
+
+            return redirect()->route('main.customer.dashboard');
+
         }else{
 
             return redirect()->back()->with('error','Invalid Username or Password ,try again !');
