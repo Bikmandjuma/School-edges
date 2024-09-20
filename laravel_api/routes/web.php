@@ -55,17 +55,32 @@ Route::get('admin-home',[AdminController::class,'home']);
 
 //mainController panel
 Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
+    
     Route::get('home',[mainAuthController::class,'panel_home'])->name('main.shareHolder.dashboard');
+    
     Route::get('logout',[mainAuthController::class,'logout'])->name('main.logout');
+    
     Route::get('profile',[mainAuthController::class,'shareHolder_profile'])->name('main.show.profile');
+    
     Route::get('information',[mainAuthController::class,'shareHolder_information'])->name('main.show.myInformation');
+    
     Route::get('username',[mainAuthController::class,'shareHolder_username'])->name('main.show.username');
+    
     Route::post('submit_username',[mainAuthController::class,'shareHolder_submit_username'])->name('main.submit.username');
+    
     Route::get('password',[mainAuthController::class,'shareHolder_password'])->name('main.show.password');
+    
     Route::post('submit_password',[mainAuthController::class,'shareHolder_submit_password'])->name('main.submit.password');
+    
     Route::post('edit_info',[mainAuthController::class,'editInfo'])->name('main.editInfo');
+    
     Route::get('view-school',[mainAuthController::class,'view_school'])->name('main.view_school');
+    
     Route::get('view_single_school_info/{id}',[mainAuthController::class,'view_single_school_info'])->name('main.view_single_school_info');
+    
+    Route::get('school_not_allowed_yet',[mainAuthController::class,'school_not_allowed_yet'])->name('main.school_not_allowed_yet');
+
+    Route::get('allowed_school_to_register/{id}',[mainAuthController::class,'allowed_school_to_register'])->name('main.allowed_school_to_register');
 
 });
 //end mainController panel

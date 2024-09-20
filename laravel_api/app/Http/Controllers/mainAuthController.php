@@ -320,58 +320,6 @@ class mainAuthController extends Controller
         return view('mainHome.auth.customer_self_registration',compact('id','school_name','email','phone','statusValue','registrationDone'))->with('hideFooter',true);
 
     }
-
-    // public function submit_customer_registration(Request $request,$id){
-    //     $request->validate([
-    //         'school_name' => 'required|string',
-    //         'email' => 'required|string|email|unique:customers,email',
-    //         'phone' => 'required|string|unique:customers,phone',
-    //         'username' => 'required|string|min:8|unique:customers,username',
-    //         'password' => 'required|string|min:8|confirmed',
-    //     ]);
-
-    //     $customer_id =$id;
-    //     $name = $request->school_name;
-    //     $email = $request->email;
-    //     $phone = $request->phone;
-    //     $country = 'Rwanda';
-    //     $username = $request->username;
-    //     $password = bcrypt($request->password);
-    //     $image = 'user.png';
-
-    //     function generateStudentNumber($sequenceNumber) {
-    //         // Prefix for the student number
-    //         $prefix = 'SE';
-
-    //         // Format the sequence number to be zero-padded to 5 digits
-    //         $formattedNumber = str_pad($sequenceNumber, 5, '0', STR_PAD_LEFT);
-
-    //         return $prefix . $formattedNumber;
-    //     }
-
-    //     // Example usage
-    //     $sequenceNumber = 1; // This should be dynamically determined based on your logic
-    //     $studentNumber = generateStudentNumber($sequenceNumber);
-
-    //     Customer::create([
-    //         'school_code' => $studentNumber,
-    //         'school_name' => $name,
-    //         'email' => $email,
-    //         'phone' => $phone,
-    //         'country' => $country,
-    //         'username' => $username,
-    //         'password' => $password,
-    //         'image' => $image,
-    //     ]);
-
-    //     DB::table('allow_customer_to_regiters')
-    //         ->where('customer_partial_reg_fk_id', Crypt::decrypt($customer_id))
-    //         ->update(['registration_done' => 'Done']);
-
-    //     return redirect()->route('main.login.page')->with('info','Account created well,you can login !');
-
-    // }
-
     public function submit_customer_registration(Request $request, $id) {
         $request->validate([
             'school_name' => 'required|string',
@@ -470,6 +418,40 @@ class mainAuthController extends Controller
 
         // Pass the school data to the view
         return view('mainHome.shareHolder.view_single_school_info', compact('school_data'));
+    }
+
+    public function school_not_allowed_yet(){
+        // =AllowCustomerToRegiter::all();
+        $status = "Not Allowed";
+        $status_two = "Allowed";
+
+        $school_data = DB::table('customer_partial_registers')
+            ->join('allow_customer_to_regiters', 'customer_partial_registers.id', '=', 'allow_customer_to_regiters.customer_partial_reg_fk_id')
+            ->select('customer_partial_registers.*','status')
+            ->where('allow_customer_to_regiters.registration_done','=','Not yet')
+            ->get();
+
+        $number = $school_data->count();
+        $school_count = $this->formatNumber($number);
+
+        // Loop through each record and add 'time_ago' for each
+        foreach ($school_data as $data) {
+            $data->time_ago = Carbon::parse($data->created_at)->diffForHumans();
+        }
+
+        $count=1;
+
+        return view('mainHome.shareHolder.school_not_allowed_yet', compact('school_data','school_count','count'));
+    }
+
+
+    public function allowed_school_to_register($id){
+        $id = Crypt::decrypt($id);
+        $status = "Allowed";
+
+        AllowCustomerToRegiter::where('customer_partial_reg_fk_id', $id)->update(['status' => $status]);
+
+        return redirect()->back()->with('info','Allowed to register !');
     }
 
 }

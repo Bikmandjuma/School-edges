@@ -3,6 +3,21 @@
   <section class="section">
       
       <div class="row">
+          <div class="col-lg-12 text-end">
+              <div class="dropdown">
+                  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: gray; color: white;">
+                      School not registered yet
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <li><a class="dropdown-item" href="#" onclick="window.location.href='{{ route("main.school_not_allowed_yet") }}'">Not allowed yet</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
+      <br>
+      
+      <div class="row">
         <div class="col-lg-12">
 
           <div class="card">
