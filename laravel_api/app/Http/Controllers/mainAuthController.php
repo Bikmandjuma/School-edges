@@ -454,4 +454,19 @@ class mainAuthController extends Controller
         return redirect()->back()->with('info','Allowed to register !');
     }
 
+    //edit customers info
+    public function Customer_edit_info($id){
+        return view('mainHome.shareHolder.editCustomerInfo');
+    }
+
+    //edit customers info
+    public function Customer_employee_student($id){
+        return view('mainHome.shareHolder.Customer_Employee_Student');
+    }
+
+    //edit customers info
+    public function Customer_payment_status($id){
+        return view('mainHome.shareHolder.Customer_payment_status');
+    }
+
 }

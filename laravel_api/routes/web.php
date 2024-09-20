@@ -82,6 +82,12 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::get('allowed_school_to_register/{id}',[mainAuthController::class,'allowed_school_to_register'])->name('main.allowed_school_to_register');
 
+    Route::get('edit_customer_info{id}',[mainAuthController::class,'Customer_edit_info'])->name('main.Customer_edit_info');
+
+    Route::get('customer_employee_student/{id}',[mainAuthController::class,'Customer_employee_student'])->name('main.Customer_employee_student');
+
+    Route::get('customer_payment_status/{id}',[mainAuthController::class,'Customer_payment_status'])->name('main.Customer_payment_status');
+
 });
 //end mainController panel
 
