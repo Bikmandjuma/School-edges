@@ -24,13 +24,28 @@
                     <div class="card-body pt-3">
                         <!-- Bordered Tabs -->
                         @include('mainHome.shareHolder.main_tabs_links_info')
-                        <div class="tab-content pt-2">
-                            <div class="tab-pane fade show {{ Request::segment(2) == 'customer_employee_student' ? 'active' : '' }} profile-overview" id="profile-overview">
-                                <h5 class="card-title">School - Employees - Students</h5>
-                                <p>Customer employee and students data</p>
+                        
+                        <h5 class="mt-4 mb-4">School - Employees - Students</h5>
 
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#employee_tab">Employees</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#student_tab">Students</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content pt-2">
+                            <div class="tab-pane fade show active" id="employee_tab">
+                                <h5 class="card-title">Employee info</h5>
                             </div>
-                        </div><!-- End Bordered Tabs -->
+                            <div class="tab-pane fade" id="student_tab">
+                                <h5 class="card-title">Student info</h5>
+                            </div>
+                        </div>
+                        <!-- End Bordered Tabs -->
+
                     </div>
                 </div>
             </div>
