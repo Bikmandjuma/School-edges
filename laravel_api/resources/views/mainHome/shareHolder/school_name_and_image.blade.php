@@ -12,5 +12,7 @@
         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
         <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
         <a href="#" class="linkedin"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" class="linkedin"><i class="fas fa-envelope"></i></a>
+        <a href="#" class="linkedin"><i class="fas fa-phone"></i></a>
     </div>
 </div>
