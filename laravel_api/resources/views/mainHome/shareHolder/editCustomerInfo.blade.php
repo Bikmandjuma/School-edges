@@ -58,17 +58,27 @@
                                       </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                    <!-- <div class="row mb-3">
                                       <label for="firstname" class="col-md-4 col-sm-4 col-lg-3 col-form-label">Country</label>
                                       <div class="col-md-8 col-sm-8 col-lg-9">
                                         <input name="country" type="text" class="form-control" id="country" value="{{ $school_data->country }}">
                                       </div>
+                                    </div> -->
+                                    <div class="row mb-3">
+                                        <label for="country" class="col-md-4 col-sm-4 col-lg-3 col-form-label">Choose a country:</label>
+                                        <div class="col-md-8 col-sm-8 col-lg-9">
+                                            <select id="country" class="form-control">
+                                                <option value="">Loading countries...</option>
+                                            </select>
+                                            <p id="selected-country"></p>
+                                        </div>
                                     </div>
+
 
                                     <div class="row mb-3">
                                       <label for="firstname" class="col-md-4 col-sm-4 col-lg-3 col-form-label">Username</label>
                                       <div class="col-md-8 col-sm-8 col-lg-9">
-                                        <input name="username" type="text" class="form-control" id="username" value="{{ $school_data->username }}">
+                                        <input name="username" type="text" class="form-control" id="username" value="{{ $school_data->username }}" disabled>
                                       </div>
                                     </div>
                                     
@@ -87,4 +97,53 @@
             </div>
         </div>
     </section>
+
+    <script type="text/javascript">
+        // The preselected country from the database
+        const storedCountry = "{{ $school_data->country }}"; // Preselect this country
+
+        // Function to fetch countries from the API and preselect stored country
+        function fetchCountries() {
+            const countrySelect = document.getElementById('country');
+
+            // Fetch country data from REST Countries API
+            fetch('https://restcountries.com/v3.1/all')
+                .then(response => response.json())
+                .then(data => {
+                    // Clear loading text
+                    countrySelect.innerHTML = '';
+
+                    // Loop through the data and add countries to the dropdown
+                    data.forEach(country => {
+                        const option = document.createElement('option');
+                        option.value = country.cca2; // 2-letter country code
+                        option.textContent = country.name.common; // Country name
+
+                        // Check if this country matches the stored country and preselect it
+                        if (country.name.common === storedCountry) {
+                            option.selected = true;
+                        }
+
+                        countrySelect.appendChild(option);
+                    });
+
+                    // Display the selected country
+                    document.getElementById('selected-country').innerText = 'Selected Country: ' + storedCountry;
+                })
+                .catch(error => {
+                    console.error('Error fetching country data:', error);
+                    countrySelect.innerHTML = '<option value="">Failed to load countries</option>';
+                });
+        }
+
+        // Event listener for when a country is selected
+        document.getElementById('country').addEventListener('change', function() {
+            const selectedCountry = this.options[this.selectedIndex].text;
+            document.getElementById('selected-country').innerText = 'Selected Country: ' + selectedCountry;
+        });
+
+        // Fetch countries when the page loads
+        fetchCountries();
+
+    </script>
 @endsection
