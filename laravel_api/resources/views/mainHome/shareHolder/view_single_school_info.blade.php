@@ -25,7 +25,7 @@
                         <!-- Bordered Tabs -->
                         @include('mainHome.shareHolder.main_tabs_links_info')
                         <div class="tab-content pt-2">
-                            <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                            <div class="tab-pane fade show {{ Request::segment(2) == 'view_single_school_info' ? 'active' : '' }} profile-overview" id="profile-overview">
                                 <h5 class="card-title">School Details</h5>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label ">Name</div>

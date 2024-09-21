@@ -383,7 +383,7 @@ class mainAuthController extends Controller
         $school_data = Customer::all();
         $count = 1;
 
-        $number = collect(Customer::all())->count();
+        $number = $school_data->count();
         $school_count = $this->formatNumber($number); // Use $this-> to call a method within the same controller
 
         //Time ago
@@ -456,7 +456,16 @@ class mainAuthController extends Controller
 
     //edit customers info
     public function Customer_edit_info($id){
-        return view('mainHome.shareHolder.editCustomerInfo');
+        // Decrypt the ID
+        $school_id = Crypt::decrypt($id);
+
+        // Retrieve the single school data based on the decrypted ID
+        $school_data = Customer::findOrFail($school_id); // Fetch a single school
+
+        // Add the 'time ago' for the single school
+        $school_data->time_ago = Carbon::parse($school_data->created_at)->diffForHumans();
+        
+        return view('mainHome.shareHolder.editCustomerInfo', compact('school_data'));
     }
 
     //edit customers info
