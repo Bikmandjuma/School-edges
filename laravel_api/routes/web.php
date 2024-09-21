@@ -88,6 +88,8 @@ Route::group(['prefix'=>'shareHolder' , 'middleware'=>'shareHolder'],function(){
 
     Route::get('customer_payment_status/{id}',[mainAuthController::class,'Customer_payment_status'])->name('main.Customer_payment_status');
 
+    Route::post('submit_edit_customer_info/{id}',[mainAuthController::class,'edit_customer_info'])->name('main.editCustomerInfo');
+
 });
 //end mainController panel
 

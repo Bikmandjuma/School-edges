@@ -27,7 +27,14 @@
                         <div class="tab-content pt-2">
                             <div class="tab-pane fade show {{ Request::segment(2) == 'edit_customer_info' ? 'active' : '' }} profile-overview" id="profile-overview">
                                 <h5 class="card-title">School - edit - info </h5>
-                                <form method="POST" action="{{ route('main.editInfo') }}">
+                                @if($errors->any())
+                                    <ul style="text-decoration: none;">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                                <form method="POST" action="{{ route('main.editCustomerInfo',Crypt::encrypt($school_data->id)) }}">
                                     @csrf
 
                                     <div class="row mb-3">
@@ -40,7 +47,7 @@
                                     <div class="row mb-3">
                                       <label for="firstname" class="col-md-4 col-sm-4 col-lg-3 col-form-label">Name</label>
                                       <div class="col-md-8 col-sm-8 col-lg-9">
-                                        <input name="firstname" type="text" class="form-control" id="firstname" value="{{ $school_data->school_name }}">
+                                        <input name="school_name" type="text" class="form-control" id="firstname" value="{{ $school_data->school_name }}">
                                       </div>
                                     </div>
 
@@ -58,16 +65,10 @@
                                       </div>
                                     </div>
 
-                                    <!-- <div class="row mb-3">
-                                      <label for="firstname" class="col-md-4 col-sm-4 col-lg-3 col-form-label">Country</label>
-                                      <div class="col-md-8 col-sm-8 col-lg-9">
-                                        <input name="country" type="text" class="form-control" id="country" value="{{ $school_data->country }}">
-                                      </div>
-                                    </div> -->
                                     <div class="row mb-3">
-                                        <label for="country" class="col-md-4 col-sm-4 col-lg-3 col-form-label">Choose a country:</label>
+                                        <label for="country" class="col-md-4 col-sm-4 col-lg-3 col-form-label">Country:</label>
                                         <div class="col-md-8 col-sm-8 col-lg-9">
-                                            <select id="country" class="form-control">
+                                            <select id="country" name="country" class="form-control">
                                                 <option value="">Loading countries...</option>
                                             </select>
                                             <p id="selected-country"></p>
@@ -116,7 +117,7 @@
                     // Loop through the data and add countries to the dropdown
                     data.forEach(country => {
                         const option = document.createElement('option');
-                        option.value = country.cca2; // 2-letter country code
+                        option.value = country.name.common;; // 2-letter country code
                         option.textContent = country.name.common; // Country name
 
                         // Check if this country matches the stored country and preselect it

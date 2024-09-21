@@ -487,4 +487,42 @@ class mainAuthController extends Controller
         return view('mainHome.shareHolder.Customer_payment_status', compact('school_data'));
     }
 
+    public function edit_customer_info(Request $request,$id){
+        // Decrypt the ID
+        $school_id = Crypt::decrypt($id);
+
+        $request->validate([
+            'school_name' => 'required|string',
+            'email' => [
+                'required',
+                'email',
+                'unique:share_holders,email',
+                Rule::unique('customers', 'email')->ignore($school_id)
+            ],
+
+            'phone' => [
+                'required',
+                'numeric',
+                Rule::unique('customers', 'phone')->ignore($school_id),
+                'unique:share_holders,phone'
+            ],
+            'country' => 'required|string',
+
+        ]);
+
+        // Retrieve the single school data based on the decrypted ID
+        $school_data = Customer::findOrFail($school_id); // Fetch a single school
+        
+        $school_name=$request->school_name;
+        $school_email=$request->email;
+        $school_phone=$request->phone;
+        $school_country=$request->country;
+
+        DB::table('customers')
+            ->where('id', $school_id)
+            ->update(['school_name' => $school_name , 'email' => $school_email,'phone' => $school_phone,'country' => $school_country]);
+
+        return redirect()->back()->with('info','Data updated successfully');
+    }
+
 }
