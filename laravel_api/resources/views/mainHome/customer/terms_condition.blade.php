@@ -17,7 +17,7 @@
         <div class="col-lg-12">
         	<div class="card">
 	            <div class="card-body">
-	              <h5 class="card-title">Default Tabs</h5>
+	              <h5 class="card-title">Terms and conditions</h5>
 
 	              <!-- Default Tabs -->
 	              <ul class="nav nav-tabs" id="myTab" role="tablist" style="Overview-x:auto;">

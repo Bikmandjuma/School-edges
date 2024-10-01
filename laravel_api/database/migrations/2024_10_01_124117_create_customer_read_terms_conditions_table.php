@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('school_employees', function (Blueprint $table) {
+        Schema::create('customer_read_terms_conditions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('school_fk_id');
+            $table->foreign('school_fk_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->string('terms');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('school_employees');
+        Schema::dropIfExists('customer_read_terms_conditions');
     }
 };
