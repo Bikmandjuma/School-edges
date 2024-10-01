@@ -136,6 +136,11 @@ class CustomerController extends Controller
     
     }
 
+    //terms and condition
+    public function customer_terms_condition(){
+        return view('mainHome.customer.terms_condition');
+    }
+
     public function logout(){
         // Check which guard is currently authenticated
         if (Auth::guard('customer')->check()) {

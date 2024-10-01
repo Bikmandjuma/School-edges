@@ -229,7 +229,7 @@
         </a>
         <ul id="rules_and_regulation" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('view_users') }}" >
+            <a href="{{ route('main.customer.terms_condition') }}" >
               <i class="bi bi-circle"></i><span>view terms & conditions</span>
             </a>
           </li>

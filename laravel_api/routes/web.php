@@ -127,6 +127,7 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
     Route::post('edit_info',[CustomerController::class,'editInfo'])->name('main.customer.editInfo');
     Route::get('logo',[CustomerController::class,'logo'])->name('main.customer.logo');
     Route::post('customer_logo',[CustomerController::class,'customer_update_logo'])->name('main.customer.update.logo');
+    Route::get('terms_condition', [CustomerController::class, 'customer_terms_condition'])->name('main.customer.terms_condition');
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
 //end of customer block's route
