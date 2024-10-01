@@ -21,6 +21,7 @@ use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
 use App\Mail\CustomerToRegiterMail;
 use Carbon\Carbon;
+use App\Models\customer_read_terms_condition;
 
 class mainAuthController extends Controller
 {
@@ -320,7 +321,9 @@ class mainAuthController extends Controller
         return view('mainHome.auth.customer_self_registration',compact('id','school_name','email','phone','statusValue','registrationDone'))->with('hideFooter',true);
 
     }
+    
     public function submit_customer_registration(Request $request, $id) {
+        // Validation
         $request->validate([
             'school_name' => 'required|string',
             'email' => 'required|string|email|unique:customers,email',
@@ -329,25 +332,20 @@ class mainAuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Retrieve the current sequence number and increment it
+        // Retrieve the latest school code and increment
         $latestSchoolCode = DB::table('customers')->orderBy('school_code', 'desc')->value('school_code');
 
         if ($latestSchoolCode) {
-            // Strip the 'SE' prefix and convert the number part to an integer
             $sequenceNumber = (int) substr($latestSchoolCode, 2);
         } else {
-            // Initialize sequence number if no codes exist
             $sequenceNumber = 0;
         }
 
-        // Increment the sequence number
         $newSequenceNumber = $sequenceNumber + 1;
-
-        // Generate the new school code with the prefix
         $newSchoolCode = $this->generateStudentNumber($newSequenceNumber);
 
         // Create the customer
-        Customer::create([
+        $school = Customer::create([
             'school_code' => $newSchoolCode,
             'school_name' => $request->school_name,
             'email' => $request->email,
@@ -358,26 +356,69 @@ class mainAuthController extends Controller
             'image' => 'school_logo.jpg',
         ]);
 
-        // Update the registration status
+        // Update registration status
         DB::table('allow_customer_to_regiters')
             ->where('customer_partial_reg_fk_id', Crypt::decrypt($id))
             ->update(['registration_done' => 'Done']);
+
+        // Fill terms and conditions using the correct model
+        DB::table('customer_read_terms_conditions')->insert([
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'Introduction',
+                'status' => '',
+            ],
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'System overview',
+                'status' => '',
+            ],
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'Payment terms',
+                'status' => '',
+            ],
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'Service update',
+                'status' => '',
+            ],
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'Security and privacy',
+                'status' => '',
+            ],
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'User responsibility',
+                'status' => '',
+            ],
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'Termination',
+                'status' => '',
+            ],
+            [
+                'school_fk_id' => $school->id,
+                'terms' => 'Customer support',
+                'status' => '',
+            ],
+        ]);
 
         // Redirect with success message
         return redirect()->route('main.login.page')->with('info', 'Account created successfully. You can now login!');
     }
 
+
     private function generateStudentNumber($sequenceNumber) {
         // Prefix for the student number
         $prefix = 'SE';
-
+    
         // Format the sequence number to be zero-padded to 5 digits
         $formattedNumber = str_pad($sequenceNumber, 5, '0', STR_PAD_LEFT);
 
         return $prefix . $formattedNumber;
     }
-
-
 
     public function view_school() {
         $school_data = Customer::all();
