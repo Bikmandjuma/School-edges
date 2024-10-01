@@ -118,6 +118,15 @@ Route::group(['prefix'=>'admin' , 'middleware'=>'admin'],function(){
 //Start of customer block's route
 Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
     Route::get('home', [CustomerController::class, 'customer_home'])->name('main.customer.dashboard');
+    Route::get('profile',[CustomerController::class,'customer_profile'])->name('main.customer.show.profile');
+    Route::get('information',[CustomerController::class,'customer_information'])->name('main.customer.show.myInformation');
+    Route::get('username',[CustomerController::class,'customer_username'])->name('main.customer.show.username');
+    Route::post('submit_username',[CustomerController::class,'customer_submit_username'])->name('main.customer.submit.username');
+    Route::get('password',[CustomerController::class,'customer_password'])->name('main.customer.show.password');
+    Route::post('submit_passwords',[CustomerController::class,'customer_submit_password'])->name('main.customer.submit.password');
+    Route::post('edit_info',[CustomerController::class,'editInfo'])->name('main.customer.editInfo');
+    Route::get('logo',[CustomerController::class,'logo'])->name('main.customer.logo');
+    Route::post('customer_logo',[CustomerController::class,'customer_update_logo'])->name('main.customer.update.logo');
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
 //end of customer block's route

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name','school-name') }}</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -30,6 +30,8 @@
   <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
   <style>
     #preview {
@@ -145,7 +147,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center"  style="box-shadow:0px 4px 8px 0px rgba(0,0,0,0.2);">
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="#" class="logo d-flex align-items-center">
@@ -184,7 +186,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#" onclick="window.location.href='{{ route('profile.page') }}'" data-bs-toggle="tab" data-bs-target="#profile-edit">
+              <a class="dropdown-item d-flex align-items-center" href="#" onclick="window.location.href='{{ route('main.customer.show.profile') }}'" data-bs-toggle="tab" data-bs-target="#profile-edit">
                 <i class="bi bi-gear"></i>
                 <span>My account</span>
               </a>
@@ -209,20 +211,36 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar"  style="box-shadow:0px 4px 8px 0px rgba(0,0,0,0.3);">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link @if(Request::segment(1) == 'home') collapsed @endif " href="{{ route('dashboard') }}">
+        <a class="nav-link @if(Request::segment(1) == 'home') collapsed @endif " href="{{ route('main.customer.dashboard') }}">
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
+      <!-- Start system users Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#rules_and_regulation" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Terms & Conditions</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="rules_and_regulation" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>view terms & conditions</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End system users Nav -->
+
+      <!-- Start system users Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#system-user" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>System Users</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-menu-button-wide"></i><span>Teacher & students</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="system-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -231,7 +249,69 @@
             </a>
           </li>
         </ul>
-      </li><!-- End Components Nav -->
+      </li>
+      <!-- End system users Nav -->
+      
+      <!-- Start system users Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#contract" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Contract</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="contract" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>my contract</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End system users Nav -->
+      
+
+      <!-- Start system users Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#payment" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="payment" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>payment</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End system users Nav -->
+      
+      <!-- Start system users Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#support" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Support</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="support" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>ask for help</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End system users Nav -->
+
+      <!-- Start system users Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#open_app" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Open app</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="open_app" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{ route('view_users') }}" >
+              <i class="bi bi-circle"></i><span>School's link</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <!-- End system users Nav -->
       
     </ul>
 
@@ -259,6 +339,14 @@
           </div>
       </div>
   </div>
+
+  <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 
   <!-- Vendor JS Files -->       
   <script src="{{ URL::to('/') }}/adminPanel/assets/vendor/apexcharts/apexcharts.min.js"></script>
