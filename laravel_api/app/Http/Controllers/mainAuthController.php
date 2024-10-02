@@ -265,6 +265,7 @@ class mainAuthController extends Controller
                     'min:10',
                     'unique:customer_partial_registers,phone',
                     'regex:/^(078|072|079|073)\d{6,}$/',
+                    'unique:customer_partial_registers,phone|unique:admins,phone',
             ],
         
         ]);
