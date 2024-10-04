@@ -5,8 +5,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use App\Models\Customer;
+use App\Models\SchoolEmployee;
+use App\Models\period_price;
+use App\Models\price_range;
+use App\Models\SchoolStudent;
+use App\Models\customer_read_terms_condition;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\validator;
 use Illuminate\Support\Facades\Log;
@@ -14,24 +20,65 @@ use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
-    public function customer_home(){
-        return view('mainHome.customer.home');
+    protected function display_terms_conditions() {
+        // Get the authenticated user
+        $auth_user = Auth::guard('customer')->user()->id;
+
+        // Retrieve the terms and conditions for the specific user
+        $terms = customer_read_terms_condition::where('school_fk_id', $auth_user)
+                    ->where('status', '=', '')
+                    ->get();
+
+        // Count the number of terms found
+        $count_terms = $terms->count();
+
+        // Return the terms and count
+        return ['terms' => $terms, 'count_terms' => $count_terms];
     }
 
+    public function customer_home() {
+        // Call the display_terms_conditions() function and retrieve the data
+        $terms_conditions = self::display_terms_conditions();
+       
+
+        // Pass the terms and count to the view
+        return view('mainHome.customer.home', [
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
+    }
+
+
     public function customer_profile(){
-        return view('mainHome.customer.profile');
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.profile', [
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
     }
 
     public function customer_username(){
-        return view('mainHome.customer.username');
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.username', [
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
     }
 
     public function customer_information(){
-        return view('mainHome.customer.myInformation');
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.myInformation', [
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
     }
 
     public function customer_password(){
-        return view('mainHome.customer.password');
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.password', [
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
     }
 
     public function editInfo(Request $request) {
@@ -106,8 +153,13 @@ class CustomerController extends Controller
     }
 
     public function logo(){
+        $terms_conditions = self::display_terms_conditions();
         $customer = Auth::guard('customer')->user(); // Get the authenticated customer
-        return view('mainHome.customer.logo' , compact('customer'));
+        return view('mainHome.customer.logo' ,[
+            'customer'=>$customer ,
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms']
+        ]);
     }
 
     public function customer_update_logo(Request $request){
@@ -138,7 +190,82 @@ class CustomerController extends Controller
 
     //terms and condition
     public function customer_terms_condition(){
-        return view('mainHome.customer.terms_condition');
+        $auth_user=Auth::guard('customer')->user()->id;
+        $terms=customer_read_terms_condition::where('school_fk_id',$auth_user)->where('status','=','')->get();
+        $count_terms=$terms->count();
+        $terms_not_equal_to_null=customer_read_terms_condition::where('school_fk_id',$auth_user)->where('status','!=','')->count();
+
+        if( $terms_not_equal_to_null == 0){
+            toastr()->info('Terms & conditions read , do any other action you want !',['timeOut' => 5000]);
+        } 
+
+        return view('mainHome.customer.terms_condition',compact('terms','count_terms'));
+
+    }
+
+    public function customer_submit_terms_condition($terms){
+        $auth_user=Auth::guard('customer')->user()->id;
+        $terms=customer_read_terms_condition::where('school_fk_id',$auth_user)->where('terms','=',$terms);
+        $terms->update(['status'=>'Read']);
+
+        $count_terms=customer_read_terms_condition::all()->where('school_fk_id',$auth_user)->count();
+
+        return redirect()->back()->with('terms_count',$count_terms);
+
+    }
+
+    //all schools employees and students
+    public function customer_employees_students(){
+        $terms_conditions = self::display_terms_conditions();
+        $school_id=Auth::guard('customer')->user()->id;
+        $school_employees = SchoolEmployee::where('school_fk_id',$school_id)->get();
+        $school_students = SchoolStudent::where('school_fk_id',$school_id)->get();
+
+        $school_employees_count=$school_employees->count();
+        $school_students_count=$school_students->count();
+
+        return view('mainHome.customer.school_employees_students', [
+            'employees' => $school_employees,
+            'students' => $school_students,
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms'],
+            'employees_count' => $school_employees_count,
+            'students_count' => $school_students_count
+        ]);
+    }
+
+    //payment plan
+    public function customer_payment_plan(){
+        $terms_conditions = self::display_terms_conditions();
+
+        $period_price = period_price::all()->where('period','Monthly')->get('price');
+        $price_range = price_range::all();
+        // dd($price_range);
+
+        return view('mainHome.customer.payment_plan', [
+            'period_price' => $period_price,
+            'price_range' => $price_range,
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms'],
+        ]);
+    }
+
+    //customer(school) Ask_question 
+    public function customer_ask_question(){
+        $terms_conditions = self::display_terms_conditions();
+        return view('mainHome.customer.ask_question', [
+            'terms' => $terms_conditions['terms'],
+            'count_terms' => $terms_conditions['count_terms'],
+        ]);
+    }
+
+    public function customer_open_app($name,$id,$code){
+        $school_name = $name;
+        $school_id = $id;
+        $school_code = $code;
+
+        return redirect()->route('main.school.open', ['school_name' => $school_name,'school_id' => $school_id, 'school_code' => $school_code]);
+
     }
 
     public function logout(){
@@ -150,5 +277,6 @@ class CustomerController extends Controller
         // Redirect to login form
         return redirect()->route('main.login.page');
     }
+
 
 }

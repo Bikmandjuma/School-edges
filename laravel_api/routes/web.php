@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\mainAuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\SchoolController;
 
 Route::get('/school', function () {
     return view('homePage.home');
@@ -128,9 +129,20 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
     Route::get('logo',[CustomerController::class,'logo'])->name('main.customer.logo');
     Route::post('customer_logo',[CustomerController::class,'customer_update_logo'])->name('main.customer.update.logo');
     Route::get('terms_condition', [CustomerController::class, 'customer_terms_condition'])->name('main.customer.terms_condition');
+    Route::get('terms_condition/{terms}', [CustomerController::class, 'customer_submit_terms_condition'])->name('main.submit.terms_condition');
+    Route::get('employees_students', [CustomerController::class, 'customer_employees_students'])->name('main.customer.employees_students');
+    Route::get('payment_plan', [CustomerController::class, 'customer_payment_plan'])->name('main.customer.payment_plan');
+    Route::get('open_app/{name}/{id}/{code}', [CustomerController::class, 'customer_open_app'])->name('main.customer.open_app');
+    Route::get('ask_question', [CustomerController::class, 'customer_ask_question'])->name('main.customer.ask_question');
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
 //end of customer block's route
+
+//single_school_page
+Route::group(['prefix' => ''], function() {
+    Route::get('home/{school_name}/{school_id}/{school_code}', [SchoolController::class, 'open'])->name('main.school.open');
+});
+//end single_school_page
 
 //School's users Controller
 Route::group(['prefix'=>'user' , 'middleware'=>'user'],function(){

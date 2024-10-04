@@ -257,15 +257,14 @@ class mainAuthController extends Controller
     public function customer_partial_register(Request $request){
         $request->validate([
             'school_name' => 'required|string',
-            'email' => 'required|string|email|unique:customer_partial_registers,email|unique:admins,email|',
-            // 'phone' => 'required|string|min:10|unique:customer_partial_registers,phone',
+            'email' => 'required|string|email|unique:customer_partial_registers,email|unique:admins,email',
             'phone' => [
                     'required',
                     'string',
                     'min:10',
                     'unique:customer_partial_registers,phone',
                     'regex:/^(078|072|079|073)\d{6,}$/',
-                    'unique:customer_partial_registers,phone|unique:admins,phone',
+                    'unique:customer_partial_registers,phone',
             ],
         
         ]);

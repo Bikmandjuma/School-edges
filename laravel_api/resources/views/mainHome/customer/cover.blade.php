@@ -17,7 +17,7 @@
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
-
+  <link href="{{ URL::to('/') }}/Customer_Ask_question/css/user_panel.css" rel="stylesheet">
   <!-- Vendor CSS Files -->
   <link href="{{ URL::to('/') }}/adminPanel/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="{{ URL::to('/') }}/adminPanel/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -30,8 +30,10 @@
   <link rel="stylesheet" href="https://unpkg.com/cropperjs/dist/cropper.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="{{URL::to('/')}}/mainHomePage/css/icofont.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+  <script src="{{ URL::to('/') }}/Customer_Ask_question/js/user_panel.js"></script>
 
   <style>
     #preview {
@@ -216,7 +218,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link @if(Request::segment(1) == 'home') collapsed @endif " href="{{ route('main.customer.dashboard') }}">
+        <a class="nav-link {{ Request::segment(2) == 'home' ? 'active' : 'collapsed' }} " href="{{ route('main.customer.dashboard') }}">
           <i class="fa fa-dashboard"></i>
           <span>Dashboard</span>
         </a>
@@ -224,8 +226,8 @@
 
       <!-- Start system users Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#rules_and_regulation" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Terms & Conditions</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link {{ Request::segment(2) == 'terms_condition' ? 'active' : 'collapsed' }}" data-bs-target="#rules_and_regulation" data-bs-toggle="collapse" href="#">
+          <i class="fa fa-cog"></i><span>Terms & Conditions</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="rules_and_regulation" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -238,14 +240,18 @@
       <!-- End system users Nav -->
 
       <!-- Start system users Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#system-user" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Teacher & students</span><i class="bi bi-chevron-down ms-auto"></i>
+      <li class="nav-item"
+        @if($count_terms != 0) 
+            data-bs-target="#terms_cond_model" data-bs-toggle="modal"
+        @endif
+      >
+        <a class="nav-link {{ Request::segment(2) == 'employees_students' ? 'active' : 'collapsed' }}" data-bs-target="#system-user" data-bs-toggle="collapse" href="#">
+          <i class="fa fa-users"></i><span>Employees & students</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="system-user" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('view_users') }}" >
-              <i class="bi bi-circle"></i><span>view users</span>
+            <a href="{{ route('main.customer.employees_students') }}" >
+              <i class="bi bi-circle"></i><span>view employees&students</span>
             </a>
           </li>
         </ul>
@@ -253,9 +259,13 @@
       <!-- End system users Nav -->
       
       <!-- Start system users Nav -->
-      <li class="nav-item">
+      <li class="nav-item"
+            @if($count_terms != 0) 
+                data-bs-target="#terms_cond_model" data-bs-toggle="modal"
+            @endif
+      >
         <a class="nav-link collapsed" data-bs-target="#contract" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Contract</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa fa-list"></i><span>Contract</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="contract" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
@@ -269,13 +279,17 @@
       
 
       <!-- Start system users Nav -->
-      <li class="nav-item">
+      <li class="nav-item"
+          @if($count_terms != 0) 
+              data-bs-target="#terms_cond_model" data-bs-toggle="modal"
+          @endif
+      >
         <a class="nav-link collapsed" data-bs-target="#payment" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa fa-dollar"></i><span>Payment</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="payment" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('view_users') }}" >
+            <a href="{{ route('main.customer.payment_plan') }}" >
               <i class="bi bi-circle"></i><span>payment</span>
             </a>
           </li>
@@ -284,13 +298,17 @@
       <!-- End system users Nav -->
       
       <!-- Start system users Nav -->
-      <li class="nav-item">
+      <li class="nav-item"
+        @if($count_terms != 0) 
+            data-bs-target="#terms_cond_model" data-bs-toggle="modal"
+        @endif
+      >
         <a class="nav-link collapsed" data-bs-target="#support" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Support</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa fa-question"></i><span>Ask question</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="support" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('view_users') }}" >
+            <a href="{{ route('main.customer.ask_question') }}" >
               <i class="bi bi-circle"></i><span>ask for help</span>
             </a>
           </li>
@@ -299,13 +317,17 @@
       <!-- End system users Nav -->
 
       <!-- Start system users Nav -->
-      <li class="nav-item">
+      <li class="nav-item"
+        @if($count_terms != 0) 
+            data-bs-target="#terms_cond_model" data-bs-toggle="modal"
+        @endif
+      >
         <a class="nav-link collapsed" data-bs-target="#open_app" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Open app</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="fa fa-wrench"></i><span>Open app</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="open_app" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ route('view_users') }}" >
+            <a href="{{ url('customer/open_app') }}/{{ auth()->guard('customer')->user()->school_name }}/{{ Crypt::encrypt(auth()->guard('customer')->user()->id) }}/{{ Crypt::encrypt(auth()->guard('customer')->user()->school_code) }}" target="parent">
               <i class="bi bi-circle"></i><span>School's link</span>
             </a>
           </li>
@@ -322,6 +344,28 @@
   </main>
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+   <div class="modal fade" id="terms_cond_model" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header"style="display: flex; flex-direction: column; align-items:center;">
+                <h5 class="modal-title">Notification&nbsp;&nbsp;<i class="fa fa-bell"></i> </h5>
+              </div>
+              <div class="modal-body align-items-center justify-content-center" style="display: flex; flex-direction: column; align-items:center;">
+                <p>Before any action , you have to read all terms and conditions first !</p>
+                      <ul>
+                        @foreach($terms as $data)
+                          <li>{{ $data->terms }}</li>
+                        @endforeach
+                      </ul>
+              </div>
+              <div class="modal-footer">
+                  <button class="btn btn-primary" onclick="window.location.href='{{ route("main.customer.terms_condition") }}'">Read&nbsp;<i class="fa fa-list-alt"></i></button>
+                  <button class="btn btn-danger" class="btn-close" data-bs-dismiss="modal" aria-label="Close">Close&nbsp;<i class="fa fa-times"></i></button>
+              </div>
+          </div>
+      </div>
+  </div>
 
   <div class="modal fade" id="logoutModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
