@@ -41,9 +41,9 @@ return [
             'provider' => 'users',
         ],
 
-        'admin' => [
+        'school_employee' => [
             'driver' => 'session',
-            'provider' => 'admins',
+            'provider' => 'school_employees',
         ],
 
         'user' => [
@@ -85,9 +85,9 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        'admins' => [
+        'school_employees' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
+            'model' => App\Models\SchoolEmployee::class,
         ],
 
         'shareHolders' => [

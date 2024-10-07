@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Admin;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Support\Facades\Mail;

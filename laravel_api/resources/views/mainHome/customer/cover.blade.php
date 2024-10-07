@@ -327,7 +327,7 @@
         </a>
         <ul id="open_app" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{{ url('customer/open_app') }}/{{ auth()->guard('customer')->user()->school_name }}/{{ Crypt::encrypt(auth()->guard('customer')->user()->id) }}/{{ Crypt::encrypt(auth()->guard('customer')->user()->school_code) }}" target="parent">
+            <a href="{{ url('customer/open_app') }}/{{ Crypt::encrypt(auth()->guard('customer')->user()->id) }}" target="parent">
               <i class="bi bi-circle"></i><span>School's link</span>
             </a>
           </li>

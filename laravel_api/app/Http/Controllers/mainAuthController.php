@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Crypt;
 use App\Models\period_price;
 use App\Models\price_range;
 use App\Models\Customer;
+use App\Models\UserRole;
+use App\Models\SchoolEmployee;
 use App\Models\AllowCustomerToRegiter;
 use App\Models\CustomerPartialRegister;
 use Illuminate\Validation\Rule;
@@ -26,6 +28,9 @@ use App\Models\customer_read_terms_condition;
 class mainAuthController extends Controller
 {
     public function login(){
+        if (!empty(Auth::check())) {
+            return redirect()->route('main.customer.dashboard');
+        }
         return view('mainHome.auth.login')->with('hideFooter',true);
     }
 
@@ -169,9 +174,9 @@ class mainAuthController extends Controller
         //     'firstname' => 'required|string',
         //     'lastname' => 'required|string',
         //     'gender' => 'required|in:Male,Female',
-        //     'phone' => 'required|numeric|unique:users,phone|unique:admins,phone',
-        //     'email' => 'required|email|unique:users,email|unique:admins,email',
-        //     'username' => 'required|string|between:8,32|unique:users,username|unique:admins,username',
+        //     'phone' => 'required|numeric|unique:users,phone',
+        //     'email' => 'required|email|unique:users,email',
+        //     'username' => 'required|string|between:8,32|unique:users,username',
         //     'dob' => 'required|string',
         // ]);
 
@@ -257,7 +262,7 @@ class mainAuthController extends Controller
     public function customer_partial_register(Request $request){
         $request->validate([
             'school_name' => 'required|string',
-            'email' => 'required|string|email|unique:customer_partial_registers,email|unique:admins,email',
+            'email' => 'required|string|email|unique:customer_partial_registers,email',
             'phone' => [
                     'required',
                     'string',
@@ -326,9 +331,9 @@ class mainAuthController extends Controller
         // Validation
         $request->validate([
             'school_name' => 'required|string',
-            'email' => 'required|string|email|unique:customers,email',
-            'phone' => 'required|string|unique:customers,phone',
-            'username' => 'required|string|min:8|unique:customers,username',
+            'email' => 'required|string|email|unique:customers,email|unique:share_holders,email',
+            'phone' => 'required|string|unique:customers,phone|unique:share_holders,phone',
+            'username' => 'required|string|min:8|unique:customers,username|unique:share_holders,username',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -355,6 +360,19 @@ class mainAuthController extends Controller
             'password' => bcrypt($request->password),
             'image' => 'school_logo.jpg',
         ]);
+
+        $role_data = UserRole::where('role_name', 'Admin')->first();
+
+        if ($role_data) {
+            SchoolEmployee::create([
+                'school_fk_id' => $school->id,
+                'role_fk_id' => $role_data->id,
+                'email' => $request->email,
+                'username' => $request->username,
+                'password' => bcrypt($request->password),
+                'image' => 'user.jpg',
+            ]);
+        }
 
         // Update registration status
         DB::table('allow_customer_to_regiters')

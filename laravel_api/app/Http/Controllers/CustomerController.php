@@ -89,8 +89,8 @@ class CustomerController extends Controller
     
         $request->validate([
             'school_name' => 'required|string',
-            'phone' => 'required|numeric|unique:customers,phone,' . $auth_user_id . '|unique:share_holders,phone,' . $auth_user_id . '|unique:admins,phone,' . $auth_user_id,
-            'email' => 'required|email|unique:customers,email,' . $auth_user_id . '|unique:share_holders,email,' . $auth_user_id . '|unique:admins,email,' . $auth_user_id,
+            'phone' => 'required|numeric|unique:customers,phone,' . $auth_user_id . '|unique:share_holders,phone,' . $auth_user_id ,
+            'email' => 'required|email|unique:customers,email,' . $auth_user_id . '|unique:share_holders,email,' . $auth_user_id,
             'country' => 'required|string',
         ]);
     
@@ -259,13 +259,9 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function customer_open_app($name,$id,$code){
-        $school_name = $name;
+    public function customer_open_app($id){
         $school_id = $id;
-        $school_code = $code;
-
-        return redirect()->route('main.school.open', ['school_name' => $school_name,'school_id' => $school_id, 'school_code' => $school_code]);
-
+        return redirect()->route('school.open', ['school_id' => $school_id]);
     }
 
     public function logout(){

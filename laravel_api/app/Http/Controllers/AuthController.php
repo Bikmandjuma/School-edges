@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\ShareHolder;
+use App\Models\Customer;
 use App\Models\ResetCodePassword;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
@@ -22,39 +23,6 @@ class AuthController extends Controller{
         return view('auth.forgotPassword');
     }
 
-    //todo: admin login functionality
-    public function login_functionality(Request $request){
-        $request->validate([
-            'username'=>'required|string',
-            'password'=>'required|string',
-        ],[
-            'username.required' =>'',
-            'password.required' =>''
-        ]);
-
-        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
-            return redirect()->route('dashboard');
-        }elseif (Auth::guard('user')->attempt(['username' => $request->username, 'password' => $request->password])) {
-            return redirect()->route('user.dashboard')->with('info','welcome '.Auth::guard('user')->user()->firstname);
-        }else{
-            // Session::flash('error-message','Invalid Username or Password');
-            return redirect()->back()->with('error','Invalid Username or Password ,try again !');
-        }
-
-    }
-
-    public function logout(){
-        // Check which guard is currently authenticated
-        if (Auth::guard('admin')->check()) {
-            Auth::guard('admin')->logout(); // Logout admin
-        } elseif (Auth::guard('user')->check()) {
-            Auth::guard('user')->user()->update(['last_active_at' => now()]);
-            Auth::guard('user')->logout(); // Logout normal user
-        }
-
-        // Redirect to login form
-        return redirect()->route('login.form');
-    }
 
     public function submit_forgot_password(Request $request){
         $request->validate([
@@ -65,8 +33,8 @@ class AuthController extends Controller{
 
         $email = $request->input('email');
 
-        $existsInAdmins = Admin::where('email', $email)->exists();
-        $existsInUsers = User::where('email', $email)->exists();
+        $existsInAdmins = ShareHolder::where('email', $email)->exists();
+        $existsInUsers = Customer::where('email', $email)->exists();
 
         if (!$existsInAdmins && !$existsInUsers) {
         

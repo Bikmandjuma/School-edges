@@ -48,8 +48,9 @@
             <!-- Allowed block -->
             <section>
                 <div class="container" style="margin-top:-10%; box-shadow:0px 8px 16px 0px rgba(0, 0, 0, 0.2);">
+                    <h1><u>{{ config('app.name','laravel') }}</u></h1><br>
                     <div class="signup-content">
-                        <h2 style="font-size:20px;">Please be patient and wait for admin approval.</h2>
+                        <h2 style="font-size:20px;margin-top: -50px;">Please be patient and wait for admin approval.</h2>
                     </div>
                 </div>
             </section>

@@ -132,7 +132,7 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
     Route::get('terms_condition/{terms}', [CustomerController::class, 'customer_submit_terms_condition'])->name('main.submit.terms_condition');
     Route::get('employees_students', [CustomerController::class, 'customer_employees_students'])->name('main.customer.employees_students');
     Route::get('payment_plan', [CustomerController::class, 'customer_payment_plan'])->name('main.customer.payment_plan');
-    Route::get('open_app/{name}/{id}/{code}', [CustomerController::class, 'customer_open_app'])->name('main.customer.open_app');
+    Route::get('open_app/{id}', [CustomerController::class, 'customer_open_app'])->name('main.customer.open_app');
     Route::get('ask_question', [CustomerController::class, 'customer_ask_question'])->name('main.customer.ask_question');
     Route::get('logout', [CustomerController::class, 'logout'])->name('main.customer.logout');
 });
@@ -140,7 +140,15 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
 
 //single_school_page
 Route::group(['prefix' => ''], function() {
-    Route::get('home/{school_name}/{school_id}/{school_code}', [SchoolController::class, 'open'])->name('main.school.open');
+    Route::get('home/{school_id}', [SchoolController::class, 'open'])->name('school.open');
+    Route::get('about/{school_id}', [SchoolController::class, 'about_home_page'])->name('school.about_home_page');
+    Route::get('news/{school_id}', [SchoolController::class, 'news_home_page'])->name('school.news_home_page');
+    Route::get('student/studying/{school_id}', [SchoolController::class, 'student_studying_home_page'])->name('school.student_studying_home_page');
+    Route::get('student/living/{school_id}', [SchoolController::class, 'student_living_home_page'])->name('school.student_living_home_page');
+    Route::get('administration/{school_id}', [SchoolController::class, 'administration_home_page'])->name('school.administration_home_page');
+    Route::get('contact/{school_id}', [SchoolController::class, 'contact_home_page'])->name('school.contact_home_page');
+    Route::get('login/{school_id}', [SchoolController::class, 'login_home_page'])->name('school.login_home_page');
+    Route::get('forgot-password-form/{school_id}', [SchoolController::class, 'forgot_password_home_page'])->name('school.forgot_password_home_page');
 });
 //end single_school_page
 
