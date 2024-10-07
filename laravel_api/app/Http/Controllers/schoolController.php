@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
 
 class schoolController extends Controller
@@ -150,6 +151,57 @@ class schoolController extends Controller
             'school_logo' => $school_data->image,
             'hideFooter' =>true
         ]);
+    }
+
+    public function school_employee_submit_login(Request $request,$school_id){
+        
+        $request->validate([
+            'username'=>'required|string',
+            'password'=>'required|string',
+        ],[
+            'username.required' =>'',
+            'password.required' =>''
+        ]);
+
+        if (Auth::guard('school_employee')->attempt(['username' => $request->username, 'password' => $request->password,'school_fk_id' => Crypt::decrypt($school_id)])) {
+
+            return redirect()->route('school_employee.dashboard',$school_id);
+
+        }else{
+
+            return redirect()->back()->with('error','Invalid Username or Password ,try again !');
+
+        }
+
+    }
+
+    public function school_employee_account_home($school_id){
+        // Retrieve the terms and conditions for the specific user
+        $school_ids = Crypt::decrypt($school_id);
+
+        $school_data = Customer::findOrFail($school_ids);
+
+        return view("Single_School.Users_acccount.Employee.home",[
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_email' => $school_data->email,
+            'school_phone' => $school_data->phone,
+            'school_logo' => $school_data->image,
+        ]);
+    }
+
+    public function school_employee_account_logout(){
+
+        $school_id = Auth::guard('school_employee')->user()->school_fk_id;
+
+        // Check which guard is currently authenticated
+        if (Auth::guard('school_employee')->check()) {
+            Auth::guard('school_employee')->logout(); // Logout admin
+        } 
+
+        // Redirect to login form
+        return redirect()->route('school.login_home_page',Crypt::encrypt($school_id));
+
     }
 
 }

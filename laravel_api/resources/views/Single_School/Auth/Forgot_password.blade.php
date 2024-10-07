@@ -2,6 +2,9 @@
 @section('content')
 
     <style type="text/css">
+        body{
+            overflow: hidden;
+        }
         .error-message {
             color: #e74c3c;
             font-size: 14px;
@@ -68,6 +71,8 @@
         }
 
         .login-container {
+            position: relative;
+            margin-top:60px;
             background-color: #f9f9f9;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -120,7 +125,7 @@
 
     </style>
 
-    <div class="flex items-center justify-center min-h-screen" style="margin-top:50px;">
+    <div class="flex items-center justify-center min-h-screen" style="padding-top:60px;">
         <div class="login-container">
             <h2 class="login-title">Forgot password</h2>
             <br>
@@ -140,7 +145,6 @@
                         <label for="username">Enter email</label>
                         <div class="error-message" id="username-error"></div>
                     </div>
-
                 </div>
 
                  <div class="flex-center">

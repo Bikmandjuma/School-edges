@@ -2,6 +2,9 @@
 @section('content')
 
     <style type="text/css">
+        body{
+            overflow: hidden;
+        }
         .error-message {
             color: #e74c3c;
             font-size: 14px;
@@ -58,6 +61,8 @@
         }
 
         .login-container {
+            position: relative;
+            margin-top:60px;
             background-color: #f9f9f9;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
@@ -118,7 +123,7 @@
 
     </style>
 
-    <div class="flex items-center justify-center min-h-screen" style="margin-top:50px;">
+    <div class="flex items-center justify-center min-h-screen" style="padding-top:60px;">
         <div class="login-container">
             <h2 class="login-title">Login Here</h2>
             <br>
@@ -130,7 +135,7 @@
                 <p class="error-message text-center">Please enter username and password to login!</p>
             @endif
 
-            <form action="{{ route('main.submit.login') }}" method="POST" id="login-form" class="mt-8 space-y-6">
+            <form action="{{ route('school.submit.login_home_page',Crypt::encrypt($school_id)) }}" method="POST" id="login-form" class="mt-8 space-y-6">
                 @csrf
                 <div class="rounded-md">
                     <div class="form-group">

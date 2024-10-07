@@ -138,6 +138,14 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
 });
 //end of customer block's route
 
+
+//Single_School routes
+Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
+    Route::get('home/{school_id}', [SchoolController::class, 'school_employee_account_home'])->name('school_employee.dashboard');
+    Route::get('logout/{school_id}', [SchoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
+});
+//end of single school routes
+
 //single_school_page
 Route::group(['prefix' => ''], function() {
     Route::get('home/{school_id}', [SchoolController::class, 'open'])->name('school.open');
@@ -148,6 +156,8 @@ Route::group(['prefix' => ''], function() {
     Route::get('administration/{school_id}', [SchoolController::class, 'administration_home_page'])->name('school.administration_home_page');
     Route::get('contact/{school_id}', [SchoolController::class, 'contact_home_page'])->name('school.contact_home_page');
     Route::get('login/{school_id}', [SchoolController::class, 'login_home_page'])->name('school.login_home_page');
+    Route::post('submit_login/{school_id}', [SchoolController::class, 'school_employee_submit_login'])->name('school.submit.login_home_page');
+
     Route::get('forgot-password-form/{school_id}', [SchoolController::class, 'forgot_password_home_page'])->name('school.forgot_password_home_page');
 });
 //end single_school_page

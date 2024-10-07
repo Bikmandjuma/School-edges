@@ -39,7 +39,7 @@
 
     </head>
 
-    <body style="background-color: grey;">
+    <body>
 
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -141,9 +141,14 @@
             </div>
         </div>
         <!-- Modal Search End -->
-
-        @yield('content')
-
+        <div style="background-image: url('https://t4.ftcdn.net/jpg/02/14/31/63/360_F_214316329_vX8WM2z1DLYfzcyRxqOenc9SJV7gXOyJ.jpg'); 
+              background-size: cover; 
+              background-repeat: no-repeat; 
+              background-position: center; 
+              height: 100vh; 
+              margin: 0;">
+            @yield('content')
+        </div>
         <!-- Footer Start -->
         <div id="footer" class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
             <div class="container py-5">

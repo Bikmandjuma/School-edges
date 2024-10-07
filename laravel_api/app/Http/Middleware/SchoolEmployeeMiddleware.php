@@ -16,11 +16,13 @@ class SchoolEmployeeMiddleware
      */
     public function handle(Request $request, Closure $next, $guard = null): Response
     {
+        $school_id = Auth::guard('school_employee')->user()->school_fk_id;
+
         if (Auth::guard('school_employee')->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect(route('school.login_home_page'));
+                return redirect()->route('school.login_home_page',Crypt::encrypt($school_id));
             }
         }
 
