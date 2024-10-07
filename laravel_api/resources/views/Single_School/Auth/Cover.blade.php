@@ -39,7 +39,7 @@
 
     </head>
 
-    <body style="background-color: #eee;">
+    <body style="background-color: grey;">
 
         <!-- Spinner Start -->
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -98,15 +98,15 @@
                             <a href="{{ url('about') }}/{{ Crypt::encrypt($school_id) }}" class="nav-item nav-link {{ Request::segment(1) == 'about' ? 'active' : 'collapsed' }}"><i class="fas fa-wrench"></i>&nbsp;About us</a>
                             <a href="{{ url('news') }}/{{ Crypt::encrypt($school_id) }}" class="nav-item nav-link {{ Request::segment(1) == 'news' ? 'active' : 'collapsed' }}"><i class="fa fa-list-alt"></i>&nbsp;News</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle {{ Request::segment(1) == 'student' ? 'active' : 'collapsed' }}" data-bs-toggle="dropdown"><i class="fas fa-users"></i>&nbsp;Students</a>
+                                <a href="#" class="nav-link dropdown-toggle {{ Request::segment(1) == 'student' ? 'active' : 'collapsed' }}" data-bs-toggle="dropdown"><i class="fas fa-user-graduate"></i>&nbsp;Students</a>
                                 <div class="dropdown-menu m-0">
                                     <a href="{{ url('student/studying/') }}/{{ Crypt::encrypt($school_id) }}" class="dropdown-item"><i class="fas fa-book"></i>&nbsp;Studying</a>
                                     <a href="{{ url('student/living/') }}/{{ Crypt::encrypt($school_id) }}" class="dropdown-item"><i class="fas fa-bed"></i>&nbsp;Living</a>
-                                    <a href="{{ url('student/living/') }}/{{ Crypt::encrypt($school_id) }}" class="dropdown-item"><i class="fas fa-cog"></i>&nbsp;Dining</a>
+                                    <a href="{{ url('student/living/') }}/{{ Crypt::encrypt($school_id) }}" class="dropdown-item"><i class="fas fa-utensils"></i>&nbsp;Dining</a>
                                 </div>
                             </div>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle {{ Request::segment(1) == 'administration' ? 'active' : 'collapsed' }}" data-bs-toggle="dropdown"><i class="fas fa-users"></i>&nbsp;Leaders</a>
+                                <a href="#" class="nav-link dropdown-toggle {{ Request::segment(1) == 'administration' ? 'active' : 'collapsed' }}" data-bs-toggle="dropdown"><i class="fas fa-user-tie"></i>&nbsp;Leaders</a>
                                 <div class="dropdown-menu m-0">
                                     <a href="{{ url('administration/') }}/{{ Crypt::encrypt($school_id) }}" class="dropdown-item"><i class="fas fa-remote"></i>&nbsp;Administration</a>
                                 </div>

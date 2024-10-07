@@ -85,15 +85,25 @@
         }
 
         .login-btn {
-            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
             background-color: #007bff;
             border-color: #007bff;
             color: white;
-            padding: 12px;
+            padding: 6px;
             font-size: 16px;
             border-radius: 6px;
             transition: background-color 0.3s;
+            margin: 0 auto; /* Centers the button horizontally */
         }
+
+        .flex-center {
+            display: flex;
+            justify-content: center;
+        }
+
 
         .login-btn:hover {
             background-color: #0056b3;
@@ -113,7 +123,7 @@
     <div class="flex items-center justify-center min-h-screen" style="margin-top:50px;">
         <div class="login-container">
             <h2 class="login-title">Forgot password</h2>
-
+            <br>
             @if (session('error-message'))
                 <p class="error-message text-center">{{ session('error-message') }}</p>
             @endif
@@ -133,11 +143,12 @@
 
                 </div>
 
-                <div class="flex justify-center">
+                 <div class="flex-center">
                     <button type="submit" class="login-btn">
                         Send request&nbsp;&nbsp;<i class="fas fa-paper-plane mt-1"></i>
                     </button>
                 </div>
+
             </form>
 
             <p class="mt-4 text-center text-sm text-gray-600">
