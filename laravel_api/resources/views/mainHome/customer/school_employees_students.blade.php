@@ -52,16 +52,28 @@
 					                  </tr>
 					                </thead>
 					                <tbody>
-					                  @foreach($students as $data)
-						                  <tr>
-						                    <td>{{ $count++ }}</td>
-						                    <td><img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $data->image }}" width="80" height="50px" style="border-radius: 50px;"> </td>
-						                    <td>{{ $data->firstname }}</td>
-						                    <td>{{ $data->lastname }}</td>
-						                    <td>{{ $data->gender }}</td>
-						                    <td>{{ $data->email }}</td>
-						                    <td>{{ $data->phone }}</td>
-						                  </tr>
+					                  @foreach($employees as $data)
+					                  	
+					                  	@if($data->firstname == '' and $data->lastname == '')
+						                  	
+						                  	<tr>
+							                    <td colspan="7" class="text-center">No data found in database !</td>
+							                  </tr>
+
+					                  	@else
+							                  
+							                  <tr>
+							                    <td>{{ $count++ }}</td>
+							                    <td><img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ $data->image }}" width="40" height="40" style="border-radius: 50px;border: 1px solid gray;"> </td>
+							                    <td>{{ $data->firstname }}</td>
+							                    <td>{{ $data->lastname }}</td>
+							                    <td>{{ $data->gender }}</td>
+							                    <td>{{ $data->email }}</td>
+							                    <td>{{ $data->phone }}</td>
+							                  </tr>
+							                
+							                @endif
+
 					                  @endforeach
 					              	</tbody>
 					            	</table>
@@ -88,16 +100,24 @@
 					                  </tr>
 					                </thead>
 					                <tbody>
-					                  @foreach($employees as $data)
-						                  <tr>
-						                    <td>{{ $count++ }}</td>
-						                    <td><img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $data->image }}" width="80" height="50px" style="border-radius: 50px;"> </td>
-						                    <td>{{ $data->firstname }}</td>
-						                    <td>{{ $data->lastname }}</td>
-						                    <td>{{ $data->gender }}</td>
-						                    <td>{{ $data->province }}</td>
-						                    <td>{{ $data->district }}</td>
-						                  </tr>
+					                  @foreach($students as $data)
+					                  	@if($students_count == 0)
+						                  	<tr>
+							                    <td colspan="7" class="text-center">No data found in our database</td>
+							                  </tr>
+					                  	@else
+
+							                  <tr>
+							                    <td>{{ $count++ }}</td>
+							                    <td><img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $data->image }}" width="80" height="50px" style="border-radius: 50px;"> </td>
+							                    <td>{{ $data->firstname }}</td>
+							                    <td>{{ $data->lastname }}</td>
+							                    <td>{{ $data->gender }}</td>
+							                    <td>{{ $data->province }}</td>
+							                    <td>{{ $data->district }}</td>
+							                  </tr>
+							                
+					                  	@endif
 					                  @endforeach
 					              	</tbody>
 					            	</table>

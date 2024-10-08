@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use App\Models\SchoolEmployee;
 
 class SchoolEmployeeMiddleware
 {
@@ -16,7 +17,10 @@ class SchoolEmployeeMiddleware
      */
     public function handle(Request $request, Closure $next, $guard = null): Response
     {
-        $school_id = Auth::guard('school_employee')->user()->school_fk_id;
+        
+        $datas=SchoolEmployee::findOrFail(Auth::guard('school_employee')->user()->id);
+
+        $school_id = $datas->school_fk_id;
 
         if (Auth::guard('school_employee')->guest()) {
             if ($request->ajax() || $request->wantsJson()) {

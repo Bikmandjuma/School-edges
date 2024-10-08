@@ -291,7 +291,6 @@
             <div class="modal-header p-3 pt-2">
                
                 <h5 class="modal-title text-end pt-1 ms-auto" id="logoutModalLabel">Logout</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <hr class="dark horizontal my-0">
             <div class="modal-body text-center">

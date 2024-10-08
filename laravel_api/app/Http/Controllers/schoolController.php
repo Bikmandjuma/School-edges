@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
+use App\Models\SchoolEmployee;
 
 class schoolController extends Controller
 {
@@ -163,9 +164,22 @@ class schoolController extends Controller
             'password.required' =>''
         ]);
 
-        if (Auth::guard('school_employee')->attempt(['username' => $request->username, 'password' => $request->password,'school_fk_id' => Crypt::decrypt($school_id)])) {
+        $school_id = Crypt::decrypt($school_id);
+        
+        if (Auth::guard('school_employee')->attempt(['username' => $request->username, 'password' => $request->password,'school_fk_id' => $school_id])) {
+            
+            $auth_user = Auth::guard('school_employee')->user()->id;
 
-            return redirect()->route('school_employee.dashboard',$school_id);
+            //check if school's admin has full info
+            $school_Admin=SchoolEmployee::where('school_fk_id',$school_id)->where('id',$auth_user)->get();
+
+            foreach ($school_Admin as $user_data) {
+                if ($user_data->firstname == null and $user_data->lastname == null ) {
+                    return redirect()->route('school_employee.admin_self_registration',Crypt::encrypt($school_id))->with('info',"fill missed info first !");
+                }else{
+                    return redirect()->route('school_employee.dashboard',Crypt::encrypt($school_id));
+                }
+            }
 
         }else{
 
@@ -174,6 +188,69 @@ class schoolController extends Controller
         }
 
     }
+
+    //admin self registration before login
+    public function school_employee_admin_Self_registration($school_id){
+        // Retrieve the terms and conditions for the specific user
+        $school_ids = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_ids);
+
+        return view("Single_School.Users_acccount.Employee.admin_self_registration",[
+            'school_id' => $school_data->id,
+            'school_username' => $school_data->username,
+        ]);
+
+    }
+
+    //admin self registration before login
+    public function school_employee_admin_submit_registration(Request $request, $school_id){
+        // Retrieve the terms and conditions for the specific user
+        $school_id = $school_id;
+        $auth_id = Auth::guard('school_employee')->user()->id;
+        $school_data = Customer::findOrFail($school_id);
+
+        $request->validate([
+            'firstname'=>'required|string',
+            'lastname'=>'required|string',
+            'username'=>'required|min:8|string|unique:school_employees,username|unique:customers,username|unique:share_holders,username',
+            'email'=>'required|string|email|unique:school_employees,email|unique:customers,email|unique:share_holders,email',
+            'phone' => [
+                    'required',
+                    'string',
+                    'min:10',
+                    'unique:school_employees,phone',
+                    'regex:/^(078|072|079|073)\d{6,}$/',
+                    'unique:customers,phone',
+                    'unique:share_holders,phone',
+            ],
+            'dob'=>'required|string',
+            'gender'=>'required|string',
+            'password'=>'required|string|min:8|confirmed',
+            'password_confirmation'=>'required|string|min:8',
+        ]);
+
+        SchoolEmployee::where('id',$auth_id)->where('school_fk_id',$school_id)
+        ->update([
+            'firstname' => $request->firstname,
+            'middle_name' => $request->middle_name,
+            'lastname' => $request->lastname,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'dob' => $request->dob,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+        ]);
+        
+        return redirect()->route('school_employee.dashboard',Crypt::encrypt($school_id))->with([
+            'school_name' => $school_data->school_name,
+            'school_email' => $school_data->email,
+            'school_logo' => $school_data->image,
+            'info' => "Welcome ".$request->firstname." ".$request->lastname." !"
+        ]);
+
+    }
+
 
     public function school_employee_account_home($school_id){
         // Retrieve the terms and conditions for the specific user

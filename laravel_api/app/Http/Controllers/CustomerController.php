@@ -224,8 +224,17 @@ class CustomerController extends Controller
         $school_employees_count=$school_employees->count();
         $school_students_count=$school_students->count();
 
+        foreach ($school_employees as $data_count) {
+            if ($data_count->firstname == '' && $data_count->lastname == '') {
+                $school_employees_count = 0;
+            }else{
+                $school_employees_count;
+            }
+        }
+
         return view('mainHome.customer.school_employees_students', [
             'employees' => $school_employees,
+            'count' => 1,
             'students' => $school_students,
             'terms' => $terms_conditions['terms'],
             'count_terms' => $terms_conditions['count_terms'],

@@ -141,6 +141,8 @@ Route::group(['prefix'=>'customer' , 'middleware'=>'customer'],function(){
 
 //Single_School routes
 Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
+    Route::get('admin_Self_registration/{school_id}', [SchoolController::class, 'school_employee_admin_Self_registration'])->name('school_employee.admin_self_registration');
+    Route::post('admin_submit_registration/{school_id}', [SchoolController::class, 'school_employee_admin_submit_registration'])->name('school_emloyee_admin_submit_registration_form');
     Route::get('home/{school_id}', [SchoolController::class, 'school_employee_account_home'])->name('school_employee.dashboard');
     Route::get('logout/{school_id}', [SchoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 });
