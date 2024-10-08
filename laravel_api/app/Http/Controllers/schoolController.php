@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\validator;
 use App\Models\Customer;
 use App\Models\UserRole;
 use App\Models\SchoolEmployee;
@@ -291,9 +292,26 @@ class schoolController extends Controller
         // Retrieve the terms and conditions for the specific user
         $school_ids = $school_id;
         $school_data = Customer::findOrFail($school_ids);
-        $request->validate([
-            'role_name' => 'required|string|unique:user_roles,role_name'
+        
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'role_name' => 'required|string|unique:user_roles,role_name|regex:/^[a-zA-Z]+$/',
+        ], [
+            'role_name.required' => 'The role name is required.',
+            'role_name.string' => 'The role name must be a string. Only text is allowed.',
+            'role_name.unique' => 'The role name "' . $request->role_name . '" has already been added.',
+            'role_name.regex' => 'The role name must contain only letters (a-z, A-Z).',
         ]);
+
+        // Check if validation fails
+        if ($validator->fails()) {
+            // Create a variable for the error message
+            $errorMessage = $validator->errors()->first(); // Get the first error message
+
+            // Redirect back with a Toastr error message
+            return redirect()->back()->with('error', $errorMessage)->withInput();
+        }
+
         UserRole::create([
             'role_name' => $request->role_name
         ]);
@@ -309,17 +327,28 @@ class schoolController extends Controller
 
     public function school_employee_update_role(Request $request){
         
-         $request->validate([
-        'role_id' => 'required|integer',
-        'role_name' => 'required|string|max:255',
+         // Custom validation logic
+        $validator = Validator::make($request->all(), [
+            'role_id' => 'required|integer',
+            'role_name' => 'required|string|unique:user_roles,role_name,' . $request->role_id,
         ]);
 
+        if ($validator->fails()) {
+            // Check if the 'role_name' field has a uniqueness error
+            if ($validator->errors()->has('role_name')) {
+                return redirect()->back()->with('error', ''.$request->role_name.' has already been added.')->withErrors($validator);
+            }
+
+            // Redirect back with all validation errors
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Update the role if validation passes
         $role = UserRole::find($request->role_id);
         $role->role_name = $request->role_name;
         $role->save();
 
         return redirect()->back()->with('success', 'Role updated successfully.');
-
     }
 
     public function school_employee_account_logout(){

@@ -17,9 +17,9 @@
 	                  <div class="input-group input-group-outline my-3">
 	                    <label class="form-label">Role_name</label>
 	                    <input type="text" name="role_name" class="form-control">
-	                    @error('role_name')
+	                    <!-- @error('role_name')
 	                    	<span id="error-message">{{ $message }}</span>
-	                    @enderror
+	                    @enderror -->
 	                  </div>
 	                  
 	                  <div class="text-center">
@@ -39,29 +39,19 @@
 	          	</div>
 	          	<div class="card-body p-3 pt-2">
 	          		<div class="table-responsive p-0">
-                		<!-- <table class="table align-items-center justify-content-center mb-0">
-			          		@foreach($role_data as $data)
-			          			<tr>
-			          				<td>{{ $data->role_name }}</td>
-			          				<td>
-			          					<div class="bg-gradient-info shadow-secondary border-radius-lg text-center pb-1 pt-1 text-white" >
-							                	<i class="fa fa-edit"></i> Edit
-							            </div>
-			          			</tr>
-			          		@endforeach
-		          		</table> -->
+               
 		          		<table class="table align-items-center justify-content-center mb-0">
 						  @foreach($role_data as $data)
 						    <tr>
 						      <td>{{ $data->role_name }}</td>
 						      <td>
-						        <button class="bg-gradient-info shadow-secondary border-radius-lg text-center pb-1 pt-1 text-white edit-btn" 
+						        <div class="bg-gradient-info shadow-secondary border-radius-lg text-center pb-1 pt-1 text-white edit-btn" 
 						                data-bs-toggle="modal" 
 						                data-bs-target="#editRoleModal" 
 						                data-id="{{ $data->id }}" 
 						                data-role="{{ $data->role_name }}">
 						          <i class="fa fa-edit"></i> Edit
-						        </button>
+						        </div>
 						      </td>
 						    </tr>
 						  @endforeach
@@ -78,7 +68,7 @@
 	<div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
-	      <div class="modal-header">
+	      <div class="modal-header text-center">
 	        <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
@@ -90,12 +80,12 @@
 	          
 	          <div class="mb-3">
 	            <label for="roleName" class="form-label">Role Name</label>
-	            <input type="text" class="form-control" id="roleName" name="role_name" required>
+	            <input type="text" class="form-control" id="roleName" name="role_name" autofocus required>
 	          </div>
 	          
 	          <div class="modal-footer">
 	            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	            <button type="submit" class="btn btn-primary">Save changes</button>
+	            <button type="submit" class="btn btn-info">Save changes</button>
 	          </div>
 	        </form>
 	      </div>
