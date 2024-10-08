@@ -144,6 +144,9 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
     Route::get('admin_Self_registration/{school_id}', [SchoolController::class, 'school_employee_admin_Self_registration'])->name('school_employee.admin_self_registration');
     Route::post('admin_submit_registration/{school_id}', [SchoolController::class, 'school_employee_admin_submit_registration'])->name('school_emloyee_admin_submit_registration_form');
     Route::get('home/{school_id}', [SchoolController::class, 'school_employee_account_home'])->name('school_employee.dashboard');
+    Route::get('manage_role/{school_id}', [SchoolController::class, 'school_employee_manage_role'])->name('school_employee_manage_role');
+    Route::post('add_role/{school_id}', [SchoolController::class, 'school_employee_add_new_role'])->name('school_employee_add_new_role');
+    Route::post('school_employee_update_role', [SchoolController::class, 'school_employee_update_role'])->name('school_employee_update_role');
     Route::get('logout/{school_id}', [SchoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 });
 //end of single school routes

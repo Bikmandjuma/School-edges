@@ -12,7 +12,7 @@
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">School employees</p>
-                <h4 class="mb-0">0</h4>
+                <h4 class="mb-0">{{ $school_employees_count }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">

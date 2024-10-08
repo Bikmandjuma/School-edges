@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
+use App\Models\UserRole;
 use App\Models\SchoolEmployee;
 
 class schoolController extends Controller
@@ -255,8 +256,8 @@ class schoolController extends Controller
     public function school_employee_account_home($school_id){
         // Retrieve the terms and conditions for the specific user
         $school_ids = Crypt::decrypt($school_id);
-
         $school_data = Customer::findOrFail($school_ids);
+        $school_employees_count = SchoolEmployee::where('school_fk_id',$school_ids)->count();
 
         return view("Single_School.Users_acccount.Employee.home",[
             'school_id' => $school_data->id,
@@ -264,7 +265,61 @@ class schoolController extends Controller
             'school_email' => $school_data->email,
             'school_phone' => $school_data->phone,
             'school_logo' => $school_data->image,
+            'school_employees_count' => $school_employees_count,
         ]);
+
+    }
+
+    //manage role
+    public function school_employee_manage_role($school_id){
+        // Retrieve the terms and conditions for the specific user
+        $school_ids = Crypt::decrypt($school_id);
+        $school_data = Customer::findOrFail($school_ids);
+
+        $role_data = UserRole::all();
+
+        return view("Single_School.Users_acccount.Employee.role",[
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'role_data' => $role_data
+        ]);
+
+    }
+
+    public function  school_employee_add_new_role(Request $request,$school_id){
+        // Retrieve the terms and conditions for the specific user
+        $school_ids = $school_id;
+        $school_data = Customer::findOrFail($school_ids);
+        $request->validate([
+            'role_name' => 'required|string|unique:user_roles,role_name'
+        ]);
+        UserRole::create([
+            'role_name' => $request->role_name
+        ]);
+
+        return redirect()->route('school_employee_manage_role',Crypt::encrypt($school_data->id))->with([
+            'school_id' => Crypt::encrypt($school_data->id),
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'success' => "New role added successfully !",
+        ]);
+
+    }
+
+    public function school_employee_update_role(Request $request){
+        
+         $request->validate([
+        'role_id' => 'required|integer',
+        'role_name' => 'required|string|max:255',
+        ]);
+
+        $role = UserRole::find($request->role_id);
+        $role->role_name = $request->role_name;
+        $role->save();
+
+        return redirect()->back()->with('success', 'Role updated successfully.');
+
     }
 
     public function school_employee_account_logout(){

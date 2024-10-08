@@ -20,6 +20,24 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
   <link id="pagestyle" href="{{ URL::to('/') }}/Single_school_account/assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <style>
+  /* Custom styles for the nav links */
+  .nav-link-custom {
+    font-family: sans-serif; /* Set font family to sans-serif */
+    color: gray; /* Initial color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+  /* Change color on hover */
+  .nav-link-custom:hover {
+    color: black; /* Change text color to black when hovered */
+  }
+
+  #error-message{
+    color: red;
+  }
+</style>
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -39,8 +57,9 @@
       </a>
     </div>
     <hr class="horizontal light mt-0 mb-2">
-    <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
+    <div class="w-auto  max-height-vh-100" id="sidenav-collapse-main">
       <ul class="navbar-nav">
+        
         <li class="nav-item">
           <a class="nav-link text-white active bg-gradient-primary" href="./pages/dashboard.html">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -49,73 +68,106 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/tables.html">
+          <a class="nav-link collapsed text-white" data-bs-target="#homepage" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">table_view</i>
+              <i class="fa fa-home"></i>
             </div>
-            <span class="nav-link-text ms-1">Tables</span>
+            <span class="nav-link-text ms-1">Homepage</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
           </a>
+          <ul id="homepage" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+            <li>
+              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                <i class="fa fa-home"></i><span class="ms-2">Home</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                <i class="fa fa-info-circle"></i><span class="ms-2">About Us</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                <i class="fa fa-newspaper"></i><span class="ms-2">News</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                <i class="fa fa-user-graduate"></i><span class="ms-2">Student</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                <i class="fa fa-building"></i><span class="ms-2">Administration</span>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                <i class="fa fa-envelope"></i><span class="ms-2">Contact Us</span>
+              </a>
+            </li>
+          </ul>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/billing.html">
+          <a class="nav-link collapsed text-white" data-bs-target="#role" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">receipt_long</i>
+              <i class="fa fa-list-alt"></i>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
+            <span class="nav-link-text ms-1">Role</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
           </a>
+          <ul id="role" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+              <li>
+                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_manage_role',Crypt::encrypt($school_id)) }}">
+                  <i class="fa fa-list-alt"></i><span class="ms-2">Manage role</span>
+                </a>
+              </li>
+          </ul>
         </li>
+
+
         <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/virtual-reality.html">
+          <a class="nav-link collapsed text-white" data-bs-target="#users" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">view_in_ar</i>
+              <i class="fa fa-users"></i>
             </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+            <span class="nav-link-text ms-1">Users</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
           </a>
+          <ul id="users" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+              <li>
+                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                  <i class="fa fa-users"></i><span class="ms-2">Manage user</span>
+                </a>
+              </li>
+          </ul>
         </li>
+
         <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/rtl.html">
+          <a class="nav-link collapsed text-white" data-bs-target="#students" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+              <i class="fa fa-user-graduate"></i>
             </div>
-            <span class="nav-link-text ms-1">RTL</span>
+            <span class="nav-link-text ms-1">Students</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
           </a>
+          <ul id="students" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+              <li>
+                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                  <i class="fa fa-plus"></i><span class="ms-2">Add students</span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                  <i class="fa fa-users"></i><span class="ms-2">View students</span>
+                </a>
+              </li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/notifications.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">notifications</i>
-            </div>
-            <span class="nav-link-text ms-1">Notifications</span>
-          </a>
-        </li>
-        <li class="nav-item mt-3">
-          <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/profile.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">person</i>
-            </div>
-            <span class="nav-link-text ms-1">Profile</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/sign-in.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">login</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign In</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white " href="./pages/sign-up.html">
-            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="material-icons opacity-10">assignment</i>
-            </div>
-            <span class="nav-link-text ms-1">Sign Up</span>
-          </a>
-        </li>
+
       </ul>
     </div>
     
@@ -193,7 +245,7 @@
     
     @yield('content')
 
-    <footer class="footer py-4  ">
+    <!-- <footer class="footer py-4">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-12 mb-lg-0 mb-4">
@@ -207,7 +259,7 @@
             
           </div>
         </div>
-      </footer>
+      </footer> -->
     </div>
   </main>
   <div class="fixed-plugin">
