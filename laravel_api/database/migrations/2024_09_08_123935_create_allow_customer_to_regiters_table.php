@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('customer_partial_reg_fk_id');
             $table->foreign('customer_partial_reg_fk_id')->references('id')->on('customer_partial_registers')->onDelete('cascade');
             $table->string('status');
+            $table->string('registration_done')->nullable();
             $table->timestamps();
         });
     }

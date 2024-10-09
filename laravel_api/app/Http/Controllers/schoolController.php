@@ -277,7 +277,7 @@ class schoolController extends Controller
         $school_ids = Crypt::decrypt($school_id);
         $school_data = Customer::findOrFail($school_ids);
 
-        $role_data = UserRole::all();
+        $role_data = UserRole::where('school_fk_id',$school_ids)->get();
 
         return view("Single_School.Users_acccount.Employee.role",[
             'school_id' => $school_data->id,
@@ -313,7 +313,8 @@ class schoolController extends Controller
         }
 
         UserRole::create([
-            'role_name' => $request->role_name
+            'role_name' => $request->role_name,
+            'school_fk_id' => $school_id,
         ]);
 
         return redirect()->route('school_employee_manage_role',Crypt::encrypt($school_data->id))->with([
@@ -330,7 +331,13 @@ class schoolController extends Controller
          // Custom validation logic
         $validator = Validator::make($request->all(), [
             'role_id' => 'required|integer',
-            'role_name' => 'required|string|unique:user_roles,role_name,' . $request->role_id,
+            'role_name' => [
+                'required',
+                'string',
+                Rule::unique('user_roles')->where(function ($query) use ($request) {
+                    return $query->where('school_fk_id', $request->school_fk_id);
+                })->ignore($request->role_id),
+            ],
         ]);
 
         if ($validator->fails()) {

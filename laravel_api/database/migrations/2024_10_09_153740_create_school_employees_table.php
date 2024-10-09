@@ -14,20 +14,21 @@ return new class extends Migration
         Schema::create('school_employees', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('school_fk_id');
-            $table->string('firstname');
+            $table->string('firstname')->nullable();
             $table->string('middle_name')->nullable();
-            $table->string('lastname');
-            $table->string('gender');
-            $table->string('phone')->unique();
-            $table->string('email')->unique();
-            $table->string('dob');
-            $table->string('role');
-            $table->string('sub_role')->unique();
+            $table->string('lastname')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('phone')->unique()->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('dob')->nullable();
+            $table->unsignedBigInteger('role_fk_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('username')->unique();
             $table->string('password');
             $table->string('image')->nullable();
+            $table->timestamp('last_active_at')->nullable();
             $table->foreign('school_fk_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('role_fk_id')->references('id')->on('user_roles')->onDelete('cascade');
             $table->timestamps();
         });
     }

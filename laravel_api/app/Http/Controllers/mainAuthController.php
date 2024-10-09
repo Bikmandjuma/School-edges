@@ -361,7 +361,13 @@ class mainAuthController extends Controller
             'image' => 'school_logo.jpg',
         ]);
 
-        $role_data = UserRole::where('role_name', 'Admin')->first();
+        //User role creation
+        $user_roles = UserRole::create([
+            'role_name' => 'Admin',
+            'school_fk_id' => $school->id,
+        ]);
+
+        $role_data = UserRole::findOrFail($user_roles->id);
 
         if ($role_data) {
             SchoolEmployee::create([

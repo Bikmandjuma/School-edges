@@ -20,14 +20,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('dob');
             $table->timestamp('email_verified_at')->nullable();
-            $table->unsignedBigInteger('role_id'); // Remove ->change()
             $table->string('username')->unique();
             $table->string('password');
             $table->string('image');
-            
-            // Comment out the foreign key constraint for now
-            // $table->foreign('role_id')->references('id')->on('user_roles')->onDelete('cascade');
-            
+            $table->timestamp('last_active_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

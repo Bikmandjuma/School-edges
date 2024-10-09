@@ -21,8 +21,8 @@ class ShareHolderSeeder extends Seeder
                 'phone' => '0780001100',
                 'email' => 'admins@gmail.com',
                 'dob' => '20/12/2000',
-                'username' => 'admin1234',
-                'password' => bcrypt('password12345@'),
+                'username' => 'admin111',
+                'password' => bcrypt('bugarama'),
                 'image' => 'user.png',
                 'role' => 'Admin',
             ],[
@@ -32,8 +32,8 @@ class ShareHolderSeeder extends Seeder
                 'phone' => '0780021100',
                 'email' => 'adminx@gmail.com',
                 'dob' => '20/12/2000',
-                'username' => 'admin1235',
-                'password' => bcrypt('password12346@'),
+                'username' => 'admin222',
+                'password' => bcrypt('bugarama'),
                 'image' => 'user.png',
                 'role' => 'ShareHolder',
             ],[
@@ -43,8 +43,8 @@ class ShareHolderSeeder extends Seeder
                 'phone' => '0780001160',
                 'email' => 'adminw@gmail.com',
                 'dob' => '20/12/2000',
-                'username' => 'admin1236',
-                'password' => bcrypt('password12347@'),
+                'username' => 'admin333',
+                'password' => bcrypt('bugarama'),
                 'image' => 'user.png',
                 'role' => 'ShareHolder',
             ]

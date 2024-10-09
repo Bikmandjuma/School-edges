@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\period_price;
 
 class price_range extends Model
 {
@@ -15,4 +16,8 @@ class price_range extends Model
         'min_student',
         'prices',
     ];
+
+    publuic function period_priceFN(){
+        return $this->belongTo(period_price::class,'period_fk_id');
+    }
 }

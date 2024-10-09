@@ -193,7 +193,7 @@
     <div class="title">Fill this form first</div>
     <div class="content">
       <!-- Registration form -->
-        <form action="{{ route('school_emloyee_admin_submit_registration_form', $school_id) }}" method="POST">
+        <form action="{{ route('school_employee_admin_submit_registration_form', $school_id) }}" method="POST">
         @csrf
         <div class="user-details">
           <!-- Input for First Name -->
