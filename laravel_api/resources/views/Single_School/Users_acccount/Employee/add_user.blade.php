@@ -91,12 +91,14 @@
 									        <!-- Input for User Role Selection -->
 									        <div class="col-md-4">
 									            <div class="input-group input-group-outline my-3">
+									               
 									                <select name="user_role" class="form-control">
-									                	<option value="">Select user_role</option>
-									                	@foreach($user_role_data as $data)
-									                    <option value="{{ $data->id }}">{{ $data->role_name }}</option>
-									                	@endforeach
-									                </select>
+																	    <option value="">Select user_role</option>
+																	    @foreach($user_role_data as $data)
+																	        <option value="{{ $data->id }}">{{ $data->role_name }}</option>
+																	    @endforeach
+																	</select>
+
 									                @error('user_role')
 									                    <span class="error-message text-danger">{{ $message }}</span>
 									                @enderror

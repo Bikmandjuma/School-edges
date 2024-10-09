@@ -140,7 +140,12 @@
           <ul id="users" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-users"></i><span class="ms-2">Manage user</span>
+                  <i class="fa fa-plus"></i><span class="ms-2">Add user</span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}">
+                  <i class="fa fa-users"></i><span class="ms-2">View user</span>
                 </a>
               </li>
           </ul>

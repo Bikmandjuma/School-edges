@@ -368,26 +368,25 @@ class schoolController extends Controller
     public function school_employee_submit_user_data(Request $request , $school_id){
 
         $request->validate([
-            'firstname'=>'required|string',
-            'lastname'=>'required|string',
-            'username'=>'required|min:8|string|unique:school_employees,username|unique:customers,username|unique:share_holders,username',
-            'email'=>'required|string|email|unique:school_employees,email|unique:customers,email|unique:share_holders,email',
+            'firstname' => 'required|string',
+            'lastname' => 'required|string',
+            'username' => 'required|min:8|string|unique:school_employees,username|unique:customers,username|unique:share_holders,username',
+            'email' => 'required|string|email|unique:school_employees,email|unique:customers,email|unique:share_holders,email',
             'phone' => [
-                    'required',
-                    'string',
-                    'min:10',
-                    'unique:school_employees,phone',
-                    'regex:/^(078|072|079|073)\d{6,}$/',
-                    'unique:customers,phone',
-                    'unique:share_holders,phone',
+                'required',
+                'string',
+                'min:10',
+                'unique:school_employees,phone',
+                'regex:/^(078|072|079|073)\d{6,}$/',
+                'unique:customers,phone',
+                'unique:share_holders,phone',
             ],
-            'dob'=>'required|string',
-            'gender'=>'required|string',
-            'password'=>'required|string|min:8|confirmed',
-            'password_confirmation'=>'required|string|min:8',
+            'dob' => 'required|string',
+            'gender' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8',
+            'user_role' => 'required|integer|exists:user_roles,id',
         ]);
-
-        $auth_id = Auth::guard('school_employee')->user()->id;
 
         SchoolEmployee::create([
             'firstname' => $request->firstname,
@@ -403,6 +402,7 @@ class schoolController extends Controller
             'username' => $request->username,
             'password' => bcrypt($request->password),
         ]);
+
 
         return redirect()->back()->with('info','New user added successfully !');
     }
