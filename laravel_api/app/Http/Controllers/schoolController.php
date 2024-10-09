@@ -351,6 +351,61 @@ class schoolController extends Controller
         return redirect()->back()->with('success', 'Role updated successfully.');
     }
 
+    // school employee add_user
+    public function school_employee_add_user($school_id){
+        $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
+        $user_role_data = UserRole::all()->where('role_name','!=','Admin');
+
+        return view("Single_School.Users_acccount.Employee.add_user",[
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'user_role_data' => $user_role_data,
+        ]);
+    }
+
+    //school_employee_submit_user_data
+    public function school_employee_submit_user_data(Request $request , $school_id){
+
+        $request->validate([
+            'firstname'=>'required|string',
+            'lastname'=>'required|string',
+            'username'=>'required|min:8|string|unique:school_employees,username|unique:customers,username|unique:share_holders,username',
+            'email'=>'required|string|email|unique:school_employees,email|unique:customers,email|unique:share_holders,email',
+            'phone' => [
+                    'required',
+                    'string',
+                    'min:10',
+                    'unique:school_employees,phone',
+                    'regex:/^(078|072|079|073)\d{6,}$/',
+                    'unique:customers,phone',
+                    'unique:share_holders,phone',
+            ],
+            'dob'=>'required|string',
+            'gender'=>'required|string',
+            'password'=>'required|string|min:8|confirmed',
+            'password_confirmation'=>'required|string|min:8',
+        ]);
+
+        $auth_id = Auth::guard('school_employee')->user()->id;
+
+        SchoolEmployee::create([
+            'firstname' => $request->firstname,
+            'middle_name' => $request->middle_name,
+            'lastname' => $request->lastname,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'dob' => $request->dob,
+            'role_fk_id' => $request->user_role,
+            'school_fk_id' => $request->school_id,
+            'image' => 'user.jpg',
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->back()->with('info','New user added successfully !');
+    }
     public function school_employee_account_logout(){
 
         $school_id = Auth::guard('school_employee')->user()->school_fk_id;

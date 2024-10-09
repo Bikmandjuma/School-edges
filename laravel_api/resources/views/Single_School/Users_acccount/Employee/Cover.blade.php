@@ -61,7 +61,7 @@
       <ul class="navbar-nav">
         
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="./pages/dashboard.html">
+          <a class="nav-link text-white {{ Request::segment(2) == 'home' ? 'active bg-gradient-secondary' : '' }}" href="{{ route('school_employee.dashboard',Crypt::encrypt($school_id)) }}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -112,7 +112,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link collapsed text-white" data-bs-target="#role" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
+          <a class="nav-link {{ Request::segment(2) == 'manage_role' ? 'active bg-gradient-secondary' : '' }} text-white" data-bs-target="#role" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-list-alt"></i>
             </div>
@@ -130,7 +130,7 @@
 
 
         <li class="nav-item">
-          <a class="nav-link collapsed text-white" data-bs-target="#users" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
+          <a class="nav-link {{ Request::segment('2') == 'school_employee_add_user' ? 'active bg-gradient-secondary' : 'collapsed' }} text-white" data-bs-target="#users" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-users"></i>
             </div>
@@ -139,7 +139,7 @@
           </a>
           <ul id="users" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
               <li>
-                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}">
                   <i class="fa fa-users"></i><span class="ms-2">Manage user</span>
                 </a>
               </li>
@@ -245,25 +245,10 @@
     
     @yield('content')
 
-    <!-- <footer class="footer py-4">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-12 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                Alright reserved <i class="fa fa-heart"></i> ,<b> {{ $school_name }}</b>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </footer> -->
     </div>
   </main>
   <div class="fixed-plugin">
-    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
+    <a class="fixed-plugin-button text-dark position-fixed px-3 py-2" style="box-shadow:0px 4px 8px 2px rgba(0, 0, 0, 0.5);">
       <i class="material-icons py-2">settings</i>
     </a>
     <div class="card shadow-lg">
