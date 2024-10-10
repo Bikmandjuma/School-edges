@@ -26,8 +26,8 @@ RUN chown -R www-data:www-data /var/www/html \
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/sites-available/default
 
-# Expose port 8080
-EXPOSE 8080
+# Expose port 9000
+EXPOSE 9000
 
 # Start Nginx and PHP-FPM
 CMD service nginx start && php-fpm
