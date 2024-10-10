@@ -14,6 +14,11 @@
   <!-- Nucleo Icons -->
   <link href="{{ URL::to('/') }}/Single_school_account/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="{{ URL::to('/') }}/Single_school_account/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Bundle JS (includes Popper.js) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
@@ -41,18 +46,22 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
+  @php
+    use App\Models\UserRole;
+  @endphp
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_logo }}" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="{{ URL::to('/') }}/Single_school_account/assets/img/users_profiles_pictures/{{ auth()->guard('school_employee')->user()->image }}" alt="user_image" alt="User Image" style=" border-radius: 50%;" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold text-white">
           
-          @if(strlen($school_name) <= 20)
-            {{ $school_name }}
+          @if(strlen(auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname) <= 20)
+            {{ auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname }}
           @else
-            {{ substr($school_name,0,20)." ..." }}
+            {{ substr(auth()->guard('school_employee')->user()->firstname." ".auth()->guard('school_employee')->user()->middle_name." ".auth()->guard('school_employee')->user()->lastname,0,20)." ..." }}
           @endif
+
         </span>
       </a>
     </div>
@@ -134,18 +143,18 @@
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="fa fa-users"></i>
             </div>
-            <span class="nav-link-text ms-1">Users</span>
+            <span class="nav-link-text ms-1">Employees</span>
             <i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="users" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
               <li>
                 <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-plus"></i><span class="ms-2">Add user</span>
+                  <i class="fa fa-plus"></i><span class="ms-2">Add employee</span>
                 </a>
               </li>
               <li>
-                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_add_user',Crypt::encrypt($school_id)) }}">
-                  <i class="fa fa-users"></i><span class="ms-2">View user</span>
+                <a class="dropdown-item nav-link-custom" href="{{ route('school_employee_view_user',Crypt::encrypt($school_id))}}">
+                  <i class="fa fa-users"></i><span class="ms-2">View employee</span>
                 </a>
               </li>
           </ul>
@@ -173,84 +182,76 @@
           </ul>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link collapsed text-white" data-bs-target="#account" data-bs-toggle="collapse" href="#" style="font-family: sans-serif;">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="fa fa-user"></i>
+            </div>
+            <span class="nav-link-text ms-1">Account</span>
+            <i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="account" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="list-style-type: none;">
+              <li>
+                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                  <i class="fa fa-list-alt"></i><span class="ms-2">My info</span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item nav-link-custom" href="./pages/tables.html">
+                  <i class="fa fa-image"></i><span class="ms-2">Profile</span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item nav-link-custom" data-bs-target="#logoutModal" data-bs-toggle="modal" href="#">
+                  <i class="fa fa-lock"></i><span class="ms-2">Logout</span>
+                </a>
+              </li>
+          </ul>
+        </li>
+
       </ul>
     </div>
     
   </aside>
 
-  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+  <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg">
     <!-- Navbar -->
-    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
-      <div class="container-fluid py-1 px-3">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
-          </ol>
-          <h6 class="font-weight-bolder mb-0">Dashboard</h6>
-        </nav>
-        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group input-group-outline">
-              <label class="form-label">Type here...</label>
-              <input type="text" class="form-control">
-            </div>
-          </div>
-          <ul class="navbar-nav  justify-content-end">
-            
-            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
-                <div class="sidenav-toggler-inner">
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                  <i class="sidenav-toggler-line"></i>
-                </div>
-              </a>
-            </li>
-            
-            <li class="nav-item dropdown pe-2 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fa fa-bell cursor-pointer"></i>&nbsp;{{ $school_name }}
-              </a>
-              <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                      <div class="d-flex flex-column justify-content-center" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold" type="button"><i class="fas fa-user"></i>&nbsp;My info</span>
-                        </h6>
-                      </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;">
-                      <div class="d-flex flex-column justify-content-center" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold" type="button"><i class="fas fa-image"></i>&nbsp;Profile</span>
-                        </h6>
-                      </div>
-                  </a>
-                </li>
-                <li class="mb-2">
-                  <a class="dropdown-item border-radius-md" href="javascript:;" data-bs-toggle="modal" data-bs-target="#logoutModal">
-                      <div class="d-flex flex-column justify-content-center">
-                        <h6 class="text-sm font-weight-normal mb-1">
-                          <span class="font-weight-bold" type="button"><i class="fas fa-lock"></i>&nbsp;Logout</span>
-                        </h6>
-                      </div>
-                  </a>
-                </li>
+    <nav class="navbar navbar-main  navbar-expand-lg shadow-none border-radius-xl w-100" id="navbarBlur" navbar-scroll="true">
+        
+        @php
+          $auth_user_role = auth()->guard('school_employee')->user()->role_fk_id;
+          $auth_user_role = UserRole::findOrFail($auth_user_role);
+        @endphp
+
+        <div class="container-md py-1 px-3 w-100"> <!-- Changed to "container-md" -->
+            <div class="card w-100 d-flex flex-row align-items-center justify-content-between">
+
+                <h6 class="mb-0 d-none d-md-block" style="padding-left:5px;">{{ $auth_user_role->role_name }}'s panel</h6> <!-- Only visible on medium and larger devices -->
                 
-              </ul>
-            </li>
-          </ul>
+                <div class="card-header text-center flex-grow-1 text-center">
+                    {{ $school_name }}
+                </div>
+                
+                <div class="d-flex align-items-center">
+                    <div class="d-xl-none me-3 d-flex align-items-center">
+                        <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                            <div class="sidenav-toggler-inner">
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                                <i class="sidenav-toggler-line"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <img src="{{ URL::to('/') }}/mainHomePage/img/school/{{ $school_logo }}" alt="user_image" alt="User Image" style="width: 50px; height: 50px; border-radius: 50%;padding-right: 5px;">
+                </div>
+            </div>
         </div>
-      </div>
+
+
     </nav>
     
     @yield('content')
 
-    </div>
   </main>
   <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2" style="box-shadow:0px 4px 8px 2px rgba(0, 0, 0, 0.5);">

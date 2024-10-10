@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\validator;
+use Illuminate\Validation\Rule;
 use App\Models\Customer;
 use App\Models\UserRole;
 use App\Models\SchoolEmployee;
@@ -327,18 +328,20 @@ class schoolController extends Controller
     }
 
     public function school_employee_update_role(Request $request){
-        
-         // Custom validation logic
+        $school_id = auth()->guard('school_employee')->user()->school_fk_id;
+
+        // Custom validation logic
         $validator = Validator::make($request->all(), [
             'role_id' => 'required|integer',
             'role_name' => [
                 'required',
                 'string',
-                Rule::unique('user_roles')->where(function ($query) use ($request) {
-                    return $query->where('school_fk_id', $request->school_fk_id);
+                Rule::unique('user_roles')->where(function ($query) use ($request, $school_id) { // Pass $school_id
+                    return $query->where('school_fk_id', $school_id);
                 })->ignore($request->role_id),
             ],
         ]);
+
 
         if ($validator->fails()) {
             // Check if the 'role_name' field has a uniqueness error
@@ -361,7 +364,7 @@ class schoolController extends Controller
     // school employee add_user
     public function school_employee_add_user($school_id){
         $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
-        $user_role_data = UserRole::all()->where('role_name','!=','Admin');
+        $user_role_data = UserRole::all()->where('role_name','!=','Admin')->where('school_fk_id',Crypt::decrypt($school_id));
 
         return view("Single_School.Users_acccount.Employee.add_user",[
             'school_id' => $school_data->id,
@@ -410,9 +413,28 @@ class schoolController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
-
         return redirect()->back()->with('info','New user added successfully !');
     }
+
+    public function school_employee_view_user($school_id){
+        // Retrieve the terms and conditions for the specific user
+        $school_data = Customer::findOrFail(Crypt::decrypt($school_id));
+         
+        // Retrieve all employees for the specified school_fk_id
+        $all_users_data = SchoolEmployee::with('school')
+                    ->where('school_fk_id', Crypt::decrypt($school_id))
+                    ->get();
+
+        return view("Single_School.Users_acccount.Employee.view_users",[
+            'school_id' => $school_data->id,
+            'school_name' => $school_data->school_name,
+            'school_logo' => $school_data->image,
+            'all_users_data' => $all_users_data
+        ]);
+    }
+
+   
+
     public function school_employee_account_logout(){
 
         $school_id = Auth::guard('school_employee')->user()->school_fk_id;

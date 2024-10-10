@@ -26,4 +26,16 @@ class SchoolEmployee extends Authenticatable
         'image',
         'last_active_at',
     ];
+
+    // Relationship with UserRole
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class, 'role_fk_id');
+    }
+
+    // Relationship with School (assuming the 'customers' table represents schools)
+    public function school()
+    {
+        return $this->belongsTo(Customer::class, 'school_fk_id');
+    }
 }

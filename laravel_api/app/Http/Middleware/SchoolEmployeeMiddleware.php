@@ -17,12 +17,12 @@ class SchoolEmployeeMiddleware
      */
     public function handle(Request $request, Closure $next, $guard = null): Response
     {
-        
-        $datas=SchoolEmployee::findOrFail(Auth::guard('school_employee')->user()->id);
-
-        $school_id = $datas->school_fk_id;
 
         if (Auth::guard('school_employee')->guest()) {
+
+            $datas=SchoolEmployee::findOrFail(Auth::guard('school_employee')->user()->id);
+            $school_id = $datas->school_fk_id;
+
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {

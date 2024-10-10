@@ -149,6 +149,7 @@ Route::group(['prefix'=>'school' , 'middleware'=>'school_employee'],function(){
     Route::post('school_employee_update_role', [SchoolController::class, 'school_employee_update_role'])->name('school_employee_update_role');
     Route::get('school_employee_add_user/{school_id}', [SchoolController::class, 'school_employee_add_user'])->name('school_employee_add_user');
     Route::post('school_employee_submit_user_data/{school_id}', [SchoolController::class, 'school_employee_submit_user_data'])->name('school_employee_submit_user_data');
+    Route::get('school_employee_view_user/{school_id}', [SchoolController::class, 'school_employee_view_user'])->name('school_employee_view_user');
     Route::get('logout/{school_id}', [SchoolController::class, 'school_employee_account_logout'])->name('school_employee.logout');
 });
 //end of single school routes
