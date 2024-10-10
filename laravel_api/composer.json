@@ -10,6 +10,7 @@
         "laravel/framework": "^10.10",
         "laravel/sanctum": "*",
         "laravel/tinker": "^2.8",
+        "predis/predis": "*",
         "pusher/pusher-php-server": "^7.2",
         "yoeunes/toastr": "^2.3"
     },
