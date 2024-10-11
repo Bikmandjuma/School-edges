@@ -17,7 +17,7 @@ class price_range extends Model
         'prices',
     ];
 
-    publuic function period_priceFN(){
+    public function period_priceFN(){
         return $this->belongTo(period_price::class,'period_fk_id');
     }
 }
