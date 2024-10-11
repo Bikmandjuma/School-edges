@@ -1,6 +1,9 @@
 # Set the working directory
 WORKDIR /app
 
+# Set the environment variable for Composer to allow running as root
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
 # Copy the composer.json and composer.lock files first
 COPY composer.json composer.lock /app/
 
