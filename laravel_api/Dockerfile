@@ -17,17 +17,19 @@ RUN apt-get update && apt-get install -y \
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
 
-# Set the working directory
-WORKDIR /app
-
 # Set the environment variable for Composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Copy composer files first (this will leverage Docker caching)
+# Set the working directory
+WORKDIR /app
+
+# Copy composer files first
 COPY composer.json composer.lock /app/
 
-# Install Composer dependencies
+# Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install PHP dependencies
 RUN composer install --optimize-autoloader --no-dev
 
 # Copy the rest of the application files
