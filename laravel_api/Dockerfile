@@ -1,21 +1,24 @@
-# Dockerfile
-# Build phase
-COPY .env /app/.env
+# Set the working directory
+WORKDIR /app
 
-# Install Node.js dependencies
-RUN npm install --production
+# Copy the composer.json and composer.lock files first
+COPY composer.json composer.lock /app/
 
-# Install PHP dependencies
+# Install PHP dependencies first to leverage Docker layer caching
 RUN composer install --optimize-autoloader --no-dev
 
-# Run Laravel optimizations and caching
-RUN php artisan optimize
+# Copy the rest of the application files
+COPY . /app
 
-RUN php artisan config:cache
+# Install Node.js dependencies and build frontend assets
+RUN npm install && npm run build
 
-RUN php artisan route:cache
+# Set permissions for storage and bootstrap/cache directories
+RUN chmod -R 755 storage bootstrap/cache
 
-RUN php artisan view:cache
-
-# Run migrations
+# Run Laravel Artisan commands for optimization
 RUN php artisan migrate --force
+RUN php artisan config:cache
+RUN php artisan route:cache
+RUN php artisan view:cache
+RUN php artisan optimize
