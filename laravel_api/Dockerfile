@@ -1,25 +1,46 @@
+# Use an official PHP image
+FROM php:8.1-fpm
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    unzip \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libonig-dev \
+    libxml2-dev \
+    curl \
+    zip \
+    npm
+
+# Install PHP extensions
+RUN docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd
+
 # Set the working directory
 WORKDIR /app
 
-# Set the environment variable for Composer to allow running as root
+# Set the environment variable for Composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
 
-# Copy the composer.json and composer.lock files first
+# Copy composer files first (this will leverage Docker caching)
 COPY composer.json composer.lock /app/
 
-# Install PHP dependencies first to leverage Docker layer caching
+# Install Composer dependencies
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer install --optimize-autoloader --no-dev
 
 # Copy the rest of the application files
 COPY . /app
 
 # Install Node.js dependencies and build frontend assets
-RUN npm install && npm run build
+RUN npm install
+RUN npm run build
 
-# Set permissions for storage and bootstrap/cache directories
+# Set permissions for Laravel directories
 RUN chmod -R 755 storage bootstrap/cache
 
-# Run Laravel Artisan commands for optimization
+# Run Laravel optimization commands
 RUN php artisan migrate --force
 RUN php artisan config:cache
 RUN php artisan route:cache
